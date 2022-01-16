@@ -23,6 +23,10 @@ class PDM2PCM(Elaboratable):
             PDM clock signal
         pdm_data_in: Signal(), input
             PDM data signal
+        pdm_clock_in: Signal(), input
+            external PDM clock signal
+        pdm_clock_in_en: Signal(), input
+            enable external PDM clock
         pcm_strobe_out: Signal(), out
             PCM clock signal
         pcm_data_out: Signal(width), out
@@ -55,7 +59,7 @@ class PDM2PCM(Elaboratable):
                  divisor: int=28,
                  bitwidth: int=24,
                  fraction_width: int=24,
-                 cic_stage: int=6,
+                 cic_stage: int=7,
                  cic_decimation: int=12,
                  hb1_order: int=11,
                  hb2_order: int=19,
@@ -63,6 +67,8 @@ class PDM2PCM(Elaboratable):
                  fir_fs: int=48000,
                  fir_cutoff: list=[10000, 14000],
                  fir_rpl_att: list=[0.05, 60]):
+        self.pdm_clock_in_en = Signal()
+        self.pdm_clock_in = Signal()
         self.pdm_clock_out = Signal()
         self.pdm_data_in = Signal()
         self.pcm_strobe_out = Signal()
@@ -89,14 +95,26 @@ class PDM2PCM(Elaboratable):
     def elaborate(self, platform) -> Module:
         m = Module()
 
+        pdm_clock_in_sy0 = Signal()
+        pdm_clock_in_sy1 = Signal()
+        base_clock = Signal()
+        strobe_in = Signal()
+        strobe_out = Signal()
+
         clk_divider = SimpleClockDivider(self.divisor)
         m.submodules.clk_divider = clk_divider
-        m.d.comb += [
-            clk_divider.clock_enable_in.eq(1),
-            self.pdm_clock_out.eq(clk_divider.clock_out)
+        m.d.comb += clk_divider.clock_enable_in.eq(~self.pdm_clock_in_en)
+        m.d.sync += [
+            pdm_clock_in_sy0.eq(self.pdm_clock_in),
+            pdm_clock_in_sy1.eq(pdm_clock_in_sy0)
         ]
-        strobe_in = Rose(clk_divider.clock_out, domain="sync")
-        strobe_out = Signal()
+        m.d.sync += self.pdm_clock_out.eq(clk_divider.clock_out)
+
+        m.d.comb += base_clock.eq(Mux(self.pdm_clock_in_en,
+                                      pdm_clock_in_sy1,
+                                      clk_divider.clock_out))
+
+        strobe_in = Rose(base_clock, domain="sync")
 
         bw = self.bitwidth
         fbw = self.fraction_width
@@ -128,7 +146,14 @@ class PDM2PCM(Elaboratable):
                                   verbose=False)
         m.submodules.fir = fir
 
-        with m.If(self.pdm_data_in):
+        pdm_data_in_sy0 = Signal()
+        pdm_data_in_sy1 = Signal()
+        m.d.sync += [
+            pdm_data_in_sy0.eq(self.pdm_data_in),
+            pdm_data_in_sy1.eq(pdm_data_in_sy0)
+        ]
+
+        with m.If(pdm_data_in_sy1):
             m.d.comb += cic.signal_in.eq(1)
         with m.Else():
             m.d.comb += cic.signal_in.eq(-1)
@@ -161,17 +186,19 @@ class PDM2PCMTest(GatewareTestCase):
     @sync_test_case
     def test_pdm2pcm(self):
         dut = self.dut
-        N = 8192
+        N = 4096
         if with_deltasigma:
             OSR = 32
             H = synthesizeNTF(1, OSR, 1)
             f = 1
-            u = 0.75*np.sin(2*np.pi*f/N*np.arange(N))
+            u = 0.5*np.sin(2*np.pi*f/N*np.arange(N))
             v = simulateDSM(u, H)[0]
         else:
             v = np.load('test/sine_ord4_osr64.npy')
-        for i in range(N*8):
-            yield dut.pdm_data_in.eq(1 if v[i//8] > 0 else 0)
+        yield dut.pdm_clock_in_en.eq(0)
+        for i in range(N*32):
+            yield dut.pdm_data_in.eq(1 if v[i//64] > 0 else 0)
+            #yield dut.pdm_clock_in.eq(1 if (i%16) >= 8 else 0)
             yield
 
  
@@ -180,6 +207,8 @@ if __name__ == "__main__":
     pdm2pcm = PDM2PCM()
 
     ports = [
+        pdm2pcm.pdm_clock_in_en,
+        pdm2pcm.pdm_clock_in,
         pdm2pcm.pdm_clock_out,
         pdm2pcm.pdm_data_in,
         pdm2pcm.pcm_strobe_out,

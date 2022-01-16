@@ -67,6 +67,12 @@ unsigned int test_pdmmic()
 }
 ```
 
+[> Updates
+----------
+
+* [2022-01-16] External PDM clock support (experimental):
+PDM2PCM: Add pdm_clock_in and pdm_clock_in_en inputs which can be used as the external PDM clock signal and its enable switch.
+
 [> Features
 -----------
 **TODO**

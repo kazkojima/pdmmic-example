@@ -3,17 +3,23 @@
 (* \amaranth.hierarchy  = "PDM2PCM" *)
 (* top =  1  *)
 (* generator = "Amaranth" *)
-module PDM2PCM(pdm_data_in, pcm_strobe_out, pcm_data_out, clk, rst, pdm_clock_out);
-  reg \$auto$verilog_backend.cc:2082:dump_module$130  = 0;
-  (* src = "/home/git/amaranth/amaranth/hdl/ast.py:1369" *)
+module PDM2PCM(pdm_clock_in, pdm_clock_out, pdm_data_in, pcm_strobe_out, pcm_data_out, clk, rst, pdm_clock_in_en);
+  reg \$auto$verilog_backend.cc:2082:dump_module$138  = 0;
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:106" *)
   wire \$1 ;
-  (* src = "/home/git/amaranth/amaranth/hdl/ast.py:1369" *)
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:113" *)
   wire \$3 ;
+  (* src = "/home/git/amaranth/amaranth/hdl/ast.py:1369" *)
+  wire \$5 ;
+  (* src = "/home/git/amaranth/amaranth/hdl/ast.py:1369" *)
+  wire \$7 ;
   (* \amaranth.sample_reg  = 32'd1 *)
-  (* src = "/home/kkojima/pdmmic/pdmmic/verilog/../pdm2pcm.py:98" *)
-  reg \$sample$s$clock_out$sync$1  = 1'h0;
-  (* src = "/home/kkojima/pdmmic/pdmmic/verilog/../pdm2pcm.py:98" *)
-  wire \$sample$s$clock_out$sync$1$next ;
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:117" *)
+  reg \$sample$s$base_clock$sync$1  = 1'h0;
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:117" *)
+  wire \$sample$s$base_clock$sync$1$next ;
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:117" *)
+  wire base_clock;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:45" *)
   reg [23:0] cic_signal_in;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:46" *)
@@ -26,7 +32,7 @@ module PDM2PCM(pdm_data_in, pcm_strobe_out, pcm_data_out, clk, rst, pdm_clock_ou
   input clk;
   (* src = "/home/git/amlib/amlib/utils/clockdivider.py:12" *)
   wire clk_divider_clock_enable_in;
-  (* src = "/home/kkojima/pdmmic/pdmmic/verilog/../pdm2pcm.py:98" *)
+  (* src = "/home/git/amlib/amlib/utils/clockdivider.py:13" *)
   wire clk_divider_clock_out;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:25" *)
   wire fir_enable_in;
@@ -50,27 +56,62 @@ module PDM2PCM(pdm_data_in, pcm_strobe_out, pcm_data_out, clk, rst, pdm_clock_ou
   wire hb2_strobe_in;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:22" *)
   wire hb2_strobe_out;
-  (* src = "/home/kkojima/pdmmic/pdmmic/verilog/../pdm2pcm.py:69" *)
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:75" *)
   output [23:0] pcm_data_out;
   reg [23:0] pcm_data_out = 24'h000000;
-  (* src = "/home/kkojima/pdmmic/pdmmic/verilog/../pdm2pcm.py:69" *)
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:75" *)
   reg [23:0] \pcm_data_out$next ;
-  (* src = "/home/kkojima/pdmmic/pdmmic/verilog/../pdm2pcm.py:68" *)
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:74" *)
   output pcm_strobe_out;
-  (* src = "/home/kkojima/pdmmic/pdmmic/verilog/../pdm2pcm.py:66" *)
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:71" *)
+  input pdm_clock_in;
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:70" *)
+  input pdm_clock_in_en;
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:98" *)
+  reg pdm_clock_in_sy0 = 1'h0;
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:98" *)
+  reg \pdm_clock_in_sy0$next ;
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:99" *)
+  reg pdm_clock_in_sy1 = 1'h0;
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:99" *)
+  reg \pdm_clock_in_sy1$next ;
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:72" *)
   output pdm_clock_out;
-  (* src = "/home/kkojima/pdmmic/pdmmic/verilog/../pdm2pcm.py:67" *)
+  reg pdm_clock_out = 1'h0;
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:72" *)
+  reg \pdm_clock_out$next ;
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:73" *)
   input pdm_data_in;
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:149" *)
+  reg pdm_data_in_sy0 = 1'h0;
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:149" *)
+  reg \pdm_data_in_sy0$next ;
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:150" *)
+  reg pdm_data_in_sy1 = 1'h0;
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:150" *)
+  reg \pdm_data_in_sy1$next ;
   (* src = "/home/git/amaranth/amaranth/hdl/ir.py:527" *)
   input rst;
-  (* src = "/home/kkojima/pdmmic/pdmmic/verilog/../pdm2pcm.py:99" *)
+  (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:102" *)
   wire strobe_out;
-  assign \$1  = ~ (* src = "/home/git/amaranth/amaranth/hdl/ast.py:1369" *) \$sample$s$clock_out$sync$1 ;
-  assign \$3  = \$1  & (* src = "/home/git/amaranth/amaranth/hdl/ast.py:1369" *) clk_divider_clock_out;
+  assign \$1  = ~ (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:106" *) pdm_clock_in_en;
+  assign \$3  = pdm_clock_in_en ? (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:113" *) pdm_clock_in_sy1 : clk_divider_clock_out;
+  assign \$5  = ~ (* src = "/home/git/amaranth/amaranth/hdl/ast.py:1369" *) \$sample$s$base_clock$sync$1 ;
+  assign \$7  = \$5  & (* src = "/home/git/amaranth/amaranth/hdl/ast.py:1369" *) base_clock;
   always @(posedge clk)
-    \$sample$s$clock_out$sync$1  <= clk_divider_clock_out;
+    \$sample$s$base_clock$sync$1  <= \$3 ;
   always @(posedge clk)
     pcm_data_out <= \pcm_data_out$next ;
+  always @(posedge clk)
+    pdm_data_in_sy1 <= \pdm_data_in_sy1$next ;
+  always @(posedge clk)
+    pdm_data_in_sy0 <= \pdm_data_in_sy0$next ;
+  always @(posedge clk)
+    pdm_clock_out <= \pdm_clock_out$next ;
+  always @(posedge clk)
+    pdm_clock_in_sy1 <= \pdm_clock_in_sy1$next ;
+  always @(posedge clk)
+    pdm_clock_in_sy0 <= \pdm_clock_in_sy0$next ;
   cic cic (
     .clk(clk),
     .rst(rst),
@@ -81,7 +122,7 @@ module PDM2PCM(pdm_data_in, pcm_strobe_out, pcm_data_out, clk, rst, pdm_clock_ou
   );
   clk_divider clk_divider (
     .clk(clk),
-    .clock_enable_in(1'h1),
+    .clock_enable_in(clk_divider_clock_enable_in),
     .clock_out(clk_divider_clock_out),
     .rst(rst)
   );
@@ -109,11 +150,20 @@ module PDM2PCM(pdm_data_in, pcm_strobe_out, pcm_data_out, clk, rst, pdm_clock_ou
     .strobe_out(hb2_strobe_out)
   );
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$130 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$138 ) begin end
+    \pdm_clock_in_sy0$next  = pdm_clock_in;
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \pdm_clock_in_sy0$next  = 1'h0;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$138 ) begin end
     \pcm_data_out$next  = pcm_data_out;
-    (* src = "/home/kkojima/pdmmic/pdmmic/verilog/../pdm2pcm.py:148" *)
+    (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:173" *)
     casez (strobe_out)
-      /* src = "/home/kkojima/pdmmic/pdmmic/verilog/../pdm2pcm.py:148" */
+      /* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:173" */
       1'h1:
           \pcm_data_out$next  = fir_signal_out;
     endcase
@@ -124,19 +174,55 @@ module PDM2PCM(pdm_data_in, pcm_strobe_out, pcm_data_out, clk, rst, pdm_clock_ou
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$130 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$138 ) begin end
+    \pdm_clock_in_sy1$next  = pdm_clock_in_sy0;
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \pdm_clock_in_sy1$next  = 1'h0;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$138 ) begin end
+    \pdm_clock_out$next  = clk_divider_clock_out;
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \pdm_clock_out$next  = 1'h0;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$138 ) begin end
+    \pdm_data_in_sy0$next  = pdm_data_in;
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \pdm_data_in_sy0$next  = 1'h0;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$138 ) begin end
+    \pdm_data_in_sy1$next  = pdm_data_in_sy0;
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \pdm_data_in_sy1$next  = 1'h0;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$138 ) begin end
     (* full_case = 32'd1 *)
-    (* src = "/home/kkojima/pdmmic/pdmmic/verilog/../pdm2pcm.py:131" *)
-    casez (pdm_data_in)
-      /* src = "/home/kkojima/pdmmic/pdmmic/verilog/../pdm2pcm.py:131" */
+    (* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:156" *)
+    casez (pdm_data_in_sy1)
+      /* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:156" */
       1'h1:
           cic_signal_in = 24'h000001;
-      /* src = "/home/kkojima/pdmmic/pdmmic/verilog/../pdm2pcm.py:133" */
+      /* src = "/home/kkojima/pdmmic-example/pdmmic/verilog/../pdm2pcm.py:158" */
       default:
           cic_signal_in = 24'hffffff;
     endcase
   end
-  assign \$sample$s$clock_out$sync$1$next  = clk_divider_clock_out;
+  assign \$sample$s$base_clock$sync$1$next  = base_clock;
   assign fir_signal_in = hb2_signal_out;
   assign hb2_signal_in = hb1_signal_out;
   assign hb1_signal_in = cic_signal_out;
@@ -145,73 +231,83 @@ module PDM2PCM(pdm_data_in, pcm_strobe_out, pcm_data_out, clk, rst, pdm_clock_ou
   assign strobe_out = hb2_strobe_out;
   assign hb2_strobe_in = hb1_strobe_out;
   assign hb1_strobe_in = cic_strobe_out;
-  assign cic_strobe_in = \$3 ;
-  assign pdm_clock_out = clk_divider_clock_out;
-  assign clk_divider_clock_enable_in = 1'h1;
+  assign cic_strobe_in = \$7 ;
+  assign base_clock = \$3 ;
+  assign clk_divider_clock_enable_in = \$1 ;
 endmodule
 
 (* \amaranth.hierarchy  = "PDM2PCM.cic" *)
 (* generator = "Amaranth" *)
 module cic(strobe_in, strobe_out, signal_out, rst, clk, signal_in);
-  reg \$auto$verilog_backend.cc:2082:dump_module$131  = 0;
+  reg \$auto$verilog_backend.cc:2082:dump_module$139  = 0;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:77" *)
-  wire [24:0] \$1 ;
+  wire [27:0] \$1 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *)
-  wire [24:0] \$10 ;
+  wire [27:0] \$10 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *)
-  wire [24:0] \$11 ;
+  wire [27:0] \$11 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *)
-  wire [24:0] \$13 ;
+  wire [27:0] \$13 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *)
-  wire [24:0] \$14 ;
+  wire [27:0] \$14 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *)
-  wire [24:0] \$16 ;
+  wire [27:0] \$16 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *)
-  wire [24:0] \$17 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:79" *)
-  wire \$19 ;
+  wire [27:0] \$17 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *)
+  wire [27:0] \$19 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:77" *)
-  wire [24:0] \$2 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:80" *)
-  wire [4:0] \$21 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:80" *)
-  wire [4:0] \$22 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:79" *)
-  wire \$24 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:87" *)
-  wire [24:0] \$26 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:87" *)
-  wire [24:0] \$27 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
-  wire [24:0] \$29 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
-  wire [24:0] \$30 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
-  wire [24:0] \$32 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
-  wire [24:0] \$33 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
-  wire [24:0] \$35 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
-  wire [24:0] \$36 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
-  wire [24:0] \$38 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
-  wire [24:0] \$39 ;
+  wire [27:0] \$2 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *)
-  wire [24:0] \$4 ;
+  wire [27:0] \$20 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:79" *)
+  wire \$22 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:80" *)
+  wire [4:0] \$24 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:80" *)
+  wire [4:0] \$25 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:79" *)
+  wire \$27 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:87" *)
+  wire [27:0] \$29 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:87" *)
+  wire [27:0] \$30 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
-  wire [24:0] \$41 ;
+  wire [27:0] \$32 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
-  wire [24:0] \$42 ;
+  wire [27:0] \$33 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
+  wire [27:0] \$35 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
+  wire [27:0] \$36 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
+  wire [27:0] \$38 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
+  wire [27:0] \$39 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *)
+  wire [27:0] \$4 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
+  wire [27:0] \$41 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
+  wire [27:0] \$42 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
+  wire [27:0] \$44 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
+  wire [27:0] \$45 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
+  wire [27:0] \$47 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *)
+  wire [27:0] \$48 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *)
+  wire [27:0] \$5 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:89" *)
-  wire [23:0] \$44 ;
+  wire [26:0] \$50 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:89" *)
+  wire [26:0] \$51 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *)
-  wire [24:0] \$5 ;
+  wire [27:0] \$7 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *)
-  wire [24:0] \$7 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *)
-  wire [24:0] \$8 ;
+  wire [27:0] \$8 ;
   (* src = "/home/git/amaranth/amaranth/hdl/ir.py:527" *)
   input clk;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:62" *)
@@ -223,29 +319,33 @@ module cic(strobe_in, strobe_out, signal_out, rst, clk, signal_in);
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:63" *)
   reg [3:0] \decimate_counter$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:72" *)
-  reg [23:0] dy0 = 24'h000000;
+  reg [26:0] dy0 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:72" *)
-  reg [23:0] \dy0$next ;
+  reg [26:0] \dy0$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:72" *)
-  reg [23:0] dy1 = 24'h000000;
+  reg [26:0] dy1 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:72" *)
-  reg [23:0] \dy1$next ;
+  reg [26:0] \dy1$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:72" *)
-  reg [23:0] dy2 = 24'h000000;
+  reg [26:0] dy2 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:72" *)
-  reg [23:0] \dy2$next ;
+  reg [26:0] \dy2$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:72" *)
-  reg [23:0] dy3 = 24'h000000;
+  reg [26:0] dy3 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:72" *)
-  reg [23:0] \dy3$next ;
+  reg [26:0] \dy3$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:72" *)
-  reg [23:0] dy4 = 24'h000000;
+  reg [26:0] dy4 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:72" *)
-  reg [23:0] \dy4$next ;
+  reg [26:0] \dy4$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:72" *)
-  reg [23:0] dy5 = 24'h000000;
+  reg [26:0] dy5 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:72" *)
-  reg [23:0] \dy5$next ;
+  reg [26:0] \dy5$next ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:72" *)
+  reg [26:0] dy6 = 27'h0000000;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:72" *)
+  reg [26:0] \dy6$next ;
   (* src = "/home/git/amaranth/amaranth/hdl/ir.py:527" *)
   input rst;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:45" *)
@@ -263,68 +363,80 @@ module cic(strobe_in, strobe_out, signal_out, rst, clk, signal_in);
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:44" *)
   reg \strobe_out$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:69" *)
-  reg [23:0] x0 = 24'h000000;
+  reg [26:0] x0 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:69" *)
-  reg [23:0] \x0$next ;
+  reg [26:0] \x0$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:69" *)
-  reg [23:0] x1 = 24'h000000;
+  reg [26:0] x1 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:69" *)
-  reg [23:0] \x1$next ;
+  reg [26:0] \x1$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:69" *)
-  reg [23:0] x2 = 24'h000000;
+  reg [26:0] x2 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:69" *)
-  reg [23:0] \x2$next ;
+  reg [26:0] \x2$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:69" *)
-  reg [23:0] x3 = 24'h000000;
+  reg [26:0] x3 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:69" *)
-  reg [23:0] \x3$next ;
+  reg [26:0] \x3$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:69" *)
-  reg [23:0] x4 = 24'h000000;
+  reg [26:0] x4 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:69" *)
-  reg [23:0] \x4$next ;
+  reg [26:0] \x4$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:69" *)
-  reg [23:0] x5 = 24'h000000;
+  reg [26:0] x5 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:69" *)
-  reg [23:0] \x5$next ;
+  reg [26:0] \x5$next ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:69" *)
+  reg [26:0] x6 = 27'h0000000;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:69" *)
+  reg [26:0] \x6$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:71" *)
-  reg [23:0] y0 = 24'h000000;
+  reg [26:0] y0 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:71" *)
-  reg [23:0] \y0$next ;
+  reg [26:0] \y0$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:71" *)
-  reg [23:0] y1 = 24'h000000;
+  reg [26:0] y1 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:71" *)
-  reg [23:0] \y1$next ;
+  reg [26:0] \y1$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:71" *)
-  reg [23:0] y2 = 24'h000000;
+  reg [26:0] y2 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:71" *)
-  reg [23:0] \y2$next ;
+  reg [26:0] \y2$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:71" *)
-  reg [23:0] y3 = 24'h000000;
+  reg [26:0] y3 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:71" *)
-  reg [23:0] \y3$next ;
+  reg [26:0] \y3$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:71" *)
-  reg [23:0] y4 = 24'h000000;
+  reg [26:0] y4 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:71" *)
-  reg [23:0] \y4$next ;
+  reg [26:0] \y4$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:71" *)
-  reg [23:0] y5 = 24'h000000;
+  reg [26:0] y5 = 27'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:71" *)
-  reg [23:0] \y5$next ;
+  reg [26:0] \y5$next ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:71" *)
+  reg [26:0] y6 = 27'h0000000;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:71" *)
+  reg [26:0] \y6$next ;
   assign \$11  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *) $signed(x3);
   assign \$14  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *) $signed(x4);
   assign \$17  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *) $signed(x5);
-  assign \$19  = decimate_counter < (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:79" *) 4'hb;
-  assign \$22  = decimate_counter + (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:80" *) 1'h1;
-  assign \$24  = decimate_counter < (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:79" *) 4'hb;
-  assign \$27  = $signed(x5) - (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:87" *) $signed(dy0);
+  assign \$20  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *) $signed(x6);
+  assign \$22  = decimate_counter < (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:79" *) 4'hb;
+  assign \$25  = decimate_counter + (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:80" *) 1'h1;
+  assign \$27  = decimate_counter < (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:79" *) 4'hb;
   assign \$2  = $signed(signal_in) + (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:77" *) $signed(x0);
-  assign \$30  = $signed(y0) - (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *) $signed(dy1);
-  assign \$33  = $signed(y1) - (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *) $signed(dy2);
-  assign \$36  = $signed(y2) - (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *) $signed(dy3);
-  assign \$39  = $signed(y3) - (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *) $signed(dy4);
-  assign \$42  = $signed(y4) - (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *) $signed(dy5);
+  assign \$30  = $signed(x6) - (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:87" *) $signed(dy0);
+  assign \$33  = $signed(y0) - (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *) $signed(dy1);
+  assign \$36  = $signed(y1) - (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *) $signed(dy2);
+  assign \$39  = $signed(y2) - (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *) $signed(dy3);
+  assign \$42  = $signed(y3) - (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *) $signed(dy4);
+  assign \$45  = $signed(y4) - (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *) $signed(dy5);
+  assign \$48  = $signed(y5) - (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:88" *) $signed(dy6);
   assign \$5  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *) $signed(x1);
   assign \$8  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:78" *) $signed(x2);
+  always @(posedge clk)
+    dy6 <= \dy6$next ;
   always @(posedge clk)
     dy5 <= \dy5$next ;
   always @(posedge clk)
@@ -339,6 +451,8 @@ module cic(strobe_in, strobe_out, signal_out, rst, clk, signal_in);
     dy0 <= \dy0$next ;
   always @(posedge clk)
     signal_out <= \signal_out$next ;
+  always @(posedge clk)
+    y6 <= \y6$next ;
   always @(posedge clk)
     y5 <= \y5$next ;
   always @(posedge clk)
@@ -356,6 +470,8 @@ module cic(strobe_in, strobe_out, signal_out, rst, clk, signal_in);
   always @(posedge clk)
     decimate_counter <= \decimate_counter$next ;
   always @(posedge clk)
+    x6 <= \x6$next ;
+  always @(posedge clk)
     x5 <= \x5$next ;
   always @(posedge clk)
     x4 <= \x4$next ;
@@ -370,7 +486,7 @@ module cic(strobe_in, strobe_out, signal_out, rst, clk, signal_in);
   always @(posedge clk)
     strobe_out <= \strobe_out$next ;
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \strobe_out$next  = comb_edge;
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
@@ -379,103 +495,133 @@ module cic(strobe_in, strobe_out, signal_out, rst, clk, signal_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \x0$next  = x0;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" *)
     casez (strobe_in)
       /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" */
       1'h1:
-          \x0$next  = \$2 [23:0];
+          \x0$next  = \$2 [26:0];
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \x0$next  = 24'h000000;
+          \x0$next  = 27'h0000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
+    \y0$next  = y0;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" *)
+    casez (comb_edge)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" */
+      1'h1:
+          \y0$next  = \$30 [26:0];
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \y0$next  = 27'h0000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \y1$next  = y1;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" *)
     casez (comb_edge)
       /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" */
       1'h1:
-          \y1$next  = \$30 [23:0];
+          \y1$next  = \$33 [26:0];
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \y1$next  = 24'h000000;
+          \y1$next  = 27'h0000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \y2$next  = y2;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" *)
     casez (comb_edge)
       /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" */
       1'h1:
-          \y2$next  = \$33 [23:0];
+          \y2$next  = \$36 [26:0];
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \y2$next  = 24'h000000;
+          \y2$next  = 27'h0000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \y3$next  = y3;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" *)
     casez (comb_edge)
       /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" */
       1'h1:
-          \y3$next  = \$36 [23:0];
+          \y3$next  = \$39 [26:0];
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \y3$next  = 24'h000000;
+          \y3$next  = 27'h0000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \y4$next  = y4;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" *)
     casez (comb_edge)
       /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" */
       1'h1:
-          \y4$next  = \$39 [23:0];
+          \y4$next  = \$42 [26:0];
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \y4$next  = 24'h000000;
+          \y4$next  = 27'h0000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \y5$next  = y5;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" *)
     casez (comb_edge)
       /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" */
       1'h1:
-          \y5$next  = \$42 [23:0];
+          \y5$next  = \$45 [26:0];
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \y5$next  = 24'h000000;
+          \y5$next  = 27'h0000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
+    \y6$next  = y6;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" *)
+    casez (comb_edge)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" */
+      1'h1:
+          \y6$next  = \$48 [26:0];
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \y6$next  = 27'h0000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \signal_out$next  = signal_out;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" *)
     casez (comb_edge)
       /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" */
       1'h1:
-          \signal_out$next  = \$44 ;
+          \signal_out$next  = \$51 [23:0];
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
@@ -484,22 +630,22 @@ module cic(strobe_in, strobe_out, signal_out, rst, clk, signal_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \dy0$next  = dy0;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" *)
     casez (comb_edge)
       /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" */
       1'h1:
-          \dy0$next  = x5;
+          \dy0$next  = x6;
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \dy0$next  = 24'h000000;
+          \dy0$next  = 27'h0000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \dy1$next  = dy1;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" *)
     casez (comb_edge)
@@ -510,11 +656,26 @@ module cic(strobe_in, strobe_out, signal_out, rst, clk, signal_in);
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \dy1$next  = 24'h000000;
+          \dy1$next  = 27'h0000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
+    \x1$next  = x1;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" */
+      1'h1:
+          \x1$next  = \$5 [26:0];
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x1$next  = 27'h0000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \dy2$next  = dy2;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" *)
     casez (comb_edge)
@@ -525,11 +686,11 @@ module cic(strobe_in, strobe_out, signal_out, rst, clk, signal_in);
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \dy2$next  = 24'h000000;
+          \dy2$next  = 27'h0000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \dy3$next  = dy3;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" *)
     casez (comb_edge)
@@ -540,26 +701,11 @@ module cic(strobe_in, strobe_out, signal_out, rst, clk, signal_in);
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \dy3$next  = 24'h000000;
+          \dy3$next  = 27'h0000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
-    \x1$next  = x1;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" */
-      1'h1:
-          \x1$next  = \$5 [23:0];
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x1$next  = 24'h000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \dy4$next  = dy4;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" *)
     casez (comb_edge)
@@ -570,11 +716,11 @@ module cic(strobe_in, strobe_out, signal_out, rst, clk, signal_in);
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \dy4$next  = 24'h000000;
+          \dy4$next  = 27'h0000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \dy5$next  = dy5;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" *)
     casez (comb_edge)
@@ -585,71 +731,101 @@ module cic(strobe_in, strobe_out, signal_out, rst, clk, signal_in);
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \dy5$next  = 24'h000000;
+          \dy5$next  = 27'h0000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
+    \dy6$next  = dy6;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" *)
+    casez (comb_edge)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" */
+      1'h1:
+          \dy6$next  = y5;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \dy6$next  = 27'h0000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \x2$next  = x2;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" *)
     casez (strobe_in)
       /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" */
       1'h1:
-          \x2$next  = \$8 [23:0];
+          \x2$next  = \$8 [26:0];
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \x2$next  = 24'h000000;
+          \x2$next  = 27'h0000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \x3$next  = x3;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" *)
     casez (strobe_in)
       /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" */
       1'h1:
-          \x3$next  = \$11 [23:0];
+          \x3$next  = \$11 [26:0];
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \x3$next  = 24'h000000;
+          \x3$next  = 27'h0000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \x4$next  = x4;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" *)
     casez (strobe_in)
       /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" */
       1'h1:
-          \x4$next  = \$14 [23:0];
+          \x4$next  = \$14 [26:0];
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \x4$next  = 24'h000000;
+          \x4$next  = 27'h0000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \x5$next  = x5;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" *)
     casez (strobe_in)
       /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" */
       1'h1:
-          \x5$next  = \$17 [23:0];
+          \x5$next  = \$17 [26:0];
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \x5$next  = 24'h000000;
+          \x5$next  = 27'h0000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
+    \x6$next  = x6;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" */
+      1'h1:
+          \x6$next  = \$20 [26:0];
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x6$next  = 27'h0000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \decimate_counter$next  = decimate_counter;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" *)
     casez (strobe_in)
@@ -657,10 +833,10 @@ module cic(strobe_in, strobe_out, signal_out, rst, clk, signal_in);
       1'h1:
           (* full_case = 32'd1 *)
           (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:79" *)
-          casez (\$19 )
+          casez (\$22 )
             /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:79" */
             1'h1:
-                \decimate_counter$next  = \$22 [3:0];
+                \decimate_counter$next  = \$25 [3:0];
             /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:82" */
             default:
                 \decimate_counter$next  = 4'h0;
@@ -673,7 +849,7 @@ module cic(strobe_in, strobe_out, signal_out, rst, clk, signal_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$139 ) begin end
     \comb_edge$next  = comb_edge;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:76" *)
     casez (strobe_in)
@@ -681,7 +857,7 @@ module cic(strobe_in, strobe_out, signal_out, rst, clk, signal_in);
       1'h1:
           (* full_case = 32'd1 *)
           (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:79" *)
-          casez (\$24 )
+          casez (\$27 )
             /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:79" */
             1'h1:
                 /* empty */;
@@ -702,41 +878,29 @@ module cic(strobe_in, strobe_out, signal_out, rst, clk, signal_in);
           \comb_edge$next  = 1'h0;
     endcase
   end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$131 ) begin end
-    \y0$next  = y0;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" *)
-    casez (comb_edge)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointcicfilter.py:86" */
-      1'h1:
-          \y0$next  = \$27 [23:0];
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \y0$next  = 24'h000000;
-    endcase
-  end
   assign \$1  = \$2 ;
   assign \$4  = \$5 ;
   assign \$7  = \$8 ;
   assign \$10  = \$11 ;
   assign \$13  = \$14 ;
   assign \$16  = \$17 ;
-  assign \$21  = \$22 ;
-  assign \$26  = \$27 ;
+  assign \$19  = \$20 ;
+  assign \$24  = \$25 ;
   assign \$29  = \$30 ;
   assign \$32  = \$33 ;
   assign \$35  = \$36 ;
   assign \$38  = \$39 ;
   assign \$41  = \$42 ;
-  assign \$44  = y5;
+  assign \$44  = \$45 ;
+  assign \$47  = \$48 ;
+  assign \$50  = \$51 ;
+  assign \$51  = { y6[26], y6[26], y6[26], y6[26:3] };
 endmodule
 
 (* \amaranth.hierarchy  = "PDM2PCM.clk_divider" *)
 (* generator = "Amaranth" *)
 module clk_divider(clock_out, rst, clk, clock_enable_in);
-  reg \$auto$verilog_backend.cc:2082:dump_module$132  = 0;
+  reg \$auto$verilog_backend.cc:2082:dump_module$140  = 0;
   (* src = "/home/git/amlib/amlib/utils/clockdivider.py:20" *)
   wire \$1 ;
   (* src = "/home/git/amlib/amlib/utils/clockdivider.py:22" *)
@@ -755,10 +919,10 @@ module clk_divider(clock_out, rst, clk, clock_enable_in);
   reg [3:0] \clock_counter$next ;
   (* src = "/home/git/amlib/amlib/utils/clockdivider.py:12" *)
   input clock_enable_in;
-  (* src = "/home/kkojima/pdmmic/pdmmic/verilog/../pdm2pcm.py:98" *)
+  (* src = "/home/git/amlib/amlib/utils/clockdivider.py:13" *)
   output clock_out;
   reg clock_out = 1'h0;
-  (* src = "/home/kkojima/pdmmic/pdmmic/verilog/../pdm2pcm.py:98" *)
+  (* src = "/home/git/amlib/amlib/utils/clockdivider.py:13" *)
   reg \clock_out$next ;
   (* src = "/home/git/amaranth/amaranth/hdl/ir.py:527" *)
   input rst;
@@ -771,7 +935,7 @@ module clk_divider(clock_out, rst, clk, clock_enable_in);
   always @(posedge clk)
     clock_out <= \clock_out$next ;
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$132 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$140 ) begin end
     \clock_out$next  = clock_out;
     (* src = "/home/git/amlib/amlib/utils/clockdivider.py:20" *)
     casez (\$1 )
@@ -795,7 +959,7 @@ module clk_divider(clock_out, rst, clk, clock_enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$132 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$140 ) begin end
     (* full_case = 32'd1 *)
     (* src = "/home/git/amlib/amlib/utils/clockdivider.py:20" *)
     casez (\$5 )
@@ -818,234 +982,236 @@ endmodule
 (* \amaranth.hierarchy  = "PDM2PCM.fir" *)
 (* generator = "Amaranth" *)
 module fir(signal_in, signal_out, rst, clk, enable_in);
-  reg \$auto$verilog_backend.cc:2082:dump_module$133  = 0;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:113" *)
-  wire [6:0] \$1 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  reg \$auto$verilog_backend.cc:2082:dump_module$141  = 0;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:104" *)
+  wire \$1 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
+  wire [47:0] \$10 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$100 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$101 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$102 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$103 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$104 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$105 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$106 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$107 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$108 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$109 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:101" *)
-  wire \$11 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
+  wire [47:0] \$11 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$110 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$111 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$112 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$113 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
-  wire [47:0] \$114 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:103" *)
+  wire [48:0] \$114 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:103" *)
   wire [47:0] \$115 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
-  wire [47:0] \$116 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:103" *)
   wire [47:0] \$117 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
-  wire [47:0] \$118 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
-  wire [47:0] \$119 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
-  wire [47:0] \$120 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:103" *)
+  wire [48:0] \$119 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
+  wire [47:0] \$12 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:104" *)
+  wire \$121 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:26" *)
-  wire [47:0] \$121 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:101" *)
-  wire \$13 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  wire [47:0] \$123 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
+  wire [47:0] \$13 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
+  wire [47:0] \$14 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$15 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$16 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$17 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$18 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$19 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:113" *)
-  wire [6:0] \$2 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$20 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$21 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$22 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$23 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$24 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$25 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$26 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$27 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$28 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$29 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:110" *)
+  wire [6:0] \$3 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$30 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$31 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$32 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$33 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$34 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$35 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$36 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$37 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$38 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$39 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:112" *)
-  wire [48:0] \$4 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:110" *)
+  wire [6:0] \$4 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$40 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$41 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$42 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$43 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$44 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$45 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$46 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$47 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$48 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$49 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:112" *)
-  wire [47:0] \$5 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$50 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$51 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$52 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$53 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$54 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$55 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$56 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$57 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$58 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
   wire [47:0] \$59 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
-  wire [47:0] \$60 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
-  wire [47:0] \$61 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:104" *)
+  wire \$6 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:104" *)
+  wire \$60 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$62 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$63 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$64 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$65 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$66 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:101" *)
-  wire \$67 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
+  wire [47:0] \$67 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
+  wire [47:0] \$68 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$69 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:112" *)
-  wire [47:0] \$7 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$70 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$71 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$72 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$73 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$74 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$75 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$76 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$77 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$78 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$79 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
+  wire [47:0] \$8 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$80 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$81 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$82 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$83 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$84 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$85 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$86 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$87 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$88 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$89 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:112" *)
-  wire [48:0] \$9 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
+  wire [47:0] \$9 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$90 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$91 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$92 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$93 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$94 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$95 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$96 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$97 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$98 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
   wire [47:0] \$99 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:88" *)
   reg [23:0] a = 24'h000000;
@@ -1284,13 +1450,24 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
   reg [47:0] x9 = 48'h000000000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:83" *)
   reg [47:0] \x9$next ;
-  assign \$9  = $signed(madd) + (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:112" *) $signed(\$7 );
-  assign \$11  = ix == (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:101" *) 6'h33;
-  assign \$121  = + (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:26" *) $signed(signal_in);
-  assign \$13  = ix == (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:101" *) 6'h33;
-  assign \$2  = ix + (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:113" *) 1'h1;
-  assign \$5  = $signed(a) * (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:112" *) $signed(b);
-  assign \$67  = ix == (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:101" *) 6'h33;
+  assign \$115  = $signed(a) * (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:103" *) $signed(b);
+  assign \$119  = $signed(madd) + (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:103" *) $signed(\$117 );
+  assign \$121  = ix == (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:104" *) 6'h33;
+  assign \$123  = + (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:26" *) $signed(signal_in);
+  assign \$1  = ix == (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:104" *) 6'h33;
+  assign \$4  = ix + (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:110" *) 1'h1;
+  assign \$60  = ix == (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:104" *) 6'h33;
+  assign \$6  = ix == (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:104" *) 6'h33;
+  always @(posedge clk)
+    x49 <= \x49$next ;
+  always @(posedge clk)
+    x48 <= \x48$next ;
+  always @(posedge clk)
+    x47 <= \x47$next ;
+  always @(posedge clk)
+    x46 <= \x46$next ;
+  always @(posedge clk)
+    x45 <= \x45$next ;
   always @(posedge clk)
     x44 <= \x44$next ;
   always @(posedge clk)
@@ -1332,8 +1509,6 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
   always @(posedge clk)
     x25 <= \x25$next ;
   always @(posedge clk)
-    x0 <= \x0$next ;
-  always @(posedge clk)
     x24 <= \x24$next ;
   always @(posedge clk)
     x23 <= \x23$next ;
@@ -1353,8 +1528,6 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     x16 <= \x16$next ;
   always @(posedge clk)
     x15 <= \x15$next ;
-  always @(posedge clk)
-    x50 <= \x50$next ;
   always @(posedge clk)
     x14 <= \x14$next ;
   always @(posedge clk)
@@ -1376,8 +1549,6 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
   always @(posedge clk)
     x5 <= \x5$next ;
   always @(posedge clk)
-    x49 <= \x49$next ;
-  always @(posedge clk)
     x4 <= \x4$next ;
   always @(posedge clk)
     x3 <= \x3$next ;
@@ -1388,25 +1559,21 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
   always @(posedge clk)
     signal_out <= \signal_out$next ;
   always @(posedge clk)
-    b <= \b$next ;
-  always @(posedge clk)
-    a <= \a$next ;
-  always @(posedge clk)
     fsm_state <= \fsm_state$next ;
   always @(posedge clk)
     madd <= \madd$next ;
   always @(posedge clk)
+    b <= \b$next ;
+  always @(posedge clk)
+    a <= \a$next ;
+  always @(posedge clk)
     ix <= \ix$next ;
   always @(posedge clk)
-    x48 <= \x48$next ;
+    x0 <= \x0$next ;
   always @(posedge clk)
-    x47 <= \x47$next ;
-  always @(posedge clk)
-    x46 <= \x46$next ;
-  always @(posedge clk)
-    x45 <= \x45$next ;
+    x50 <= \x50$next ;
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \ix$next  = ix;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:91" *)
     casez (fsm_state)
@@ -1417,16 +1584,21 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
           casez (enable_in)
             /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:93" */
             1'h1:
-                \ix$next  = 6'h00;
+                \ix$next  = 6'h01;
           endcase
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:100" */
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:102" */
       2'h1:
-          /* empty */;
-      /* \amaranth.decoding  = "MAC/3" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:110" */
-      2'h3:
-          \ix$next  = \$2 [5:0];
+          (* full_case = 32'd1 *)
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:104" *)
+          casez (\$1 )
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:104" */
+            1'h1:
+                /* empty */;
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" */
+            default:
+                \ix$next  = \$4 [5:0];
+          endcase
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
@@ -1435,399 +1607,32 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \madd$next  = madd;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:91" *)
-    casez (fsm_state)
-      /* \amaranth.decoding  = "IDLE/0" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:92" */
-      2'h0:
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:93" *)
-          casez (enable_in)
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:93" */
-            1'h1:
-                \madd$next  = 24'h000000;
-          endcase
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:100" */
-      2'h1:
-          /* empty */;
-      /* \amaranth.decoding  = "MAC/3" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:110" */
-      2'h3:
-          \madd$next  = \$9 [23:0];
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \madd$next  = 24'h000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x5$next  = x5;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x5$next  = x4;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x5$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x6$next  = x6;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x6$next  = x5;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x6$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x7$next  = x7;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x7$next  = x6;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x7$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x8$next  = x8;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x8$next  = x7;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x8$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x9$next  = x9;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x9$next  = x8;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x9$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x10$next  = x10;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x10$next  = x9;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x10$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x11$next  = x11;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x11$next  = x10;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x11$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x12$next  = x12;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x12$next  = x11;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x12$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x13$next  = x13;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x13$next  = x12;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x13$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x14$next  = x14;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x14$next  = x13;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x14$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \fsm_state$next  = fsm_state;
-    (* full_case = 32'd1 *)
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:91" *)
-    casez (fsm_state)
-      /* \amaranth.decoding  = "IDLE/0" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:92" */
-      2'h0:
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:93" *)
-          casez (enable_in)
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:93" */
-            1'h1:
-                \fsm_state$next  = 2'h1;
-          endcase
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:100" */
-      2'h1:
-          (* full_case = 32'd1 *)
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:101" *)
-          casez (\$11 )
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:101" */
-            1'h1:
-                \fsm_state$next  = 2'h2;
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:103" */
-            default:
-                \fsm_state$next  = 2'h3;
-          endcase
-      /* \amaranth.decoding  = "MAC/3" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:110" */
-      2'h3:
-          \fsm_state$next  = 2'h1;
-      /* \amaranth.decoding  = "OUTPUT/2" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:117" */
-      2'h2:
-          \fsm_state$next  = 2'h0;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \fsm_state$next  = 2'h0;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x15$next  = x15;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x15$next  = x14;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x15$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x16$next  = x16;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x16$next  = x15;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x16$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x17$next  = x17;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x17$next  = x16;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x17$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x18$next  = x18;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x18$next  = x17;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x18$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x19$next  = x19;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x19$next  = x18;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x19$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x20$next  = x20;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x20$next  = x19;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x20$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x21$next  = x21;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x21$next  = x20;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x21$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x22$next  = x22;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x22$next  = x21;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x22$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x23$next  = x23;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x23$next  = x22;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x23$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x24$next  = x24;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
-    casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
-      1'h1:
-          \x24$next  = x23;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x24$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \a$next  = a;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:91" *)
     casez (fsm_state)
       /* \amaranth.decoding  = "IDLE/0" */
       /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:92" */
       2'h0:
-          /* empty */;
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:100" */
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:93" *)
+          casez (enable_in)
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:93" */
+            1'h1:
+                \a$next  = x0[23:0];
+          endcase
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:102" */
       2'h1:
           (* full_case = 32'd1 *)
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:101" *)
-          casez (\$13 )
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:101" */
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:104" *)
+          casez (\$6 )
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:104" */
             1'h1:
                 /* empty */;
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:103" */
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" */
             default:
                 (* full_case = 32'd1 *)
-                (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:105" *)
+                (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:108" *)
                 casez (ix)
                   6'h00:
                       \a$next  = x0[23:0];
@@ -1941,177 +1746,182 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x25$next  = x25;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x5$next  = x5;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
-          \x25$next  = x24;
+          \x5$next  = x4;
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \x25$next  = 48'h000000000000;
+          \x5$next  = 48'h000000000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x26$next  = x26;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x6$next  = x6;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
-          \x26$next  = x25;
+          \x6$next  = x5;
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \x26$next  = 48'h000000000000;
+          \x6$next  = 48'h000000000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x27$next  = x27;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x7$next  = x7;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
-          \x27$next  = x26;
+          \x7$next  = x6;
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \x27$next  = 48'h000000000000;
+          \x7$next  = 48'h000000000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x28$next  = x28;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x8$next  = x8;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
-          \x28$next  = x27;
+          \x8$next  = x7;
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \x28$next  = 48'h000000000000;
+          \x8$next  = 48'h000000000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x29$next  = x29;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x9$next  = x9;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
-          \x29$next  = x28;
+          \x9$next  = x8;
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \x29$next  = 48'h000000000000;
+          \x9$next  = 48'h000000000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x30$next  = x30;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x10$next  = x10;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
-          \x30$next  = x29;
+          \x10$next  = x9;
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \x30$next  = 48'h000000000000;
+          \x10$next  = 48'h000000000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x31$next  = x31;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x11$next  = x11;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
-          \x31$next  = x30;
+          \x11$next  = x10;
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \x31$next  = 48'h000000000000;
+          \x11$next  = 48'h000000000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x32$next  = x32;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x12$next  = x12;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
-          \x32$next  = x31;
+          \x12$next  = x11;
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \x32$next  = 48'h000000000000;
+          \x12$next  = 48'h000000000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x33$next  = x33;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x13$next  = x13;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
-          \x33$next  = x32;
+          \x13$next  = x12;
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \x33$next  = 48'h000000000000;
+          \x13$next  = 48'h000000000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x34$next  = x34;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x14$next  = x14;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
-          \x34$next  = x33;
+          \x14$next  = x13;
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
       1'h1:
-          \x34$next  = 48'h000000000000;
+          \x14$next  = 48'h000000000000;
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \b$next  = b;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:91" *)
     casez (fsm_state)
       /* \amaranth.decoding  = "IDLE/0" */
       /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:92" */
       2'h0:
-          /* empty */;
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:100" */
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:93" *)
+          casez (enable_in)
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:93" */
+            1'h1:
+                \b$next  = 24'h0008fc;
+          endcase
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:102" */
       2'h1:
           (* full_case = 32'd1 *)
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:101" *)
-          casez (\$67 )
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:101" */
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:104" *)
+          casez (\$60 )
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:104" */
             1'h1:
                 /* empty */;
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:103" */
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" */
             default:
                 (* full_case = 32'd1 *)
-                (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:106" *)
+                (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:109" *)
                 casez (ix)
                   6'h00:
                       \b$next  = 24'h0008fc;
@@ -2225,11 +2035,370 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
-    \x35$next  = x35;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x15$next  = x15;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x15$next  = x14;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x15$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x16$next  = x16;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x16$next  = x15;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x16$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x17$next  = x17;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x17$next  = x16;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x17$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x18$next  = x18;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x18$next  = x17;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x18$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x19$next  = x19;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x19$next  = x18;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x19$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x20$next  = x20;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x20$next  = x19;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x20$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x21$next  = x21;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x21$next  = x20;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x21$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x22$next  = x22;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x22$next  = x21;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x22$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x23$next  = x23;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x23$next  = x22;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x23$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x24$next  = x24;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x24$next  = x23;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x24$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \madd$next  = madd;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:91" *)
+    casez (fsm_state)
+      /* \amaranth.decoding  = "IDLE/0" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:92" */
+      2'h0:
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:93" *)
+          casez (enable_in)
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:93" */
+            1'h1:
+                \madd$next  = 24'h000000;
+          endcase
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:102" */
+      2'h1:
+          \madd$next  = \$119 [23:0];
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \madd$next  = 24'h000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x25$next  = x25;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x25$next  = x24;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x25$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x26$next  = x26;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x26$next  = x25;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x26$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x27$next  = x27;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x27$next  = x26;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x27$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x28$next  = x28;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x28$next  = x27;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x28$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x29$next  = x29;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x29$next  = x28;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x29$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x30$next  = x30;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x30$next  = x29;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x30$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x31$next  = x31;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x31$next  = x30;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x31$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x32$next  = x32;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x32$next  = x31;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x32$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x33$next  = x33;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x33$next  = x32;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x33$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x34$next  = x34;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
+      1'h1:
+          \x34$next  = x33;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x34$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \fsm_state$next  = fsm_state;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:91" *)
+    casez (fsm_state)
+      /* \amaranth.decoding  = "IDLE/0" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:92" */
+      2'h0:
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:93" *)
+          casez (enable_in)
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:93" */
+            1'h1:
+                \fsm_state$next  = 2'h1;
+          endcase
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:102" */
+      2'h1:
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:104" *)
+          casez (\$121 )
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:104" */
+            1'h1:
+                \fsm_state$next  = 2'h2;
+          endcase
+      /* \amaranth.decoding  = "OUTPUT/2" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:113" */
+      2'h2:
+          \fsm_state$next  = 2'h0;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \fsm_state$next  = 2'h0;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
+    \x35$next  = x35;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
+    casez (enable_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x35$next  = x34;
     endcase
@@ -2240,11 +2409,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x36$next  = x36;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x36$next  = x35;
     endcase
@@ -2255,11 +2424,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x37$next  = x37;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x37$next  = x36;
     endcase
@@ -2270,11 +2439,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x38$next  = x38;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x38$next  = x37;
     endcase
@@ -2285,11 +2454,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x39$next  = x39;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x39$next  = x38;
     endcase
@@ -2300,11 +2469,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x40$next  = x40;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x40$next  = x39;
     endcase
@@ -2315,11 +2484,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x41$next  = x41;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x41$next  = x40;
     endcase
@@ -2330,11 +2499,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x42$next  = x42;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x42$next  = x41;
     endcase
@@ -2345,11 +2514,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x43$next  = x43;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x43$next  = x42;
     endcase
@@ -2360,11 +2529,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x44$next  = x44;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x44$next  = x43;
     endcase
@@ -2375,25 +2544,20 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \signal_out$next  = signal_out;
-    (* full_case = 32'd1 *)
     (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:91" *)
     casez (fsm_state)
       /* \amaranth.decoding  = "IDLE/0" */
       /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:92" */
       2'h0:
           /* empty */;
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:100" */
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:102" */
       2'h1:
           /* empty */;
-      /* \amaranth.decoding  = "MAC/3" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:110" */
-      2'h3:
-          /* empty */;
       /* \amaranth.decoding  = "OUTPUT/2" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:117" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:113" */
       2'h2:
           \signal_out$next  = madd;
     endcase
@@ -2404,11 +2568,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x45$next  = x45;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x45$next  = x44;
     endcase
@@ -2419,11 +2583,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x46$next  = x46;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x46$next  = x45;
     endcase
@@ -2434,11 +2598,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x47$next  = x47;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x47$next  = x46;
     endcase
@@ -2449,11 +2613,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x48$next  = x48;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x48$next  = x47;
     endcase
@@ -2464,11 +2628,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x49$next  = x49;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x49$next  = x48;
     endcase
@@ -2479,11 +2643,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x50$next  = x50;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x50$next  = x49;
     endcase
@@ -2494,13 +2658,13 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x0$next  = x0;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
-          \x0$next  = \$121 ;
+          \x0$next  = \$123 ;
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
@@ -2509,11 +2673,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x1$next  = x1;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x1$next  = x0;
     endcase
@@ -2524,11 +2688,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x2$next  = x2;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x2$next  = x1;
     endcase
@@ -2539,11 +2703,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x3$next  = x3;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x3$next  = x2;
     endcase
@@ -2554,11 +2718,11 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$133 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$141 ) begin end
     \x4$next  = x4;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" *)
     casez (enable_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:125" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointfirfilter.py:121" */
       1'h1:
           \x4$next  = x3;
     endcase
@@ -2568,703 +2732,711 @@ module fir(signal_in, signal_out, rst, clk, enable_in);
           \x4$next  = 48'h000000000000;
     endcase
   end
-  assign \$1  = \$2 ;
-  assign \$4  = \$9 ;
-  assign \$16  = x0;
-  assign \$17  = x1;
-  assign \$18  = x2;
-  assign \$19  = x3;
-  assign \$20  = x4;
-  assign \$21  = x5;
-  assign \$22  = x6;
-  assign \$23  = x7;
-  assign \$24  = x8;
-  assign \$25  = x9;
-  assign \$26  = x10;
-  assign \$27  = x11;
-  assign \$28  = x12;
-  assign \$29  = x13;
-  assign \$30  = x14;
-  assign \$31  = x15;
-  assign \$32  = x16;
-  assign \$33  = x17;
-  assign \$34  = x18;
-  assign \$35  = x19;
-  assign \$36  = x20;
-  assign \$37  = x21;
-  assign \$38  = x22;
-  assign \$39  = x23;
-  assign \$40  = x24;
-  assign \$41  = x25;
-  assign \$42  = x26;
-  assign \$43  = x27;
-  assign \$44  = x28;
-  assign \$45  = x29;
-  assign \$46  = x30;
-  assign \$47  = x31;
-  assign \$48  = x32;
-  assign \$49  = x33;
-  assign \$50  = x34;
-  assign \$51  = x35;
-  assign \$52  = x36;
-  assign \$53  = x37;
-  assign \$54  = x38;
-  assign \$55  = x39;
-  assign \$56  = x40;
-  assign \$57  = x41;
-  assign \$58  = x42;
-  assign \$59  = x43;
-  assign \$60  = x44;
-  assign \$61  = x45;
-  assign \$62  = x46;
-  assign \$63  = x47;
-  assign \$64  = x48;
-  assign \$65  = x49;
-  assign \$66  = x50;
-  assign \$70  = 48'h0000000008fc;
-  assign \$71  = 48'hfffffffff115;
-  assign \$72  = 48'hffffffffd854;
-  assign \$73  = 48'h000000001349;
-  assign \$74  = 48'h00000000521e;
-  assign \$75  = 48'hffffffffddfa;
-  assign \$76  = 48'hffffffff622d;
-  assign \$77  = 48'h000000003396;
-  assign \$78  = 48'h000000011313;
-  assign \$79  = 48'hffffffffb6f2;
-  assign \$80  = 48'hfffffffe3eb0;
-  assign \$81  = 48'h000000006194;
-  assign \$82  = 48'h00000002bcb5;
-  assign \$83  = 48'hffffffff83fb;
-  assign \$84  = 48'hfffffffbdc50;
-  assign \$85  = 48'h0000000096d4;
-  assign \$86  = 48'h000000062b22;
-  assign \$87  = 48'hffffffff4fc1;
-  assign \$88  = 48'hfffffff6beff;
-  assign \$89  = 48'h00000000c672;
-  assign \$90  = 48'h0000000e82cc;
-  assign \$91  = 48'hffffffff2848;
-  assign \$92  = 48'hffffffe5f18e;
-  assign \$93  = 48'h00000000e2b3;
-  assign \$94  = 48'h000000511ce3;
-  assign \$95  = 48'h0000007f198c;
-  assign \$96  = 48'h000000511ce3;
-  assign \$97  = 48'h00000000e2b3;
-  assign \$98  = 48'hffffffe5f18e;
-  assign \$99  = 48'hffffffff2848;
-  assign \$100  = 48'h0000000e82cc;
-  assign \$101  = 48'h00000000c672;
-  assign \$102  = 48'hfffffff6beff;
-  assign \$103  = 48'hffffffff4fc1;
-  assign \$104  = 48'h000000062b22;
-  assign \$105  = 48'h0000000096d4;
-  assign \$106  = 48'hfffffffbdc50;
-  assign \$107  = 48'hffffffff83fb;
-  assign \$108  = 48'h00000002bcb5;
-  assign \$109  = 48'h000000006194;
-  assign \$110  = 48'hfffffffe3eb0;
-  assign \$111  = 48'hffffffffb6f2;
-  assign \$112  = 48'h000000011313;
-  assign \$113  = 48'h000000003396;
-  assign \$114  = 48'hffffffff622d;
-  assign \$115  = 48'hffffffffddfa;
-  assign \$116  = 48'h00000000521e;
-  assign \$117  = 48'h000000001349;
-  assign \$118  = 48'hffffffffd854;
-  assign \$119  = 48'hfffffffff115;
-  assign \$120  = 48'h0000000008fc;
-  assign \$7  = { \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47], \$5 [47:24] };
+  assign \$3  = \$4 ;
+  assign \$9  = x0;
+  assign \$10  = x1;
+  assign \$11  = x2;
+  assign \$12  = x3;
+  assign \$13  = x4;
+  assign \$14  = x5;
+  assign \$15  = x6;
+  assign \$16  = x7;
+  assign \$17  = x8;
+  assign \$18  = x9;
+  assign \$19  = x10;
+  assign \$20  = x11;
+  assign \$21  = x12;
+  assign \$22  = x13;
+  assign \$23  = x14;
+  assign \$24  = x15;
+  assign \$25  = x16;
+  assign \$26  = x17;
+  assign \$27  = x18;
+  assign \$28  = x19;
+  assign \$29  = x20;
+  assign \$30  = x21;
+  assign \$31  = x22;
+  assign \$32  = x23;
+  assign \$33  = x24;
+  assign \$34  = x25;
+  assign \$35  = x26;
+  assign \$36  = x27;
+  assign \$37  = x28;
+  assign \$38  = x29;
+  assign \$39  = x30;
+  assign \$40  = x31;
+  assign \$41  = x32;
+  assign \$42  = x33;
+  assign \$43  = x34;
+  assign \$44  = x35;
+  assign \$45  = x36;
+  assign \$46  = x37;
+  assign \$47  = x38;
+  assign \$48  = x39;
+  assign \$49  = x40;
+  assign \$50  = x41;
+  assign \$51  = x42;
+  assign \$52  = x43;
+  assign \$53  = x44;
+  assign \$54  = x45;
+  assign \$55  = x46;
+  assign \$56  = x47;
+  assign \$57  = x48;
+  assign \$58  = x49;
+  assign \$59  = x50;
+  assign \$63  = 48'h0000000008fc;
+  assign \$64  = 48'hfffffffff115;
+  assign \$65  = 48'hffffffffd854;
+  assign \$66  = 48'h000000001349;
+  assign \$67  = 48'h00000000521e;
+  assign \$68  = 48'hffffffffddfa;
+  assign \$69  = 48'hffffffff622d;
+  assign \$70  = 48'h000000003396;
+  assign \$71  = 48'h000000011313;
+  assign \$72  = 48'hffffffffb6f2;
+  assign \$73  = 48'hfffffffe3eb0;
+  assign \$74  = 48'h000000006194;
+  assign \$75  = 48'h00000002bcb5;
+  assign \$76  = 48'hffffffff83fb;
+  assign \$77  = 48'hfffffffbdc50;
+  assign \$78  = 48'h0000000096d4;
+  assign \$79  = 48'h000000062b22;
+  assign \$80  = 48'hffffffff4fc1;
+  assign \$81  = 48'hfffffff6beff;
+  assign \$82  = 48'h00000000c672;
+  assign \$83  = 48'h0000000e82cc;
+  assign \$84  = 48'hffffffff2848;
+  assign \$85  = 48'hffffffe5f18e;
+  assign \$86  = 48'h00000000e2b3;
+  assign \$87  = 48'h000000511ce3;
+  assign \$88  = 48'h0000007f198c;
+  assign \$89  = 48'h000000511ce3;
+  assign \$90  = 48'h00000000e2b3;
+  assign \$91  = 48'hffffffe5f18e;
+  assign \$92  = 48'hffffffff2848;
+  assign \$93  = 48'h0000000e82cc;
+  assign \$94  = 48'h00000000c672;
+  assign \$95  = 48'hfffffff6beff;
+  assign \$96  = 48'hffffffff4fc1;
+  assign \$97  = 48'h000000062b22;
+  assign \$98  = 48'h0000000096d4;
+  assign \$99  = 48'hfffffffbdc50;
+  assign \$100  = 48'hffffffff83fb;
+  assign \$101  = 48'h00000002bcb5;
+  assign \$102  = 48'h000000006194;
+  assign \$103  = 48'hfffffffe3eb0;
+  assign \$104  = 48'hffffffffb6f2;
+  assign \$105  = 48'h000000011313;
+  assign \$106  = 48'h000000003396;
+  assign \$107  = 48'hffffffff622d;
+  assign \$108  = 48'hffffffffddfa;
+  assign \$109  = 48'h00000000521e;
+  assign \$110  = 48'h000000001349;
+  assign \$111  = 48'hffffffffd854;
+  assign \$112  = 48'hfffffffff115;
+  assign \$113  = 48'h0000000008fc;
+  assign \$114  = \$119 ;
+  assign \$117  = { \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47], \$115 [47:24] };
 endmodule
 
 (* \amaranth.hierarchy  = "PDM2PCM.hb1" *)
 (* generator = "Amaranth" *)
 module hb1(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
-  reg \$auto$verilog_backend.cc:2082:dump_module$134  = 0;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:102" *)
-  wire [4:0] \$1 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:101" *)
-  wire [48:0] \$10 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  reg \$auto$verilog_backend.cc:2082:dump_module$142  = 0;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *)
+  wire \$1 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$100 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$101 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$102 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$103 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$104 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$105 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$106 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$107 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$108 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$109 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$110 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$11 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$111 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$112 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$113 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$114 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$115 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$116 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$117 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$118 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$119 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:101" *)
-  wire [49:0] \$12 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$121 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$122 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$12 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$120 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [4:0] \$121 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$123 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$124 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$125 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$126 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$127 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [4:0] \$128 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$129 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [4:0] \$13 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$130 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$131 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$132 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$133 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$134 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$135 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$136 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$137 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$138 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$139 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *)
-  wire \$14 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$140 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$141 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$142 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$143 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$144 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$145 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$146 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$147 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$148 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$149 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$15 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$150 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$151 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$152 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$153 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$154 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$155 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$157 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$158 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *)
-  wire \$16 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$156 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [4:0] \$157 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$159 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$16 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$160 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$161 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$162 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$163 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [4:0] \$164 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$165 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$166 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$167 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$168 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$169 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$170 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$171 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$172 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$173 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$174 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$175 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$176 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$177 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$178 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$179 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$18 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$180 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$181 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$182 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$183 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$184 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$185 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$186 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$187 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$188 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$189 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$19 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$190 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$191 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$193 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$194 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$192 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [4:0] \$193 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$195 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$196 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$197 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$198 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$199 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:102" *)
-  wire [4:0] \$2 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [4:0] \$20 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [4:0] \$200 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$201 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$202 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$203 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$204 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$205 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$206 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$207 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$208 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$209 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$21 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$210 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$211 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$212 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$213 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$214 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$215 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$216 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$217 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$218 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$219 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$22 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$220 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$221 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$222 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$223 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$224 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$225 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$226 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$227 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$229 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$23 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$230 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$228 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [4:0] \$229 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$231 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$232 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$233 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$234 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$235 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [4:0] \$236 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$237 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$238 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$239 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$24 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$240 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$241 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$242 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$243 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$244 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$245 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$246 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$247 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$248 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$249 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$25 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$250 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$251 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$252 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$253 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$254 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$255 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$256 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$257 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$258 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$259 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$26 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$260 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$261 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$262 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$263 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$265 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$266 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$264 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [4:0] \$265 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$267 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$268 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$269 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$27 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$270 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$271 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [4:0] \$272 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$273 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$274 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$275 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$276 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$277 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$278 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$279 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$28 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$280 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$281 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$282 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$283 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$284 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$285 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$286 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$287 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$288 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$289 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$29 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$290 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$291 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$292 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$293 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$294 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$295 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$296 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$297 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$298 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$299 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$301 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$302 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:99" *)
+  wire [4:0] \$3 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$30 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$300 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [4:0] \$301 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$303 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$304 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$305 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$306 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$307 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [4:0] \$308 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$309 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$31 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$310 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$311 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$312 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$313 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$314 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$315 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$316 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$317 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$318 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$319 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$32 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$320 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$321 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$322 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$323 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$324 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$325 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$326 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$327 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$328 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$329 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$33 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$330 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$331 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$332 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$333 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$334 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$335 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$337 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$338 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$336 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [4:0] \$337 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$339 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$34 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$340 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$341 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$342 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$343 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [4:0] \$344 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$345 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$346 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$347 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$348 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$349 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$35 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$350 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$351 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$352 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$353 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$354 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$355 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$356 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$357 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$358 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$359 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$36 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$360 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$361 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$362 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$363 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$364 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$365 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$366 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$367 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$368 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$369 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$37 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$370 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$371 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$373 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$374 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$372 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [4:0] \$373 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$375 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$376 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$377 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$378 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$379 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$38 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [4:0] \$380 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$381 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$382 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$383 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$384 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$385 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$386 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$387 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$388 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$389 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$39 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$390 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$391 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$392 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$393 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$394 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$395 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$396 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$397 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$398 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:85" *)
-  wire [47:0] \$4 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$399 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:99" *)
+  wire [4:0] \$4 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$40 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$400 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$401 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$402 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$403 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$404 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$405 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$406 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$407 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$409 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$41 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$410 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$412 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$413 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *)
-  wire \$415 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *)
+  wire \$408 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
+  wire [47:0] \$410 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
+  wire [47:0] \$411 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
+  wire [47:0] \$412 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
+  wire [47:0] \$413 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
+  wire [47:0] \$414 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
+  wire [47:0] \$415 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
+  wire [47:0] \$416 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$417 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$418 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$419 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$42 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$420 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$421 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
-  wire [47:0] \$422 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
-  wire [47:0] \$423 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
-  wire [47:0] \$424 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
-  wire [47:0] \$425 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
-  wire [47:0] \$426 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
-  wire [47:0] \$427 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
-  wire [47:0] \$428 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:23" *)
-  wire [47:0] \$429 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" *)
+  wire [49:0] \$422 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" *)
+  wire [48:0] \$423 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" *)
+  wire [48:0] \$425 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" *)
+  wire [49:0] \$427 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *)
+  wire \$429 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$43 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:117" *)
-  wire \$431 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:118" *)
-  wire [1:0] \$433 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:118" *)
-  wire [1:0] \$434 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:117" *)
-  wire \$436 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$44 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:103" *)
+  wire [48:0] \$431 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:103" *)
+  wire [47:0] \$432 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:103" *)
+  wire [48:0] \$434 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:23" *)
+  wire [47:0] \$436 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:113" *)
+  wire \$438 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
+  wire [1:0] \$440 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
+  wire [1:0] \$441 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:113" *)
+  wire \$443 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$45 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$46 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$47 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$49 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:85" *)
-  wire [47:0] \$5 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$50 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$48 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [4:0] \$49 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$51 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$52 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$53 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$54 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$55 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [4:0] \$56 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$57 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$58 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$59 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:85" *)
+  wire [48:0] \$6 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$60 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$61 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$62 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$63 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$64 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$65 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$66 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$67 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$68 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:101" *)
-  wire [49:0] \$7 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$69 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:85" *)
+  wire [48:0] \$7 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$70 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$71 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$72 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$73 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$74 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$75 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$76 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$77 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$78 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$79 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:101" *)
-  wire [48:0] \$8 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$80 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$81 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$82 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$83 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$85 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$86 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$84 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [4:0] \$85 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$87 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$88 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$89 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *)
+  wire \$9 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$90 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$91 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [4:0] \$92 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$93 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$94 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$95 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$96 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$97 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$98 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$99 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:77" *)
   reg [24:0] a = 25'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:77" *)
@@ -3288,9 +3460,9 @@ module hb1(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
   (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:75" *)
   reg [3:0] \ix$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:76" *)
-  reg [23:0] madd = 24'h000000;
+  reg [24:0] madd = 25'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:76" *)
-  reg [23:0] \madd$next ;
+  reg [24:0] \madd$next ;
   (* src = "/home/git/amaranth/amaranth/hdl/ir.py:527" *)
   input rst;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:23" *)
@@ -3351,147 +3523,160 @@ module hb1(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
   reg [47:0] x9 = 48'h000000000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:72" *)
   reg [47:0] \x9$next ;
-  assign \$101  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$104  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$107  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$110  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$113  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$116  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$119  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$122  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$125  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$12  = $signed(madd) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:101" *) $signed(\$10 );
-  assign \$131  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$134  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$137  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$140  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$143  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$146  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$14  = ix > (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *) 3'h5;
-  assign \$149  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$152  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$155  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$158  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$161  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$167  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$16  = ix > (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *) 3'h5;
-  assign \$170  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$173  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$176  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$179  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$182  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$185  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$188  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$191  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$194  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$197  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$203  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$206  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$209  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$212  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$215  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$218  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$221  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$224  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$227  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$230  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$233  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$23  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$239  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$242  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$245  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$248  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$251  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$254  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$257  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$260  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$263  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$266  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$26  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$269  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$275  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$278  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$281  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$284  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$287  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$290  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$293  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$296  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$2  = ix + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:102" *) 2'h2;
-  assign \$29  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$299  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$302  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$305  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$311  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$314  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$317  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$320  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$323  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$326  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$32  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$329  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$332  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$335  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$338  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$341  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$347  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$350  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$353  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$356  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$35  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$359  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$362  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$365  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$368  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$371  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$374  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$377  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$383  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$386  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$38  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$389  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$392  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$395  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$398  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$401  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$404  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$407  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$410  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$413  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$415  = ix > (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *) 3'h5;
-  assign \$41  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$429  = + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:23" *) $signed(signal_in);
-  assign \$431  = decimate_counter < (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:117" *) 1'h1;
-  assign \$434  = decimate_counter + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:118" *) 1'h1;
-  assign \$436  = decimate_counter < (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:117" *) 1'h1;
-  assign \$44  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$47  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$50  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$53  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$59  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$62  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$65  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$68  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$71  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$74  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$77  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$80  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$83  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$86  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$8  = $signed(a) * (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:101" *) $signed(b);
-  assign \$89  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$95  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$98  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
+  assign \$9  = ix > (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *) 3'h5;
+  assign \$100  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$103  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$106  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$109  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$112  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$115  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$118  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$124  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$127  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$130  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$133  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$136  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$139  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$142  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$145  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$148  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$151  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$154  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$160  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$163  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$166  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$16  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$169  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$172  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$175  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$178  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$181  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$184  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$187  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$190  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$196  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$1  = ix > (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *) 3'h5;
+  assign \$19  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$199  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$202  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$205  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$208  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$211  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$214  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$217  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$220  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$223  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$226  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$22  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$232  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$235  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$238  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$241  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$244  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$247  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$250  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$253  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$256  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$25  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$259  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$262  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$268  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$271  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$274  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$277  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$280  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$283  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$286  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$28  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$289  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$292  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$295  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$298  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$304  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$307  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$310  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$313  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$316  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$31  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$319  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$322  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$325  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$328  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$331  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$334  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$340  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$343  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$346  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$34  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$349  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$352  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$355  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$358  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$361  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$364  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$367  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$370  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$376  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$37  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$379  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$382  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$385  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$388  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$391  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$394  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$397  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$400  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$403  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$406  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$408  = ix > (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *) 3'h5;
+  assign \$40  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$423  = $signed(a) * (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" *) $signed(b);
+  assign \$427  = $signed(madd) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" *) $signed(\$425 );
+  assign \$429  = ix > (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *) 3'h5;
+  assign \$434  = $signed(madd) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:103" *) $signed(\$432 );
+  assign \$436  = + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:23" *) $signed(signal_in);
+  assign \$438  = decimate_counter < (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:113" *) 1'h1;
+  assign \$43  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$441  = decimate_counter + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *) 1'h1;
+  assign \$443  = decimate_counter < (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:113" *) 1'h1;
+  assign \$46  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$4  = ix + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:99" *) 2'h2;
+  assign \$52  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$55  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$58  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$61  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$64  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$67  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$70  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$73  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$76  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$7  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:85" *) $signed(x10);
+  assign \$79  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$82  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$88  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$91  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$94  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$97  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  always @(posedge clk)
+    x4 <= \x4$next ;
+  always @(posedge clk)
+    x3 <= \x3$next ;
+  always @(posedge clk)
+    x2 <= \x2$next ;
+  always @(posedge clk)
+    x1 <= \x1$next ;
+  always @(posedge clk)
+    x0 <= \x0$next ;
   always @(posedge clk)
     signal_out <= \signal_out$next ;
-  always @(posedge clk)
-    b <= \b$next ;
-  always @(posedge clk)
-    a <= \a$next ;
   always @(posedge clk)
     fsm_state <= \fsm_state$next ;
   always @(posedge clk)
     madd <= \madd$next ;
+  always @(posedge clk)
+    b <= \b$next ;
+  always @(posedge clk)
+    a <= \a$next ;
   always @(posedge clk)
     ix <= \ix$next ;
   always @(posedge clk)
@@ -3510,18 +3695,8 @@ module hb1(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
     x6 <= \x6$next ;
   always @(posedge clk)
     x5 <= \x5$next ;
-  always @(posedge clk)
-    x4 <= \x4$next ;
-  always @(posedge clk)
-    x3 <= \x3$next ;
-  always @(posedge clk)
-    x2 <= \x2$next ;
-  always @(posedge clk)
-    x1 <= \x1$next ;
-  always @(posedge clk)
-    x0 <= \x0$next ;
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
     \ix$next  = ix;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:80" *)
     casez (fsm_state)
@@ -3532,16 +3707,21 @@ module hb1(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
           casez (strobe_in)
             /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" */
             1'h1:
-                \ix$next  = 4'h0;
+                \ix$next  = 4'h2;
           endcase
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:89" */
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:91" */
       2'h1:
-          /* empty */;
-      /* \amaranth.decoding  = "MAC/3" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:99" */
-      2'h3:
-          \ix$next  = \$2 [3:0];
+          (* full_case = 32'd1 *)
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *)
+          casez (\$1 )
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" */
+            1'h1:
+                /* empty */;
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" */
+            default:
+                \ix$next  = \$4 [3:0];
+          endcase
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
@@ -3550,555 +3730,329 @@ module hb1(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
-    \madd$next  = madd;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:80" *)
-    casez (fsm_state)
-      /* \amaranth.decoding  = "IDLE/0" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:81" */
-      2'h0:
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" *)
-          casez (strobe_in)
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" */
-            1'h1:
-                \madd$next  = \$5 [23:0];
-          endcase
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:89" */
-      2'h1:
-          /* empty */;
-      /* \amaranth.decoding  = "MAC/3" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:99" */
-      2'h3:
-          \madd$next  = \$12 [23:0];
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \madd$next  = 24'h000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
-    \x4$next  = x4;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x4$next  = x3;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x4$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
-    \x5$next  = x5;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x5$next  = x4;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x5$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
-    \x6$next  = x6;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x6$next  = x5;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x6$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
-    \x7$next  = x7;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x7$next  = x6;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x7$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
-    \x8$next  = x8;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x8$next  = x7;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x8$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
-    \x9$next  = x9;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x9$next  = x8;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x9$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
-    \x10$next  = x10;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x10$next  = x9;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x10$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
-    \decimate_counter$next  = decimate_counter;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          (* full_case = 32'd1 *)
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:117" *)
-          casez (\$431 )
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:117" */
-            1'h1:
-                \decimate_counter$next  = \$434 [0];
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:119" */
-            default:
-                \decimate_counter$next  = 1'h0;
-          endcase
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \decimate_counter$next  = 1'h0;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
-    \strobe_out$next  = strobe_out;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          (* full_case = 32'd1 *)
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:117" *)
-          casez (\$436 )
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:117" */
-            1'h1:
-                /* empty */;
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:119" */
-            default:
-                \strobe_out$next  = 1'h1;
-          endcase
-    endcase
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:123" *)
-    casez (strobe_out)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:123" */
-      1'h1:
-          \strobe_out$next  = 1'h0;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \strobe_out$next  = 1'h0;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
-    \fsm_state$next  = fsm_state;
-    (* full_case = 32'd1 *)
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:80" *)
-    casez (fsm_state)
-      /* \amaranth.decoding  = "IDLE/0" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:81" */
-      2'h0:
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" *)
-          casez (strobe_in)
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" */
-            1'h1:
-                \fsm_state$next  = 2'h1;
-          endcase
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:89" */
-      2'h1:
-          (* full_case = 32'd1 *)
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *)
-          casez (\$14 )
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" */
-            1'h1:
-                \fsm_state$next  = 2'h2;
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" */
-            default:
-                \fsm_state$next  = 2'h3;
-          endcase
-      /* \amaranth.decoding  = "MAC/3" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:99" */
-      2'h3:
-          \fsm_state$next  = 2'h1;
-      /* \amaranth.decoding  = "OUTPUT/2" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:106" */
-      2'h2:
-          \fsm_state$next  = 2'h0;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \fsm_state$next  = 2'h0;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
     \a$next  = a;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:80" *)
     casez (fsm_state)
       /* \amaranth.decoding  = "IDLE/0" */
       /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:81" */
       2'h0:
-          /* empty */;
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:89" */
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" *)
+          casez (strobe_in)
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" */
+            1'h1:
+                \a$next  = \$7 [24:0];
+          endcase
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:91" */
       2'h1:
           (* full_case = 32'd1 *)
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *)
-          casez (\$16 )
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" */
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *)
+          casez (\$9 )
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" */
             1'h1:
                 /* empty */;
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" */
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" */
             default:
                 (* full_case = 32'd1 *)
-                (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+                (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
                 casez (ix)
                   4'h0:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$20 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$13 )
                         5'h00:
-                            \a$next  = \$23 [24:0];
+                            \a$next  = \$16 [24:0];
                         5'h01:
-                            \a$next  = \$26 [24:0];
+                            \a$next  = \$19 [24:0];
                         5'h02:
-                            \a$next  = \$29 [24:0];
+                            \a$next  = \$22 [24:0];
                         5'h03:
-                            \a$next  = \$32 [24:0];
+                            \a$next  = \$25 [24:0];
                         5'h04:
-                            \a$next  = \$35 [24:0];
+                            \a$next  = \$28 [24:0];
                         5'h05:
-                            \a$next  = \$38 [24:0];
+                            \a$next  = \$31 [24:0];
                         5'h06:
-                            \a$next  = \$41 [24:0];
+                            \a$next  = \$34 [24:0];
                         5'h07:
-                            \a$next  = \$44 [24:0];
+                            \a$next  = \$37 [24:0];
                         5'h08:
-                            \a$next  = \$47 [24:0];
+                            \a$next  = \$40 [24:0];
                         5'h09:
-                            \a$next  = \$50 [24:0];
+                            \a$next  = \$43 [24:0];
                         5'h??:
-                            \a$next  = \$53 [24:0];
+                            \a$next  = \$46 [24:0];
                       endcase
                   4'h1:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$56 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$49 )
                         5'h00:
-                            \a$next  = \$59 [24:0];
+                            \a$next  = \$52 [24:0];
                         5'h01:
-                            \a$next  = \$62 [24:0];
+                            \a$next  = \$55 [24:0];
                         5'h02:
-                            \a$next  = \$65 [24:0];
+                            \a$next  = \$58 [24:0];
                         5'h03:
-                            \a$next  = \$68 [24:0];
+                            \a$next  = \$61 [24:0];
                         5'h04:
-                            \a$next  = \$71 [24:0];
+                            \a$next  = \$64 [24:0];
                         5'h05:
-                            \a$next  = \$74 [24:0];
+                            \a$next  = \$67 [24:0];
                         5'h06:
-                            \a$next  = \$77 [24:0];
+                            \a$next  = \$70 [24:0];
                         5'h07:
-                            \a$next  = \$80 [24:0];
+                            \a$next  = \$73 [24:0];
                         5'h08:
-                            \a$next  = \$83 [24:0];
+                            \a$next  = \$76 [24:0];
                         5'h09:
-                            \a$next  = \$86 [24:0];
+                            \a$next  = \$79 [24:0];
                         5'h??:
-                            \a$next  = \$89 [24:0];
+                            \a$next  = \$82 [24:0];
                       endcase
                   4'h2:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$92 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$85 )
                         5'h00:
-                            \a$next  = \$95 [24:0];
+                            \a$next  = \$88 [24:0];
                         5'h01:
-                            \a$next  = \$98 [24:0];
+                            \a$next  = \$91 [24:0];
                         5'h02:
-                            \a$next  = \$101 [24:0];
+                            \a$next  = \$94 [24:0];
                         5'h03:
-                            \a$next  = \$104 [24:0];
+                            \a$next  = \$97 [24:0];
                         5'h04:
-                            \a$next  = \$107 [24:0];
+                            \a$next  = \$100 [24:0];
                         5'h05:
-                            \a$next  = \$110 [24:0];
+                            \a$next  = \$103 [24:0];
                         5'h06:
-                            \a$next  = \$113 [24:0];
+                            \a$next  = \$106 [24:0];
                         5'h07:
-                            \a$next  = \$116 [24:0];
+                            \a$next  = \$109 [24:0];
                         5'h08:
-                            \a$next  = \$119 [24:0];
+                            \a$next  = \$112 [24:0];
                         5'h09:
-                            \a$next  = \$122 [24:0];
+                            \a$next  = \$115 [24:0];
                         5'h??:
-                            \a$next  = \$125 [24:0];
+                            \a$next  = \$118 [24:0];
                       endcase
                   4'h3:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$128 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$121 )
                         5'h00:
-                            \a$next  = \$131 [24:0];
+                            \a$next  = \$124 [24:0];
                         5'h01:
-                            \a$next  = \$134 [24:0];
+                            \a$next  = \$127 [24:0];
                         5'h02:
-                            \a$next  = \$137 [24:0];
+                            \a$next  = \$130 [24:0];
                         5'h03:
-                            \a$next  = \$140 [24:0];
+                            \a$next  = \$133 [24:0];
                         5'h04:
-                            \a$next  = \$143 [24:0];
+                            \a$next  = \$136 [24:0];
                         5'h05:
-                            \a$next  = \$146 [24:0];
+                            \a$next  = \$139 [24:0];
                         5'h06:
-                            \a$next  = \$149 [24:0];
+                            \a$next  = \$142 [24:0];
                         5'h07:
-                            \a$next  = \$152 [24:0];
+                            \a$next  = \$145 [24:0];
                         5'h08:
-                            \a$next  = \$155 [24:0];
+                            \a$next  = \$148 [24:0];
                         5'h09:
-                            \a$next  = \$158 [24:0];
+                            \a$next  = \$151 [24:0];
                         5'h??:
-                            \a$next  = \$161 [24:0];
+                            \a$next  = \$154 [24:0];
                       endcase
                   4'h4:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$164 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$157 )
                         5'h00:
-                            \a$next  = \$167 [24:0];
+                            \a$next  = \$160 [24:0];
                         5'h01:
-                            \a$next  = \$170 [24:0];
+                            \a$next  = \$163 [24:0];
                         5'h02:
-                            \a$next  = \$173 [24:0];
+                            \a$next  = \$166 [24:0];
                         5'h03:
-                            \a$next  = \$176 [24:0];
+                            \a$next  = \$169 [24:0];
                         5'h04:
-                            \a$next  = \$179 [24:0];
+                            \a$next  = \$172 [24:0];
                         5'h05:
-                            \a$next  = \$182 [24:0];
+                            \a$next  = \$175 [24:0];
                         5'h06:
-                            \a$next  = \$185 [24:0];
+                            \a$next  = \$178 [24:0];
                         5'h07:
-                            \a$next  = \$188 [24:0];
+                            \a$next  = \$181 [24:0];
                         5'h08:
-                            \a$next  = \$191 [24:0];
+                            \a$next  = \$184 [24:0];
                         5'h09:
-                            \a$next  = \$194 [24:0];
+                            \a$next  = \$187 [24:0];
                         5'h??:
-                            \a$next  = \$197 [24:0];
+                            \a$next  = \$190 [24:0];
                       endcase
                   4'h5:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$200 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$193 )
                         5'h00:
-                            \a$next  = \$203 [24:0];
+                            \a$next  = \$196 [24:0];
                         5'h01:
-                            \a$next  = \$206 [24:0];
+                            \a$next  = \$199 [24:0];
                         5'h02:
-                            \a$next  = \$209 [24:0];
+                            \a$next  = \$202 [24:0];
                         5'h03:
-                            \a$next  = \$212 [24:0];
+                            \a$next  = \$205 [24:0];
                         5'h04:
-                            \a$next  = \$215 [24:0];
+                            \a$next  = \$208 [24:0];
                         5'h05:
-                            \a$next  = \$218 [24:0];
+                            \a$next  = \$211 [24:0];
                         5'h06:
-                            \a$next  = \$221 [24:0];
+                            \a$next  = \$214 [24:0];
                         5'h07:
-                            \a$next  = \$224 [24:0];
+                            \a$next  = \$217 [24:0];
                         5'h08:
-                            \a$next  = \$227 [24:0];
+                            \a$next  = \$220 [24:0];
                         5'h09:
-                            \a$next  = \$230 [24:0];
+                            \a$next  = \$223 [24:0];
                         5'h??:
-                            \a$next  = \$233 [24:0];
+                            \a$next  = \$226 [24:0];
                       endcase
                   4'h6:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$236 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$229 )
                         5'h00:
-                            \a$next  = \$239 [24:0];
+                            \a$next  = \$232 [24:0];
                         5'h01:
-                            \a$next  = \$242 [24:0];
+                            \a$next  = \$235 [24:0];
                         5'h02:
-                            \a$next  = \$245 [24:0];
+                            \a$next  = \$238 [24:0];
                         5'h03:
-                            \a$next  = \$248 [24:0];
+                            \a$next  = \$241 [24:0];
                         5'h04:
-                            \a$next  = \$251 [24:0];
+                            \a$next  = \$244 [24:0];
                         5'h05:
-                            \a$next  = \$254 [24:0];
+                            \a$next  = \$247 [24:0];
                         5'h06:
-                            \a$next  = \$257 [24:0];
+                            \a$next  = \$250 [24:0];
                         5'h07:
-                            \a$next  = \$260 [24:0];
+                            \a$next  = \$253 [24:0];
                         5'h08:
-                            \a$next  = \$263 [24:0];
+                            \a$next  = \$256 [24:0];
                         5'h09:
-                            \a$next  = \$266 [24:0];
+                            \a$next  = \$259 [24:0];
                         5'h??:
-                            \a$next  = \$269 [24:0];
+                            \a$next  = \$262 [24:0];
                       endcase
                   4'h7:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$272 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$265 )
                         5'h00:
-                            \a$next  = \$275 [24:0];
+                            \a$next  = \$268 [24:0];
                         5'h01:
-                            \a$next  = \$278 [24:0];
+                            \a$next  = \$271 [24:0];
                         5'h02:
-                            \a$next  = \$281 [24:0];
+                            \a$next  = \$274 [24:0];
                         5'h03:
-                            \a$next  = \$284 [24:0];
+                            \a$next  = \$277 [24:0];
                         5'h04:
-                            \a$next  = \$287 [24:0];
+                            \a$next  = \$280 [24:0];
                         5'h05:
-                            \a$next  = \$290 [24:0];
+                            \a$next  = \$283 [24:0];
                         5'h06:
-                            \a$next  = \$293 [24:0];
+                            \a$next  = \$286 [24:0];
                         5'h07:
-                            \a$next  = \$296 [24:0];
+                            \a$next  = \$289 [24:0];
                         5'h08:
-                            \a$next  = \$299 [24:0];
+                            \a$next  = \$292 [24:0];
                         5'h09:
-                            \a$next  = \$302 [24:0];
+                            \a$next  = \$295 [24:0];
                         5'h??:
-                            \a$next  = \$305 [24:0];
+                            \a$next  = \$298 [24:0];
                       endcase
                   4'h8:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$308 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$301 )
                         5'h00:
-                            \a$next  = \$311 [24:0];
+                            \a$next  = \$304 [24:0];
                         5'h01:
-                            \a$next  = \$314 [24:0];
+                            \a$next  = \$307 [24:0];
                         5'h02:
-                            \a$next  = \$317 [24:0];
+                            \a$next  = \$310 [24:0];
                         5'h03:
-                            \a$next  = \$320 [24:0];
+                            \a$next  = \$313 [24:0];
                         5'h04:
-                            \a$next  = \$323 [24:0];
+                            \a$next  = \$316 [24:0];
                         5'h05:
-                            \a$next  = \$326 [24:0];
+                            \a$next  = \$319 [24:0];
                         5'h06:
-                            \a$next  = \$329 [24:0];
+                            \a$next  = \$322 [24:0];
                         5'h07:
-                            \a$next  = \$332 [24:0];
+                            \a$next  = \$325 [24:0];
                         5'h08:
-                            \a$next  = \$335 [24:0];
+                            \a$next  = \$328 [24:0];
                         5'h09:
-                            \a$next  = \$338 [24:0];
+                            \a$next  = \$331 [24:0];
                         5'h??:
-                            \a$next  = \$341 [24:0];
+                            \a$next  = \$334 [24:0];
                       endcase
                   4'h9:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$344 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$337 )
                         5'h00:
-                            \a$next  = \$347 [24:0];
+                            \a$next  = \$340 [24:0];
                         5'h01:
-                            \a$next  = \$350 [24:0];
+                            \a$next  = \$343 [24:0];
                         5'h02:
-                            \a$next  = \$353 [24:0];
+                            \a$next  = \$346 [24:0];
                         5'h03:
-                            \a$next  = \$356 [24:0];
+                            \a$next  = \$349 [24:0];
                         5'h04:
-                            \a$next  = \$359 [24:0];
+                            \a$next  = \$352 [24:0];
                         5'h05:
-                            \a$next  = \$362 [24:0];
+                            \a$next  = \$355 [24:0];
                         5'h06:
-                            \a$next  = \$365 [24:0];
+                            \a$next  = \$358 [24:0];
                         5'h07:
-                            \a$next  = \$368 [24:0];
+                            \a$next  = \$361 [24:0];
                         5'h08:
-                            \a$next  = \$371 [24:0];
+                            \a$next  = \$364 [24:0];
                         5'h09:
-                            \a$next  = \$374 [24:0];
+                            \a$next  = \$367 [24:0];
                         5'h??:
-                            \a$next  = \$377 [24:0];
+                            \a$next  = \$370 [24:0];
                       endcase
                   4'h?:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$380 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$373 )
                         5'h00:
-                            \a$next  = \$383 [24:0];
+                            \a$next  = \$376 [24:0];
                         5'h01:
-                            \a$next  = \$386 [24:0];
+                            \a$next  = \$379 [24:0];
                         5'h02:
-                            \a$next  = \$389 [24:0];
+                            \a$next  = \$382 [24:0];
                         5'h03:
-                            \a$next  = \$392 [24:0];
+                            \a$next  = \$385 [24:0];
                         5'h04:
-                            \a$next  = \$395 [24:0];
+                            \a$next  = \$388 [24:0];
                         5'h05:
-                            \a$next  = \$398 [24:0];
+                            \a$next  = \$391 [24:0];
                         5'h06:
-                            \a$next  = \$401 [24:0];
+                            \a$next  = \$394 [24:0];
                         5'h07:
-                            \a$next  = \$404 [24:0];
+                            \a$next  = \$397 [24:0];
                         5'h08:
-                            \a$next  = \$407 [24:0];
+                            \a$next  = \$400 [24:0];
                         5'h09:
-                            \a$next  = \$410 [24:0];
+                            \a$next  = \$403 [24:0];
                         5'h??:
-                            \a$next  = \$413 [24:0];
+                            \a$next  = \$406 [24:0];
                       endcase
                 endcase
           endcase
@@ -4110,27 +4064,191 @@ module hb1(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
+    \x4$next  = x4;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x4$next  = x3;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x4$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
+    \x5$next  = x5;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x5$next  = x4;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x5$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
+    \x6$next  = x6;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x6$next  = x5;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x6$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
+    \x7$next  = x7;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x7$next  = x6;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x7$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
+    \x8$next  = x8;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x8$next  = x7;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x8$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
+    \x9$next  = x9;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x9$next  = x8;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x9$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
+    \x10$next  = x10;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x10$next  = x9;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x10$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
+    \decimate_counter$next  = decimate_counter;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          (* full_case = 32'd1 *)
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:113" *)
+          casez (\$438 )
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:113" */
+            1'h1:
+                \decimate_counter$next  = \$441 [0];
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:115" */
+            default:
+                \decimate_counter$next  = 1'h0;
+          endcase
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \decimate_counter$next  = 1'h0;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
+    \strobe_out$next  = strobe_out;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          (* full_case = 32'd1 *)
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:113" *)
+          casez (\$443 )
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:113" */
+            1'h1:
+                /* empty */;
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:115" */
+            default:
+                \strobe_out$next  = 1'h1;
+          endcase
+    endcase
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:119" *)
+    casez (strobe_out)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:119" */
+      1'h1:
+          \strobe_out$next  = 1'h0;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \strobe_out$next  = 1'h0;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
     \b$next  = b;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:80" *)
     casez (fsm_state)
       /* \amaranth.decoding  = "IDLE/0" */
       /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:81" */
       2'h0:
-          /* empty */;
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:89" */
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" *)
+          casez (strobe_in)
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" */
+            1'h1:
+                \b$next  = 24'h1837e4;
+          endcase
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:91" */
       2'h1:
           (* full_case = 32'd1 *)
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *)
-          casez (\$415 )
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" */
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *)
+          casez (\$408 )
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" */
             1'h1:
                 /* empty */;
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" */
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" */
             default:
                 (* full_case = 32'd1 *)
-                (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+                (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
                 casez (ix)
                   4'h0:
                       \b$next  = 24'h1837e4;
@@ -4164,27 +4282,81 @@ module hb1(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
+    \madd$next  = madd;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:80" *)
+    casez (fsm_state)
+      /* \amaranth.decoding  = "IDLE/0" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:81" */
+      2'h0:
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" *)
+          casez (strobe_in)
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" */
+            1'h1:
+                \madd$next  = 25'h0000000;
+          endcase
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:91" */
+      2'h1:
+          \madd$next  = \$427 [24:0];
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \madd$next  = 25'h0000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
+    \fsm_state$next  = fsm_state;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:80" *)
+    casez (fsm_state)
+      /* \amaranth.decoding  = "IDLE/0" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:81" */
+      2'h0:
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" *)
+          casez (strobe_in)
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" */
+            1'h1:
+                \fsm_state$next  = 2'h1;
+          endcase
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:91" */
+      2'h1:
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *)
+          casez (\$429 )
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" */
+            1'h1:
+                \fsm_state$next  = 2'h2;
+          endcase
+      /* \amaranth.decoding  = "OUTPUT/2" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:102" */
+      2'h2:
+          \fsm_state$next  = 2'h0;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \fsm_state$next  = 2'h0;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
     \signal_out$next  = signal_out;
-    (* full_case = 32'd1 *)
     (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:80" *)
     casez (fsm_state)
       /* \amaranth.decoding  = "IDLE/0" */
       /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:81" */
       2'h0:
           /* empty */;
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:89" */
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:91" */
       2'h1:
           /* empty */;
-      /* \amaranth.decoding  = "MAC/3" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:99" */
-      2'h3:
-          /* empty */;
       /* \amaranth.decoding  = "OUTPUT/2" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:106" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:102" */
       2'h2:
-          \signal_out$next  = madd;
+          \signal_out$next  = \$434 [23:0];
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
@@ -4193,13 +4365,13 @@ module hb1(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
     \x0$next  = x0;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
     casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
       1'h1:
-          \x0$next  = \$429 ;
+          \x0$next  = \$436 ;
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
@@ -4208,11 +4380,11 @@ module hb1(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
     \x1$next  = x1;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
     casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
       1'h1:
           \x1$next  = x0;
     endcase
@@ -4223,11 +4395,11 @@ module hb1(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
     \x2$next  = x2;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
     casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
       1'h1:
           \x2$next  = x1;
     endcase
@@ -4238,11 +4410,11 @@ module hb1(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$134 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$142 ) begin end
     \x3$next  = x3;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
     casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
       1'h1:
           \x3$next  = x2;
     endcase
@@ -4252,1755 +4424,1764 @@ module hb1(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
           \x3$next  = 48'h000000000000;
     endcase
   end
-  assign \$1  = \$2 ;
-  assign \$4  = \$5 ;
-  assign \$7  = \$12 ;
-  assign \$22  = \$23 ;
-  assign \$25  = \$26 ;
-  assign \$28  = \$29 ;
-  assign \$31  = \$32 ;
-  assign \$34  = \$35 ;
-  assign \$37  = \$38 ;
-  assign \$40  = \$41 ;
-  assign \$43  = \$44 ;
-  assign \$46  = \$47 ;
-  assign \$49  = \$50 ;
-  assign \$52  = \$53 ;
-  assign \$58  = \$59 ;
-  assign \$61  = \$62 ;
-  assign \$64  = \$65 ;
-  assign \$67  = \$68 ;
-  assign \$70  = \$71 ;
-  assign \$73  = \$74 ;
-  assign \$76  = \$77 ;
-  assign \$79  = \$80 ;
-  assign \$82  = \$83 ;
-  assign \$85  = \$86 ;
-  assign \$88  = \$89 ;
-  assign \$94  = \$95 ;
-  assign \$97  = \$98 ;
-  assign \$100  = \$101 ;
-  assign \$103  = \$104 ;
-  assign \$106  = \$107 ;
-  assign \$109  = \$110 ;
-  assign \$112  = \$113 ;
-  assign \$115  = \$116 ;
-  assign \$118  = \$119 ;
-  assign \$121  = \$122 ;
-  assign \$124  = \$125 ;
-  assign \$130  = \$131 ;
-  assign \$133  = \$134 ;
-  assign \$136  = \$137 ;
-  assign \$139  = \$140 ;
-  assign \$142  = \$143 ;
-  assign \$145  = \$146 ;
-  assign \$148  = \$149 ;
-  assign \$151  = \$152 ;
-  assign \$154  = \$155 ;
-  assign \$157  = \$158 ;
-  assign \$160  = \$161 ;
-  assign \$166  = \$167 ;
-  assign \$169  = \$170 ;
-  assign \$172  = \$173 ;
-  assign \$175  = \$176 ;
-  assign \$178  = \$179 ;
-  assign \$181  = \$182 ;
-  assign \$184  = \$185 ;
-  assign \$187  = \$188 ;
-  assign \$190  = \$191 ;
-  assign \$193  = \$194 ;
-  assign \$196  = \$197 ;
-  assign \$202  = \$203 ;
-  assign \$205  = \$206 ;
-  assign \$208  = \$209 ;
-  assign \$211  = \$212 ;
-  assign \$214  = \$215 ;
-  assign \$217  = \$218 ;
-  assign \$220  = \$221 ;
-  assign \$223  = \$224 ;
-  assign \$226  = \$227 ;
-  assign \$229  = \$230 ;
-  assign \$232  = \$233 ;
-  assign \$238  = \$239 ;
-  assign \$241  = \$242 ;
-  assign \$244  = \$245 ;
-  assign \$247  = \$248 ;
-  assign \$250  = \$251 ;
-  assign \$253  = \$254 ;
-  assign \$256  = \$257 ;
-  assign \$259  = \$260 ;
-  assign \$262  = \$263 ;
-  assign \$265  = \$266 ;
-  assign \$268  = \$269 ;
-  assign \$274  = \$275 ;
-  assign \$277  = \$278 ;
-  assign \$280  = \$281 ;
-  assign \$283  = \$284 ;
-  assign \$286  = \$287 ;
-  assign \$289  = \$290 ;
-  assign \$292  = \$293 ;
-  assign \$295  = \$296 ;
-  assign \$298  = \$299 ;
-  assign \$301  = \$302 ;
-  assign \$304  = \$305 ;
-  assign \$310  = \$311 ;
-  assign \$313  = \$314 ;
-  assign \$316  = \$317 ;
-  assign \$319  = \$320 ;
-  assign \$322  = \$323 ;
-  assign \$325  = \$326 ;
-  assign \$328  = \$329 ;
-  assign \$331  = \$332 ;
-  assign \$334  = \$335 ;
-  assign \$337  = \$338 ;
-  assign \$340  = \$341 ;
-  assign \$346  = \$347 ;
-  assign \$349  = \$350 ;
-  assign \$352  = \$353 ;
-  assign \$355  = \$356 ;
-  assign \$358  = \$359 ;
-  assign \$361  = \$362 ;
-  assign \$364  = \$365 ;
-  assign \$367  = \$368 ;
-  assign \$370  = \$371 ;
-  assign \$373  = \$374 ;
-  assign \$376  = \$377 ;
-  assign \$382  = \$383 ;
-  assign \$385  = \$386 ;
-  assign \$388  = \$389 ;
-  assign \$391  = \$392 ;
-  assign \$394  = \$395 ;
-  assign \$397  = \$398 ;
-  assign \$400  = \$401 ;
-  assign \$403  = \$404 ;
-  assign \$406  = \$407 ;
-  assign \$409  = \$410 ;
-  assign \$412  = \$413 ;
-  assign \$418  = 48'h0000001837e4;
-  assign \$419  = 48'h000000000215;
-  assign \$420  = 48'hffffffe6267a;
-  assign \$421  = 48'hfffffffffeb7;
-  assign \$422  = 48'h00000051006e;
-  assign \$423  = 48'h0000007ffa92;
-  assign \$424  = 48'h00000051006e;
-  assign \$425  = 48'hfffffffffeb7;
-  assign \$426  = 48'hffffffe6267a;
-  assign \$427  = 48'h000000000215;
-  assign \$428  = 48'h0000001837e4;
-  assign \$433  = \$434 ;
-  assign \$5  = { x5[47], x5[47:1] };
-  assign \$10  = { \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48:24] };
-  assign \$20  = 5'h0a;
-  assign \$56  = 5'h09;
-  assign \$92  = 5'h08;
-  assign \$128  = 5'h07;
-  assign \$164  = 5'h06;
-  assign \$200  = 5'h05;
-  assign \$236  = 5'h04;
-  assign \$272  = 5'h03;
-  assign \$308  = 5'h02;
-  assign \$344  = 5'h01;
-  assign \$380  = 5'h00;
+  assign \$3  = \$4 ;
+  assign \$6  = \$7 ;
+  assign \$15  = \$16 ;
+  assign \$18  = \$19 ;
+  assign \$21  = \$22 ;
+  assign \$24  = \$25 ;
+  assign \$27  = \$28 ;
+  assign \$30  = \$31 ;
+  assign \$33  = \$34 ;
+  assign \$36  = \$37 ;
+  assign \$39  = \$40 ;
+  assign \$42  = \$43 ;
+  assign \$45  = \$46 ;
+  assign \$51  = \$52 ;
+  assign \$54  = \$55 ;
+  assign \$57  = \$58 ;
+  assign \$60  = \$61 ;
+  assign \$63  = \$64 ;
+  assign \$66  = \$67 ;
+  assign \$69  = \$70 ;
+  assign \$72  = \$73 ;
+  assign \$75  = \$76 ;
+  assign \$78  = \$79 ;
+  assign \$81  = \$82 ;
+  assign \$87  = \$88 ;
+  assign \$90  = \$91 ;
+  assign \$93  = \$94 ;
+  assign \$96  = \$97 ;
+  assign \$99  = \$100 ;
+  assign \$102  = \$103 ;
+  assign \$105  = \$106 ;
+  assign \$108  = \$109 ;
+  assign \$111  = \$112 ;
+  assign \$114  = \$115 ;
+  assign \$117  = \$118 ;
+  assign \$123  = \$124 ;
+  assign \$126  = \$127 ;
+  assign \$129  = \$130 ;
+  assign \$132  = \$133 ;
+  assign \$135  = \$136 ;
+  assign \$138  = \$139 ;
+  assign \$141  = \$142 ;
+  assign \$144  = \$145 ;
+  assign \$147  = \$148 ;
+  assign \$150  = \$151 ;
+  assign \$153  = \$154 ;
+  assign \$159  = \$160 ;
+  assign \$162  = \$163 ;
+  assign \$165  = \$166 ;
+  assign \$168  = \$169 ;
+  assign \$171  = \$172 ;
+  assign \$174  = \$175 ;
+  assign \$177  = \$178 ;
+  assign \$180  = \$181 ;
+  assign \$183  = \$184 ;
+  assign \$186  = \$187 ;
+  assign \$189  = \$190 ;
+  assign \$195  = \$196 ;
+  assign \$198  = \$199 ;
+  assign \$201  = \$202 ;
+  assign \$204  = \$205 ;
+  assign \$207  = \$208 ;
+  assign \$210  = \$211 ;
+  assign \$213  = \$214 ;
+  assign \$216  = \$217 ;
+  assign \$219  = \$220 ;
+  assign \$222  = \$223 ;
+  assign \$225  = \$226 ;
+  assign \$231  = \$232 ;
+  assign \$234  = \$235 ;
+  assign \$237  = \$238 ;
+  assign \$240  = \$241 ;
+  assign \$243  = \$244 ;
+  assign \$246  = \$247 ;
+  assign \$249  = \$250 ;
+  assign \$252  = \$253 ;
+  assign \$255  = \$256 ;
+  assign \$258  = \$259 ;
+  assign \$261  = \$262 ;
+  assign \$267  = \$268 ;
+  assign \$270  = \$271 ;
+  assign \$273  = \$274 ;
+  assign \$276  = \$277 ;
+  assign \$279  = \$280 ;
+  assign \$282  = \$283 ;
+  assign \$285  = \$286 ;
+  assign \$288  = \$289 ;
+  assign \$291  = \$292 ;
+  assign \$294  = \$295 ;
+  assign \$297  = \$298 ;
+  assign \$303  = \$304 ;
+  assign \$306  = \$307 ;
+  assign \$309  = \$310 ;
+  assign \$312  = \$313 ;
+  assign \$315  = \$316 ;
+  assign \$318  = \$319 ;
+  assign \$321  = \$322 ;
+  assign \$324  = \$325 ;
+  assign \$327  = \$328 ;
+  assign \$330  = \$331 ;
+  assign \$333  = \$334 ;
+  assign \$339  = \$340 ;
+  assign \$342  = \$343 ;
+  assign \$345  = \$346 ;
+  assign \$348  = \$349 ;
+  assign \$351  = \$352 ;
+  assign \$354  = \$355 ;
+  assign \$357  = \$358 ;
+  assign \$360  = \$361 ;
+  assign \$363  = \$364 ;
+  assign \$366  = \$367 ;
+  assign \$369  = \$370 ;
+  assign \$375  = \$376 ;
+  assign \$378  = \$379 ;
+  assign \$381  = \$382 ;
+  assign \$384  = \$385 ;
+  assign \$387  = \$388 ;
+  assign \$390  = \$391 ;
+  assign \$393  = \$394 ;
+  assign \$396  = \$397 ;
+  assign \$399  = \$400 ;
+  assign \$402  = \$403 ;
+  assign \$405  = \$406 ;
+  assign \$411  = 48'h0000001837e4;
+  assign \$412  = 48'h000000000215;
+  assign \$413  = 48'hffffffe6267a;
+  assign \$414  = 48'hfffffffffeb7;
+  assign \$415  = 48'h00000051006e;
+  assign \$416  = 48'h0000007ffa92;
+  assign \$417  = 48'h00000051006e;
+  assign \$418  = 48'hfffffffffeb7;
+  assign \$419  = 48'hffffffe6267a;
+  assign \$420  = 48'h000000000215;
+  assign \$421  = 48'h0000001837e4;
+  assign \$422  = \$427 ;
+  assign \$431  = \$434 ;
+  assign \$440  = \$441 ;
+  assign \$13  = 5'h0a;
+  assign \$49  = 5'h09;
+  assign \$85  = 5'h08;
+  assign \$121  = 5'h07;
+  assign \$157  = 5'h06;
+  assign \$193  = 5'h05;
+  assign \$229  = 5'h04;
+  assign \$265  = 5'h03;
+  assign \$301  = 5'h02;
+  assign \$337  = 5'h01;
+  assign \$373  = 5'h00;
+  assign \$425  = { \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48], \$423 [48:24] };
+  assign \$432  = { x5[47], x5[47:1] };
 endmodule
 
 (* \amaranth.hierarchy  = "PDM2PCM.hb2" *)
 (* generator = "Amaranth" *)
 module hb2(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
-  reg \$auto$verilog_backend.cc:2082:dump_module$135  = 0;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:102" *)
-  wire [5:0] \$1 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:101" *)
-  wire [48:0] \$10 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  reg \$auto$verilog_backend.cc:2082:dump_module$143  = 0;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *)
+  wire \$1 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$100 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1000 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1001 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1002 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1003 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1004 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1005 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1006 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1007 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1008 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1009 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$101 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1010 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1011 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1012 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1013 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1014 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1015 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1016 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1017 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1018 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1019 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$102 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1020 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1021 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1022 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1023 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1024 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1025 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1026 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1027 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1028 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1029 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$103 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1030 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1031 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1033 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1034 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1032 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$1033 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1035 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1036 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1037 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1038 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1039 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$104 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$1040 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1041 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1042 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1043 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1044 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1045 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1046 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1047 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1048 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1049 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$105 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1050 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1051 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1052 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1053 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1054 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1055 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1056 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1057 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1058 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1059 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$106 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1060 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1061 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1062 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1063 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1064 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1065 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1066 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1067 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1068 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1069 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$107 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1070 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1071 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1072 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1073 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1074 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1075 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1076 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1077 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1078 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1079 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$108 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1080 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1081 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1082 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1083 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1084 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1085 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1086 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1087 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1088 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1089 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$109 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1090 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1091 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1093 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1094 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1092 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$1093 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1095 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1096 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1097 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1098 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1099 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$110 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$1100 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$11 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1101 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1102 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1103 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1104 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1105 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1106 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1107 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1108 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1109 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$111 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1110 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1111 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1112 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1113 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1114 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1115 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1116 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1117 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1118 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1119 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$112 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1120 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1121 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1122 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1123 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1124 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1125 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1126 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1127 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1128 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1129 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$113 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1130 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1131 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1132 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1133 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1134 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1135 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1136 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1137 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1138 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1139 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$114 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1140 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1141 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1142 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1143 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1144 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1145 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1146 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1147 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1148 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$1149 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$115 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$1150 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1151 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1153 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1154 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1156 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$1157 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *)
-  wire \$1159 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$116 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *)
+  wire \$1152 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
+  wire [47:0] \$1154 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
+  wire [47:0] \$1155 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
+  wire [47:0] \$1156 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
+  wire [47:0] \$1157 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
+  wire [47:0] \$1158 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
+  wire [47:0] \$1159 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
+  wire [47:0] \$1160 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$1161 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$1162 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$1163 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$1164 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$1165 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$1166 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$1167 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$1168 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$1169 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$117 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$1170 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$1171 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$1172 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
   wire [47:0] \$1173 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
-  wire [47:0] \$1174 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
-  wire [47:0] \$1175 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
-  wire [47:0] \$1176 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
-  wire [47:0] \$1177 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
-  wire [47:0] \$1178 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
-  wire [47:0] \$1179 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" *)
+  wire [49:0] \$1174 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" *)
+  wire [48:0] \$1175 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" *)
+  wire [48:0] \$1177 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" *)
+  wire [49:0] \$1179 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$118 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
-  wire [47:0] \$1180 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *)
+  wire \$1181 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:103" *)
+  wire [48:0] \$1183 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:103" *)
+  wire [47:0] \$1184 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:103" *)
+  wire [48:0] \$1186 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:23" *)
-  wire [47:0] \$1181 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:117" *)
-  wire \$1183 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:118" *)
-  wire [1:0] \$1185 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:118" *)
-  wire [1:0] \$1186 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:117" *)
-  wire \$1188 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$119 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:101" *)
-  wire [49:0] \$12 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  wire [47:0] \$1188 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:113" *)
+  wire \$1190 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
+  wire [1:0] \$1192 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
+  wire [1:0] \$1193 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:113" *)
+  wire \$1195 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$12 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$120 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$121 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$122 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$123 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$124 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$125 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$126 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$127 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$128 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$129 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$13 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$130 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$131 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$133 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$134 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$132 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$133 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$135 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$136 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$137 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$138 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$139 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *)
-  wire \$14 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$140 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$141 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$142 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$143 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$144 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$145 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$146 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$147 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$148 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$149 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$15 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$150 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$151 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$152 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$153 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$154 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$155 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$156 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$157 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$158 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *)
-  wire \$16 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$159 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$16 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$160 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$161 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$162 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$163 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$164 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$165 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$166 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$167 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$168 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$169 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$170 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$171 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$172 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$173 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$174 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$175 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$176 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$177 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$178 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$179 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$18 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$180 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$181 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$182 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$183 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$184 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$185 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$186 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$187 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$188 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$189 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$19 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$190 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$191 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$193 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$194 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$192 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$193 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$195 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$196 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$197 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$198 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$199 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:102" *)
-  wire [5:0] \$2 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$20 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$200 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$201 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$202 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$203 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$204 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$205 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$206 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$207 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$208 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$209 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$21 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$210 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$211 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$212 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$213 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$214 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$215 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$216 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$217 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$218 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$219 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$22 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$220 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$221 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$222 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$223 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$224 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$225 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$226 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$227 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$228 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$229 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$23 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$230 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$231 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$232 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$233 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$234 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$235 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$236 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$237 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$238 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$239 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$24 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$240 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$241 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$242 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$243 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$244 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$245 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$246 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$247 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$248 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$249 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$25 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$250 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$251 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$253 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$254 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$252 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$253 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$255 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$256 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$257 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$258 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$259 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$26 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$260 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$261 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$262 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$263 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$264 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$265 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$266 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$267 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$268 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$269 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$27 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$270 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$271 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$272 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$273 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$274 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$275 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$276 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$277 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$278 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$279 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$28 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$280 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$281 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$282 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$283 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$284 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$285 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$286 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$287 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$288 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$289 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$29 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$290 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$291 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$292 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$293 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$294 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$295 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$296 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$297 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$298 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$299 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:99" *)
+  wire [5:0] \$3 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$30 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$300 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$301 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$302 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$303 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$304 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$305 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$306 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$307 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$308 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$309 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$31 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$310 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$311 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$313 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$314 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$312 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$313 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$315 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$316 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$317 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$318 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$319 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$32 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$320 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$321 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$322 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$323 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$324 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$325 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$326 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$327 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$328 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$329 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$33 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$330 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$331 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$332 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$333 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$334 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$335 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$336 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$337 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$338 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$339 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$34 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$340 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$341 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$342 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$343 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$344 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$345 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$346 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$347 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$348 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$349 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$35 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$350 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$351 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$352 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$353 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$354 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$355 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$356 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$357 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$358 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$359 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$36 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$360 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$361 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$362 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$363 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$364 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$365 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$366 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$367 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$368 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$369 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$37 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$370 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$371 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$373 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$374 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$372 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$373 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$375 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$376 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$377 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$378 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$379 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$38 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$380 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$381 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$382 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$383 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$384 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$385 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$386 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$387 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$388 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$389 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$39 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$390 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$391 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$392 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$393 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$394 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$395 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$396 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$397 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$398 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:85" *)
-  wire [47:0] \$4 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$399 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:99" *)
+  wire [5:0] \$4 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$40 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$400 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$401 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$402 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$403 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$404 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$405 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$406 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$407 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$408 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$409 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$41 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$410 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$411 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$412 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$413 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$414 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$415 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$416 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$417 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$418 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$419 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$42 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$420 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$421 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$422 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$423 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$424 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$425 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$426 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$427 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$428 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$429 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$43 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$430 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$431 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$433 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$434 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$432 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$433 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$435 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$436 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$437 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$438 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$439 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$44 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$440 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$441 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$442 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$443 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$444 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$445 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$446 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$447 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$448 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$449 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$45 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$450 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$451 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$452 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$453 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$454 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$455 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$456 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$457 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$458 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$459 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$46 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$460 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$461 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$462 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$463 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$464 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$465 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$466 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$467 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$468 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$469 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$47 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$470 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$471 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$472 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$473 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$474 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$475 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$476 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$477 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$478 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$479 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$48 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$480 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$481 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$482 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$483 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$484 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$485 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$486 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$487 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$488 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$489 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$49 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$490 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$491 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$493 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$494 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$492 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$493 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$495 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$496 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$497 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$498 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$499 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:85" *)
-  wire [47:0] \$5 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$50 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$500 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$501 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$502 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$503 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$504 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$505 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$506 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$507 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$508 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$509 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$51 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$510 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$511 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$512 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$513 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$514 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$515 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$516 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$517 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$518 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$519 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$52 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$520 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$521 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$522 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$523 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$524 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$525 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$526 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$527 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$528 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$529 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$53 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$530 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$531 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$532 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$533 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$534 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$535 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$536 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$537 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$538 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$539 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$54 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$540 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$541 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$542 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$543 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$544 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$545 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$546 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$547 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$548 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$549 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$55 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$550 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$551 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$553 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$554 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$552 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$553 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$555 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$556 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$557 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$558 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$559 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$56 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$560 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$561 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$562 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$563 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$564 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$565 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$566 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$567 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$568 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$569 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$57 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$570 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$571 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$572 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$573 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$574 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$575 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$576 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$577 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$578 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$579 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$58 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$580 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$581 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$582 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$583 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$584 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$585 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$586 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$587 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$588 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$589 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$59 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$590 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$591 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$592 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$593 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$594 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$595 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$596 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$597 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$598 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$599 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:85" *)
+  wire [48:0] \$6 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$60 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$600 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$601 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$602 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$603 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$604 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$605 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$606 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$607 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$608 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$609 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$61 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$610 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$611 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$613 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$614 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$612 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$613 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$615 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$616 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$617 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$618 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$619 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$62 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$620 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$621 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$622 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$623 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$624 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$625 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$626 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$627 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$628 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$629 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$63 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$630 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$631 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$632 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$633 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$634 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$635 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$636 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$637 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$638 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$639 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$64 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$640 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$641 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$642 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$643 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$644 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$645 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$646 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$647 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$648 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$649 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$65 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$650 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$651 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$652 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$653 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$654 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$655 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$656 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$657 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$658 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$659 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$66 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$660 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$661 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$662 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$663 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$664 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$665 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$666 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$667 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$668 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$669 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$67 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$670 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$671 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$673 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$674 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$672 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$673 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$675 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$676 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$677 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$678 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$679 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$68 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$680 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$681 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$682 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$683 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$684 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$685 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$686 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$687 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$688 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$689 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$69 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$690 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$691 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$692 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$693 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$694 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$695 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$696 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$697 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$698 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:101" *)
-  wire [49:0] \$7 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$699 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:85" *)
+  wire [48:0] \$7 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$70 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$700 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$701 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$702 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$703 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$704 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$705 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$706 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$707 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$708 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$709 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$71 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$710 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$711 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$712 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$713 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$714 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$715 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$716 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$717 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$718 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$719 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$72 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$720 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$721 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$722 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$723 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$724 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$725 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$726 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$727 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$728 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$73 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$729 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$73 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$730 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$731 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$733 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$734 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$732 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$733 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$735 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$736 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$737 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$738 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$739 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$74 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$740 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$741 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$742 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$743 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$744 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$745 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$746 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$747 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$748 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$749 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$75 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$750 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$751 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$752 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$753 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$754 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$755 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$756 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$757 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$758 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$759 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$76 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$760 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$761 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$762 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$763 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$764 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$765 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$766 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$767 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$768 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$769 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$77 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$770 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$771 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$772 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$773 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$774 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$775 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$776 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$777 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$778 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$779 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$78 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$780 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$781 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$782 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$783 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$784 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$785 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$786 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$787 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$788 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$789 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$79 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$790 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$791 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$793 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$794 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$792 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$793 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$795 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$796 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$797 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$798 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$799 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:101" *)
-  wire [48:0] \$8 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$80 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$800 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$801 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$802 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$803 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$804 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$805 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$806 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$807 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$808 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$809 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$81 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$810 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$811 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$812 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$813 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$814 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$815 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$816 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$817 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$818 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$819 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$82 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$820 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$821 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$822 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$823 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$824 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$825 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$826 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$827 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$828 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$829 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$83 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$830 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$831 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$832 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$833 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$834 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$835 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$836 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$837 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$838 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$839 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$84 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$840 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$841 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$842 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$843 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$844 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$845 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$846 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$847 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$848 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$849 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$85 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$850 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$851 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$853 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$854 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$852 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$853 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$855 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$856 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$857 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$858 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$859 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$86 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$860 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$861 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$862 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$863 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$864 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$865 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$866 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$867 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$868 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$869 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$87 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$870 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$871 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$872 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$873 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$874 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$875 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$876 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$877 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$878 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$879 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$88 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$880 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$881 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$882 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$883 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$884 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$885 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$886 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$887 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$888 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$889 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$89 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$890 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$891 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$892 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$893 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$894 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$895 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$896 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$897 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$898 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$899 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *)
+  wire \$9 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$90 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$900 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$901 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$902 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$903 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$904 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$905 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$906 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$907 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$908 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$909 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$91 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$910 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$911 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$913 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$914 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$912 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$913 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$915 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$916 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$917 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$918 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$919 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$92 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$920 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$921 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$922 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$923 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$924 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$925 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$926 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$927 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$928 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$929 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$93 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$930 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$931 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$932 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$933 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$934 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$935 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$936 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$937 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$938 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$939 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$94 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$940 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$941 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$942 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$943 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$944 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$945 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$946 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$947 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$948 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$949 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$95 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$950 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$951 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$952 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$953 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$954 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$955 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$956 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$957 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$958 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$959 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$96 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$960 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$961 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$962 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$963 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$964 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$965 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$966 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$967 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$968 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$969 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$97 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$970 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$971 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$973 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$974 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$972 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [5:0] \$973 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$975 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$976 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$977 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$978 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$979 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$98 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [5:0] \$980 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$981 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$982 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$983 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$984 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$985 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$986 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$987 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$988 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$989 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$99 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$990 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$991 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$992 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$993 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$994 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$995 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$996 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
   wire [48:0] \$997 ;
-  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-  wire [48:0] \$998 ;
+  (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+  wire [48:0] \$999 ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:77" *)
   reg [24:0] a = 25'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:77" *)
@@ -6024,9 +6205,9 @@ module hb2(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
   (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:75" *)
   reg [4:0] \ix$next ;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:76" *)
-  reg [23:0] madd = 24'h000000;
+  reg [24:0] madd = 25'h0000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:76" *)
-  reg [23:0] \madd$next ;
+  reg [24:0] \madd$next ;
   (* src = "/home/git/amaranth/amaranth/hdl/ir.py:527" *)
   input rst;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:23" *)
@@ -6119,377 +6300,380 @@ module hb2(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
   reg [47:0] x9 = 48'h000000000000;
   (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:72" *)
   reg [47:0] \x9$next ;
-  assign \$1001  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$1004  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$1007  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$1010  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$1013  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$1016  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$101  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$1019  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$1022  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$1025  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$1028  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$1031  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$1034  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$1037  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$1043  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$1046  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$104  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$1049  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$1052  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$1055  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$1058  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$1061  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$1064  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$1067  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$1070  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$1073  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$1076  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$107  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$1079  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$1082  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$1085  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$1088  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$1091  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$1094  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$1097  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$1103  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$1106  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$110  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$1109  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$1112  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$1115  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$1118  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$1121  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$1124  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$1127  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$1130  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$1133  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$1136  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$113  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$1139  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$1142  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$1145  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$1148  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$1151  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$1154  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$1157  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$1159  = ix > (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *) 4'h9;
-  assign \$116  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$1181  = + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:23" *) $signed(signal_in);
-  assign \$1183  = decimate_counter < (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:117" *) 1'h1;
-  assign \$1186  = decimate_counter + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:118" *) 1'h1;
-  assign \$1188  = decimate_counter < (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:117" *) 1'h1;
-  assign \$119  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$122  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$125  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$128  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$12  = $signed(madd) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:101" *) $signed(\$10 );
-  assign \$131  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$134  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$137  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$143  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$146  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$14  = ix > (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *) 4'h9;
-  assign \$149  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$152  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$155  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$158  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$161  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$164  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$167  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$16  = ix > (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *) 4'h9;
-  assign \$170  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$173  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$176  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$179  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$182  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$185  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$188  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$191  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$194  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$197  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$203  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$206  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$209  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$212  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$215  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$218  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$221  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$224  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$227  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$230  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$233  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$236  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$23  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$239  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$242  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$245  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$248  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$251  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$254  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$257  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$263  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$266  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$26  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$269  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$272  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$275  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$278  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$281  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$284  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$287  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$290  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$293  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$296  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$2  = ix + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:102" *) 2'h2;
-  assign \$29  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$299  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$302  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$305  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$308  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$311  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$314  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$317  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$323  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$326  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$32  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$329  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$332  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$335  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$338  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$341  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$344  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$347  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$350  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$353  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$356  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$35  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$359  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$362  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$365  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$368  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$371  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$374  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$377  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$383  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$386  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$38  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$389  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$392  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$395  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$398  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$401  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$404  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$407  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$410  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$413  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$416  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$41  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$419  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$422  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$425  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$428  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$431  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$434  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$437  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$443  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$446  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$44  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$449  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$452  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$455  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$458  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$461  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$464  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$467  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$470  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$473  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$476  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$47  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$479  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$482  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$485  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$488  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$491  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$494  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$497  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$503  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$506  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$50  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$509  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$512  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$515  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$518  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$521  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$524  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$527  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$530  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$533  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$536  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$53  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$539  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$542  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$545  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$548  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$551  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$554  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$557  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$563  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$566  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$56  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$569  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$572  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$575  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$578  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$581  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$584  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$587  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$590  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$593  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$596  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$59  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$599  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$602  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$605  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$608  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$611  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$614  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$617  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$623  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$626  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$62  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$629  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$632  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$635  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$638  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$641  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$644  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$647  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$650  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$653  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$656  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$65  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$659  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$662  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$665  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$668  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$671  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$674  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$677  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$683  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$686  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$68  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$689  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$692  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$695  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$698  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$701  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$704  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$707  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$710  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$713  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$716  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$71  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$719  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$722  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$725  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$728  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$731  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$734  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$737  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$743  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$746  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$74  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$749  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$752  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$755  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$758  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$761  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$764  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$767  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$770  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$773  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$776  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$77  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$779  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$782  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$785  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$788  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$791  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$794  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$797  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$803  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$806  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$809  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$812  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$815  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$818  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$821  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$824  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$827  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$830  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$833  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$836  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$83  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$839  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$842  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$845  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$848  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$851  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$854  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$857  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$863  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$866  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$86  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$869  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$872  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$875  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$878  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$881  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$884  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$887  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$890  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$893  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$896  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$8  = $signed(a) * (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:101" *) $signed(b);
-  assign \$89  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$899  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$902  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$905  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$908  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$911  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$914  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$917  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$923  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$926  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$92  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$929  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$932  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$935  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$938  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$941  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x6);
-  assign \$944  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x7);
-  assign \$947  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x8);
-  assign \$950  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x9);
-  assign \$953  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x10);
-  assign \$956  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x11);
-  assign \$95  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$959  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x12);
-  assign \$962  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x13);
-  assign \$965  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x14);
-  assign \$968  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x15);
-  assign \$971  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x16);
-  assign \$974  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x17);
-  assign \$977  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x18);
-  assign \$983  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x0);
-  assign \$986  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x1);
-  assign \$98  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
-  assign \$989  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x2);
-  assign \$992  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x3);
-  assign \$995  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x4);
-  assign \$998  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *) $signed(x5);
+  assign \$9  = ix > (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *) 4'h9;
+  assign \$1000  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$1003  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$1006  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$100  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$1009  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$1012  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$1015  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$1018  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$1021  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$1024  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$1027  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$1030  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$1036  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$103  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$1039  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$1042  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$1045  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$1048  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$1051  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$1054  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$1057  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$1060  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$1063  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$1066  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$106  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$1069  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$1072  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$1075  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$1078  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$1081  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$1084  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$1087  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$1090  = $signed(x17) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$1096  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$109  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$1099  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$1102  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$1105  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$1108  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$1111  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$1114  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$1117  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$1120  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$1123  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$1126  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$112  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$1129  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$1132  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$1135  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$1138  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$1141  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$1144  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$1147  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$1150  = $signed(x18) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$1152  = ix > (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *) 4'h9;
+  assign \$115  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$1175  = $signed(a) * (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" *) $signed(b);
+  assign \$1179  = $signed(madd) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" *) $signed(\$1177 );
+  assign \$1181  = ix > (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *) 4'h9;
+  assign \$1186  = $signed(madd) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:103" *) $signed(\$1184 );
+  assign \$1188  = + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:23" *) $signed(signal_in);
+  assign \$118  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$1190  = decimate_counter < (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:113" *) 1'h1;
+  assign \$1193  = decimate_counter + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *) 1'h1;
+  assign \$1195  = decimate_counter < (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:113" *) 1'h1;
+  assign \$121  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$124  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$127  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$130  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$136  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$139  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$142  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$145  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$148  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$151  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$154  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$157  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$160  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$163  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$166  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$16  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$169  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$172  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$175  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$178  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$181  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$184  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$187  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$190  = $signed(x2) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$196  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$1  = ix > (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *) 4'h9;
+  assign \$19  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$199  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$202  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$205  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$208  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$211  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$214  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$217  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$220  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$223  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$226  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$22  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$229  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$232  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$235  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$238  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$241  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$244  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$247  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$250  = $signed(x3) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$256  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$25  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$259  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$262  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$265  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$268  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$271  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$274  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$277  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$280  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$283  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$286  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$28  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$289  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$292  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$295  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$298  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$301  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$304  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$307  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$310  = $signed(x4) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$316  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$31  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$319  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$322  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$325  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$328  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$331  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$334  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$337  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$340  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$343  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$346  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$34  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$349  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$352  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$355  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$358  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$361  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$364  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$367  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$370  = $signed(x5) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$376  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$37  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$379  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$382  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$385  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$388  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$391  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$394  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$397  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$400  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$403  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$406  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$40  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$409  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$412  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$415  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$418  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$421  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$424  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$427  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$430  = $signed(x6) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$436  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$43  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$439  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$442  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$445  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$448  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$451  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$454  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$457  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$460  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$463  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$466  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$46  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$469  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$472  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$475  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$478  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$481  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$484  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$487  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$490  = $signed(x7) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$496  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$4  = ix + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:99" *) 2'h2;
+  assign \$49  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$499  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$502  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$505  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$508  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$511  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$514  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$517  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$520  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$523  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$526  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$52  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$529  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$532  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$535  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$538  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$541  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$544  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$547  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$550  = $signed(x8) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$556  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$55  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$559  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$562  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$565  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$568  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$571  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$574  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$577  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$580  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$583  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$586  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$58  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$589  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$592  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$595  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$598  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$601  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$604  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$607  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$610  = $signed(x9) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$616  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$61  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$619  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$622  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$625  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$628  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$631  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$634  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$637  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$640  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$643  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$646  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$64  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$649  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$652  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$655  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$658  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$661  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$664  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$667  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$670  = $signed(x10) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$676  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$67  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$679  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$682  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$685  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$688  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$691  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$694  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$697  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$700  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$703  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$706  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$70  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$709  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$712  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$715  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$718  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$721  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$724  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$727  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$730  = $signed(x11) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$736  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$739  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$742  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$745  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$748  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$751  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$754  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$757  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$760  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$763  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$766  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$76  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$769  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$772  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$775  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$778  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$781  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$784  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$787  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$790  = $signed(x12) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$796  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$7  = $signed(x0) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:85" *) $signed(x18);
+  assign \$79  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$799  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$802  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$805  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$808  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$811  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$814  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$817  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$820  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$823  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$826  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$82  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$829  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$832  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$835  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$838  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$841  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$844  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$847  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$850  = $signed(x13) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$856  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$85  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$859  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$862  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$865  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$868  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$871  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$874  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$877  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$880  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$883  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$886  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$88  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$889  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$892  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$895  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$898  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$901  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$904  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$907  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$910  = $signed(x14) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$916  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$91  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$919  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$922  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$925  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$928  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$931  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$934  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$937  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$940  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x8);
+  assign \$943  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x9);
+  assign \$946  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x10);
+  assign \$94  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$949  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x11);
+  assign \$952  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x12);
+  assign \$955  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x13);
+  assign \$958  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x14);
+  assign \$961  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x15);
+  assign \$964  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x16);
+  assign \$967  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x17);
+  assign \$970  = $signed(x15) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x18);
+  assign \$976  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x0);
+  assign \$97  = $signed(x1) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
+  assign \$979  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x1);
+  assign \$982  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x2);
+  assign \$985  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x3);
+  assign \$988  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x4);
+  assign \$991  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x5);
+  assign \$994  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x6);
+  assign \$997  = $signed(x16) + (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *) $signed(x7);
   always @(posedge clk)
     strobe_out <= \strobe_out$next ;
   always @(posedge clk)
@@ -6535,17 +6719,17 @@ module hb2(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
   always @(posedge clk)
     signal_out <= \signal_out$next ;
   always @(posedge clk)
-    b <= \b$next ;
-  always @(posedge clk)
-    a <= \a$next ;
-  always @(posedge clk)
     fsm_state <= \fsm_state$next ;
   always @(posedge clk)
     madd <= \madd$next ;
   always @(posedge clk)
+    b <= \b$next ;
+  always @(posedge clk)
+    a <= \a$next ;
+  always @(posedge clk)
     ix <= \ix$next ;
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
     \ix$next  = ix;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:80" *)
     casez (fsm_state)
@@ -6556,16 +6740,21 @@ module hb2(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
           casez (strobe_in)
             /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" */
             1'h1:
-                \ix$next  = 5'h00;
+                \ix$next  = 5'h02;
           endcase
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:89" */
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:91" */
       2'h1:
-          /* empty */;
-      /* \amaranth.decoding  = "MAC/3" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:99" */
-      2'h3:
-          \ix$next  = \$2 [4:0];
+          (* full_case = 32'd1 *)
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *)
+          casez (\$1 )
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" */
+            1'h1:
+                /* empty */;
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" */
+            default:
+                \ix$next  = \$4 [4:0];
+          endcase
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
@@ -6574,1195 +6763,849 @@ module hb2(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \madd$next  = madd;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:80" *)
-    casez (fsm_state)
-      /* \amaranth.decoding  = "IDLE/0" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:81" */
-      2'h0:
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" *)
-          casez (strobe_in)
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" */
-            1'h1:
-                \madd$next  = \$5 [23:0];
-          endcase
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:89" */
-      2'h1:
-          /* empty */;
-      /* \amaranth.decoding  = "MAC/3" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:99" */
-      2'h3:
-          \madd$next  = \$12 [23:0];
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \madd$next  = 24'h000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \x4$next  = x4;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x4$next  = x3;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x4$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \x5$next  = x5;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x5$next  = x4;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x5$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \x6$next  = x6;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x6$next  = x5;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x6$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \x7$next  = x7;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x7$next  = x6;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x7$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \x8$next  = x8;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x8$next  = x7;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x8$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \x9$next  = x9;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x9$next  = x8;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x9$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \x10$next  = x10;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x10$next  = x9;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x10$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \x11$next  = x11;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x11$next  = x10;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x11$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \x12$next  = x12;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x12$next  = x11;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x12$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \x13$next  = x13;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x13$next  = x12;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x13$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \fsm_state$next  = fsm_state;
-    (* full_case = 32'd1 *)
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:80" *)
-    casez (fsm_state)
-      /* \amaranth.decoding  = "IDLE/0" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:81" */
-      2'h0:
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" *)
-          casez (strobe_in)
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" */
-            1'h1:
-                \fsm_state$next  = 2'h1;
-          endcase
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:89" */
-      2'h1:
-          (* full_case = 32'd1 *)
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *)
-          casez (\$14 )
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" */
-            1'h1:
-                \fsm_state$next  = 2'h2;
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" */
-            default:
-                \fsm_state$next  = 2'h3;
-          endcase
-      /* \amaranth.decoding  = "MAC/3" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:99" */
-      2'h3:
-          \fsm_state$next  = 2'h1;
-      /* \amaranth.decoding  = "OUTPUT/2" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:106" */
-      2'h2:
-          \fsm_state$next  = 2'h0;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \fsm_state$next  = 2'h0;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \x14$next  = x14;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x14$next  = x13;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x14$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \x15$next  = x15;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x15$next  = x14;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x15$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \x16$next  = x16;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x16$next  = x15;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x16$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \x17$next  = x17;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x17$next  = x16;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x17$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \x18$next  = x18;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          \x18$next  = x17;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \x18$next  = 48'h000000000000;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \decimate_counter$next  = decimate_counter;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          (* full_case = 32'd1 *)
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:117" *)
-          casez (\$1183 )
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:117" */
-            1'h1:
-                \decimate_counter$next  = \$1186 [0];
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:119" */
-            default:
-                \decimate_counter$next  = 1'h0;
-          endcase
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \decimate_counter$next  = 1'h0;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
-    \strobe_out$next  = strobe_out;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
-    casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
-      1'h1:
-          (* full_case = 32'd1 *)
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:117" *)
-          casez (\$1188 )
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:117" */
-            1'h1:
-                /* empty */;
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:119" */
-            default:
-                \strobe_out$next  = 1'h1;
-          endcase
-    endcase
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:123" *)
-    casez (strobe_out)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:123" */
-      1'h1:
-          \strobe_out$next  = 1'h0;
-    endcase
-    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
-    casez (rst)
-      1'h1:
-          \strobe_out$next  = 1'h0;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
     \a$next  = a;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:80" *)
     casez (fsm_state)
       /* \amaranth.decoding  = "IDLE/0" */
       /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:81" */
       2'h0:
-          /* empty */;
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:89" */
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" *)
+          casez (strobe_in)
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" */
+            1'h1:
+                \a$next  = \$7 [24:0];
+          endcase
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:91" */
       2'h1:
           (* full_case = 32'd1 *)
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *)
-          casez (\$16 )
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" */
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *)
+          casez (\$9 )
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" */
             1'h1:
                 /* empty */;
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" */
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" */
             default:
                 (* full_case = 32'd1 *)
-                (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
+                (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
                 casez (ix)
                   5'h00:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$20 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$13 )
                         6'h00:
-                            \a$next  = \$23 [24:0];
+                            \a$next  = \$16 [24:0];
                         6'h01:
-                            \a$next  = \$26 [24:0];
+                            \a$next  = \$19 [24:0];
                         6'h02:
-                            \a$next  = \$29 [24:0];
+                            \a$next  = \$22 [24:0];
                         6'h03:
-                            \a$next  = \$32 [24:0];
+                            \a$next  = \$25 [24:0];
                         6'h04:
-                            \a$next  = \$35 [24:0];
+                            \a$next  = \$28 [24:0];
                         6'h05:
-                            \a$next  = \$38 [24:0];
+                            \a$next  = \$31 [24:0];
                         6'h06:
-                            \a$next  = \$41 [24:0];
+                            \a$next  = \$34 [24:0];
                         6'h07:
-                            \a$next  = \$44 [24:0];
+                            \a$next  = \$37 [24:0];
                         6'h08:
-                            \a$next  = \$47 [24:0];
+                            \a$next  = \$40 [24:0];
                         6'h09:
-                            \a$next  = \$50 [24:0];
+                            \a$next  = \$43 [24:0];
                         6'h0a:
-                            \a$next  = \$53 [24:0];
+                            \a$next  = \$46 [24:0];
                         6'h0b:
-                            \a$next  = \$56 [24:0];
+                            \a$next  = \$49 [24:0];
                         6'h0c:
-                            \a$next  = \$59 [24:0];
+                            \a$next  = \$52 [24:0];
                         6'h0d:
-                            \a$next  = \$62 [24:0];
+                            \a$next  = \$55 [24:0];
                         6'h0e:
-                            \a$next  = \$65 [24:0];
+                            \a$next  = \$58 [24:0];
                         6'h0f:
-                            \a$next  = \$68 [24:0];
+                            \a$next  = \$61 [24:0];
                         6'h10:
-                            \a$next  = \$71 [24:0];
+                            \a$next  = \$64 [24:0];
                         6'h11:
-                            \a$next  = \$74 [24:0];
+                            \a$next  = \$67 [24:0];
                         6'h??:
-                            \a$next  = \$77 [24:0];
+                            \a$next  = \$70 [24:0];
                       endcase
                   5'h01:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$80 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$73 )
                         6'h00:
-                            \a$next  = \$83 [24:0];
+                            \a$next  = \$76 [24:0];
                         6'h01:
-                            \a$next  = \$86 [24:0];
+                            \a$next  = \$79 [24:0];
                         6'h02:
-                            \a$next  = \$89 [24:0];
+                            \a$next  = \$82 [24:0];
                         6'h03:
-                            \a$next  = \$92 [24:0];
+                            \a$next  = \$85 [24:0];
                         6'h04:
-                            \a$next  = \$95 [24:0];
+                            \a$next  = \$88 [24:0];
                         6'h05:
-                            \a$next  = \$98 [24:0];
+                            \a$next  = \$91 [24:0];
                         6'h06:
-                            \a$next  = \$101 [24:0];
+                            \a$next  = \$94 [24:0];
                         6'h07:
-                            \a$next  = \$104 [24:0];
+                            \a$next  = \$97 [24:0];
                         6'h08:
-                            \a$next  = \$107 [24:0];
+                            \a$next  = \$100 [24:0];
                         6'h09:
-                            \a$next  = \$110 [24:0];
+                            \a$next  = \$103 [24:0];
                         6'h0a:
-                            \a$next  = \$113 [24:0];
+                            \a$next  = \$106 [24:0];
                         6'h0b:
-                            \a$next  = \$116 [24:0];
+                            \a$next  = \$109 [24:0];
                         6'h0c:
-                            \a$next  = \$119 [24:0];
+                            \a$next  = \$112 [24:0];
                         6'h0d:
-                            \a$next  = \$122 [24:0];
+                            \a$next  = \$115 [24:0];
                         6'h0e:
-                            \a$next  = \$125 [24:0];
+                            \a$next  = \$118 [24:0];
                         6'h0f:
-                            \a$next  = \$128 [24:0];
+                            \a$next  = \$121 [24:0];
                         6'h10:
-                            \a$next  = \$131 [24:0];
+                            \a$next  = \$124 [24:0];
                         6'h11:
-                            \a$next  = \$134 [24:0];
+                            \a$next  = \$127 [24:0];
                         6'h??:
-                            \a$next  = \$137 [24:0];
+                            \a$next  = \$130 [24:0];
                       endcase
                   5'h02:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$140 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$133 )
                         6'h00:
-                            \a$next  = \$143 [24:0];
+                            \a$next  = \$136 [24:0];
                         6'h01:
-                            \a$next  = \$146 [24:0];
+                            \a$next  = \$139 [24:0];
                         6'h02:
-                            \a$next  = \$149 [24:0];
+                            \a$next  = \$142 [24:0];
                         6'h03:
-                            \a$next  = \$152 [24:0];
+                            \a$next  = \$145 [24:0];
                         6'h04:
-                            \a$next  = \$155 [24:0];
+                            \a$next  = \$148 [24:0];
                         6'h05:
-                            \a$next  = \$158 [24:0];
+                            \a$next  = \$151 [24:0];
                         6'h06:
-                            \a$next  = \$161 [24:0];
+                            \a$next  = \$154 [24:0];
                         6'h07:
-                            \a$next  = \$164 [24:0];
+                            \a$next  = \$157 [24:0];
                         6'h08:
-                            \a$next  = \$167 [24:0];
+                            \a$next  = \$160 [24:0];
                         6'h09:
-                            \a$next  = \$170 [24:0];
+                            \a$next  = \$163 [24:0];
                         6'h0a:
-                            \a$next  = \$173 [24:0];
+                            \a$next  = \$166 [24:0];
                         6'h0b:
-                            \a$next  = \$176 [24:0];
+                            \a$next  = \$169 [24:0];
                         6'h0c:
-                            \a$next  = \$179 [24:0];
+                            \a$next  = \$172 [24:0];
                         6'h0d:
-                            \a$next  = \$182 [24:0];
+                            \a$next  = \$175 [24:0];
                         6'h0e:
-                            \a$next  = \$185 [24:0];
+                            \a$next  = \$178 [24:0];
                         6'h0f:
-                            \a$next  = \$188 [24:0];
+                            \a$next  = \$181 [24:0];
                         6'h10:
-                            \a$next  = \$191 [24:0];
+                            \a$next  = \$184 [24:0];
                         6'h11:
-                            \a$next  = \$194 [24:0];
+                            \a$next  = \$187 [24:0];
                         6'h??:
-                            \a$next  = \$197 [24:0];
+                            \a$next  = \$190 [24:0];
                       endcase
                   5'h03:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$200 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$193 )
                         6'h00:
-                            \a$next  = \$203 [24:0];
+                            \a$next  = \$196 [24:0];
                         6'h01:
-                            \a$next  = \$206 [24:0];
+                            \a$next  = \$199 [24:0];
                         6'h02:
-                            \a$next  = \$209 [24:0];
+                            \a$next  = \$202 [24:0];
                         6'h03:
-                            \a$next  = \$212 [24:0];
+                            \a$next  = \$205 [24:0];
                         6'h04:
-                            \a$next  = \$215 [24:0];
+                            \a$next  = \$208 [24:0];
                         6'h05:
-                            \a$next  = \$218 [24:0];
+                            \a$next  = \$211 [24:0];
                         6'h06:
-                            \a$next  = \$221 [24:0];
+                            \a$next  = \$214 [24:0];
                         6'h07:
-                            \a$next  = \$224 [24:0];
+                            \a$next  = \$217 [24:0];
                         6'h08:
-                            \a$next  = \$227 [24:0];
+                            \a$next  = \$220 [24:0];
                         6'h09:
-                            \a$next  = \$230 [24:0];
+                            \a$next  = \$223 [24:0];
                         6'h0a:
-                            \a$next  = \$233 [24:0];
+                            \a$next  = \$226 [24:0];
                         6'h0b:
-                            \a$next  = \$236 [24:0];
+                            \a$next  = \$229 [24:0];
                         6'h0c:
-                            \a$next  = \$239 [24:0];
+                            \a$next  = \$232 [24:0];
                         6'h0d:
-                            \a$next  = \$242 [24:0];
+                            \a$next  = \$235 [24:0];
                         6'h0e:
-                            \a$next  = \$245 [24:0];
+                            \a$next  = \$238 [24:0];
                         6'h0f:
-                            \a$next  = \$248 [24:0];
+                            \a$next  = \$241 [24:0];
                         6'h10:
-                            \a$next  = \$251 [24:0];
+                            \a$next  = \$244 [24:0];
                         6'h11:
-                            \a$next  = \$254 [24:0];
+                            \a$next  = \$247 [24:0];
                         6'h??:
-                            \a$next  = \$257 [24:0];
+                            \a$next  = \$250 [24:0];
                       endcase
                   5'h04:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$260 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$253 )
                         6'h00:
-                            \a$next  = \$263 [24:0];
+                            \a$next  = \$256 [24:0];
                         6'h01:
-                            \a$next  = \$266 [24:0];
+                            \a$next  = \$259 [24:0];
                         6'h02:
-                            \a$next  = \$269 [24:0];
+                            \a$next  = \$262 [24:0];
                         6'h03:
-                            \a$next  = \$272 [24:0];
+                            \a$next  = \$265 [24:0];
                         6'h04:
-                            \a$next  = \$275 [24:0];
+                            \a$next  = \$268 [24:0];
                         6'h05:
-                            \a$next  = \$278 [24:0];
+                            \a$next  = \$271 [24:0];
                         6'h06:
-                            \a$next  = \$281 [24:0];
+                            \a$next  = \$274 [24:0];
                         6'h07:
-                            \a$next  = \$284 [24:0];
+                            \a$next  = \$277 [24:0];
                         6'h08:
-                            \a$next  = \$287 [24:0];
+                            \a$next  = \$280 [24:0];
                         6'h09:
-                            \a$next  = \$290 [24:0];
+                            \a$next  = \$283 [24:0];
                         6'h0a:
-                            \a$next  = \$293 [24:0];
+                            \a$next  = \$286 [24:0];
                         6'h0b:
-                            \a$next  = \$296 [24:0];
+                            \a$next  = \$289 [24:0];
                         6'h0c:
-                            \a$next  = \$299 [24:0];
+                            \a$next  = \$292 [24:0];
                         6'h0d:
-                            \a$next  = \$302 [24:0];
+                            \a$next  = \$295 [24:0];
                         6'h0e:
-                            \a$next  = \$305 [24:0];
+                            \a$next  = \$298 [24:0];
                         6'h0f:
-                            \a$next  = \$308 [24:0];
+                            \a$next  = \$301 [24:0];
                         6'h10:
-                            \a$next  = \$311 [24:0];
+                            \a$next  = \$304 [24:0];
                         6'h11:
-                            \a$next  = \$314 [24:0];
+                            \a$next  = \$307 [24:0];
                         6'h??:
-                            \a$next  = \$317 [24:0];
+                            \a$next  = \$310 [24:0];
                       endcase
                   5'h05:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$320 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$313 )
                         6'h00:
-                            \a$next  = \$323 [24:0];
+                            \a$next  = \$316 [24:0];
                         6'h01:
-                            \a$next  = \$326 [24:0];
+                            \a$next  = \$319 [24:0];
                         6'h02:
-                            \a$next  = \$329 [24:0];
+                            \a$next  = \$322 [24:0];
                         6'h03:
-                            \a$next  = \$332 [24:0];
+                            \a$next  = \$325 [24:0];
                         6'h04:
-                            \a$next  = \$335 [24:0];
+                            \a$next  = \$328 [24:0];
                         6'h05:
-                            \a$next  = \$338 [24:0];
+                            \a$next  = \$331 [24:0];
                         6'h06:
-                            \a$next  = \$341 [24:0];
+                            \a$next  = \$334 [24:0];
                         6'h07:
-                            \a$next  = \$344 [24:0];
+                            \a$next  = \$337 [24:0];
                         6'h08:
-                            \a$next  = \$347 [24:0];
+                            \a$next  = \$340 [24:0];
                         6'h09:
-                            \a$next  = \$350 [24:0];
+                            \a$next  = \$343 [24:0];
                         6'h0a:
-                            \a$next  = \$353 [24:0];
+                            \a$next  = \$346 [24:0];
                         6'h0b:
-                            \a$next  = \$356 [24:0];
+                            \a$next  = \$349 [24:0];
                         6'h0c:
-                            \a$next  = \$359 [24:0];
+                            \a$next  = \$352 [24:0];
                         6'h0d:
-                            \a$next  = \$362 [24:0];
+                            \a$next  = \$355 [24:0];
                         6'h0e:
-                            \a$next  = \$365 [24:0];
+                            \a$next  = \$358 [24:0];
                         6'h0f:
-                            \a$next  = \$368 [24:0];
+                            \a$next  = \$361 [24:0];
                         6'h10:
-                            \a$next  = \$371 [24:0];
+                            \a$next  = \$364 [24:0];
                         6'h11:
-                            \a$next  = \$374 [24:0];
+                            \a$next  = \$367 [24:0];
                         6'h??:
-                            \a$next  = \$377 [24:0];
+                            \a$next  = \$370 [24:0];
                       endcase
                   5'h06:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$380 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$373 )
                         6'h00:
-                            \a$next  = \$383 [24:0];
+                            \a$next  = \$376 [24:0];
                         6'h01:
-                            \a$next  = \$386 [24:0];
+                            \a$next  = \$379 [24:0];
                         6'h02:
-                            \a$next  = \$389 [24:0];
+                            \a$next  = \$382 [24:0];
                         6'h03:
-                            \a$next  = \$392 [24:0];
+                            \a$next  = \$385 [24:0];
                         6'h04:
-                            \a$next  = \$395 [24:0];
+                            \a$next  = \$388 [24:0];
                         6'h05:
-                            \a$next  = \$398 [24:0];
+                            \a$next  = \$391 [24:0];
                         6'h06:
-                            \a$next  = \$401 [24:0];
+                            \a$next  = \$394 [24:0];
                         6'h07:
-                            \a$next  = \$404 [24:0];
+                            \a$next  = \$397 [24:0];
                         6'h08:
-                            \a$next  = \$407 [24:0];
+                            \a$next  = \$400 [24:0];
                         6'h09:
-                            \a$next  = \$410 [24:0];
+                            \a$next  = \$403 [24:0];
                         6'h0a:
-                            \a$next  = \$413 [24:0];
+                            \a$next  = \$406 [24:0];
                         6'h0b:
-                            \a$next  = \$416 [24:0];
+                            \a$next  = \$409 [24:0];
                         6'h0c:
-                            \a$next  = \$419 [24:0];
+                            \a$next  = \$412 [24:0];
                         6'h0d:
-                            \a$next  = \$422 [24:0];
+                            \a$next  = \$415 [24:0];
                         6'h0e:
-                            \a$next  = \$425 [24:0];
+                            \a$next  = \$418 [24:0];
                         6'h0f:
-                            \a$next  = \$428 [24:0];
+                            \a$next  = \$421 [24:0];
                         6'h10:
-                            \a$next  = \$431 [24:0];
+                            \a$next  = \$424 [24:0];
                         6'h11:
-                            \a$next  = \$434 [24:0];
+                            \a$next  = \$427 [24:0];
                         6'h??:
-                            \a$next  = \$437 [24:0];
+                            \a$next  = \$430 [24:0];
                       endcase
                   5'h07:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$440 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$433 )
                         6'h00:
-                            \a$next  = \$443 [24:0];
+                            \a$next  = \$436 [24:0];
                         6'h01:
-                            \a$next  = \$446 [24:0];
+                            \a$next  = \$439 [24:0];
                         6'h02:
-                            \a$next  = \$449 [24:0];
+                            \a$next  = \$442 [24:0];
                         6'h03:
-                            \a$next  = \$452 [24:0];
+                            \a$next  = \$445 [24:0];
                         6'h04:
-                            \a$next  = \$455 [24:0];
+                            \a$next  = \$448 [24:0];
                         6'h05:
-                            \a$next  = \$458 [24:0];
+                            \a$next  = \$451 [24:0];
                         6'h06:
-                            \a$next  = \$461 [24:0];
+                            \a$next  = \$454 [24:0];
                         6'h07:
-                            \a$next  = \$464 [24:0];
+                            \a$next  = \$457 [24:0];
                         6'h08:
-                            \a$next  = \$467 [24:0];
+                            \a$next  = \$460 [24:0];
                         6'h09:
-                            \a$next  = \$470 [24:0];
+                            \a$next  = \$463 [24:0];
                         6'h0a:
-                            \a$next  = \$473 [24:0];
+                            \a$next  = \$466 [24:0];
                         6'h0b:
-                            \a$next  = \$476 [24:0];
+                            \a$next  = \$469 [24:0];
                         6'h0c:
-                            \a$next  = \$479 [24:0];
+                            \a$next  = \$472 [24:0];
                         6'h0d:
-                            \a$next  = \$482 [24:0];
+                            \a$next  = \$475 [24:0];
                         6'h0e:
-                            \a$next  = \$485 [24:0];
+                            \a$next  = \$478 [24:0];
                         6'h0f:
-                            \a$next  = \$488 [24:0];
+                            \a$next  = \$481 [24:0];
                         6'h10:
-                            \a$next  = \$491 [24:0];
+                            \a$next  = \$484 [24:0];
                         6'h11:
-                            \a$next  = \$494 [24:0];
+                            \a$next  = \$487 [24:0];
                         6'h??:
-                            \a$next  = \$497 [24:0];
+                            \a$next  = \$490 [24:0];
                       endcase
                   5'h08:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$500 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$493 )
                         6'h00:
-                            \a$next  = \$503 [24:0];
+                            \a$next  = \$496 [24:0];
                         6'h01:
-                            \a$next  = \$506 [24:0];
+                            \a$next  = \$499 [24:0];
                         6'h02:
-                            \a$next  = \$509 [24:0];
+                            \a$next  = \$502 [24:0];
                         6'h03:
-                            \a$next  = \$512 [24:0];
+                            \a$next  = \$505 [24:0];
                         6'h04:
-                            \a$next  = \$515 [24:0];
+                            \a$next  = \$508 [24:0];
                         6'h05:
-                            \a$next  = \$518 [24:0];
+                            \a$next  = \$511 [24:0];
                         6'h06:
-                            \a$next  = \$521 [24:0];
+                            \a$next  = \$514 [24:0];
                         6'h07:
-                            \a$next  = \$524 [24:0];
+                            \a$next  = \$517 [24:0];
                         6'h08:
-                            \a$next  = \$527 [24:0];
+                            \a$next  = \$520 [24:0];
                         6'h09:
-                            \a$next  = \$530 [24:0];
+                            \a$next  = \$523 [24:0];
                         6'h0a:
-                            \a$next  = \$533 [24:0];
+                            \a$next  = \$526 [24:0];
                         6'h0b:
-                            \a$next  = \$536 [24:0];
+                            \a$next  = \$529 [24:0];
                         6'h0c:
-                            \a$next  = \$539 [24:0];
+                            \a$next  = \$532 [24:0];
                         6'h0d:
-                            \a$next  = \$542 [24:0];
+                            \a$next  = \$535 [24:0];
                         6'h0e:
-                            \a$next  = \$545 [24:0];
+                            \a$next  = \$538 [24:0];
                         6'h0f:
-                            \a$next  = \$548 [24:0];
+                            \a$next  = \$541 [24:0];
                         6'h10:
-                            \a$next  = \$551 [24:0];
+                            \a$next  = \$544 [24:0];
                         6'h11:
-                            \a$next  = \$554 [24:0];
+                            \a$next  = \$547 [24:0];
                         6'h??:
-                            \a$next  = \$557 [24:0];
+                            \a$next  = \$550 [24:0];
                       endcase
                   5'h09:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$560 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$553 )
                         6'h00:
-                            \a$next  = \$563 [24:0];
+                            \a$next  = \$556 [24:0];
                         6'h01:
-                            \a$next  = \$566 [24:0];
+                            \a$next  = \$559 [24:0];
                         6'h02:
-                            \a$next  = \$569 [24:0];
+                            \a$next  = \$562 [24:0];
                         6'h03:
-                            \a$next  = \$572 [24:0];
+                            \a$next  = \$565 [24:0];
                         6'h04:
-                            \a$next  = \$575 [24:0];
+                            \a$next  = \$568 [24:0];
                         6'h05:
-                            \a$next  = \$578 [24:0];
+                            \a$next  = \$571 [24:0];
                         6'h06:
-                            \a$next  = \$581 [24:0];
+                            \a$next  = \$574 [24:0];
                         6'h07:
-                            \a$next  = \$584 [24:0];
+                            \a$next  = \$577 [24:0];
                         6'h08:
-                            \a$next  = \$587 [24:0];
+                            \a$next  = \$580 [24:0];
                         6'h09:
-                            \a$next  = \$590 [24:0];
+                            \a$next  = \$583 [24:0];
                         6'h0a:
-                            \a$next  = \$593 [24:0];
+                            \a$next  = \$586 [24:0];
                         6'h0b:
-                            \a$next  = \$596 [24:0];
+                            \a$next  = \$589 [24:0];
                         6'h0c:
-                            \a$next  = \$599 [24:0];
+                            \a$next  = \$592 [24:0];
                         6'h0d:
-                            \a$next  = \$602 [24:0];
+                            \a$next  = \$595 [24:0];
                         6'h0e:
-                            \a$next  = \$605 [24:0];
+                            \a$next  = \$598 [24:0];
                         6'h0f:
-                            \a$next  = \$608 [24:0];
+                            \a$next  = \$601 [24:0];
                         6'h10:
-                            \a$next  = \$611 [24:0];
+                            \a$next  = \$604 [24:0];
                         6'h11:
-                            \a$next  = \$614 [24:0];
+                            \a$next  = \$607 [24:0];
                         6'h??:
-                            \a$next  = \$617 [24:0];
+                            \a$next  = \$610 [24:0];
                       endcase
                   5'h0a:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$620 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$613 )
                         6'h00:
-                            \a$next  = \$623 [24:0];
+                            \a$next  = \$616 [24:0];
                         6'h01:
-                            \a$next  = \$626 [24:0];
+                            \a$next  = \$619 [24:0];
                         6'h02:
-                            \a$next  = \$629 [24:0];
+                            \a$next  = \$622 [24:0];
                         6'h03:
-                            \a$next  = \$632 [24:0];
+                            \a$next  = \$625 [24:0];
                         6'h04:
-                            \a$next  = \$635 [24:0];
+                            \a$next  = \$628 [24:0];
                         6'h05:
-                            \a$next  = \$638 [24:0];
+                            \a$next  = \$631 [24:0];
                         6'h06:
-                            \a$next  = \$641 [24:0];
+                            \a$next  = \$634 [24:0];
                         6'h07:
-                            \a$next  = \$644 [24:0];
+                            \a$next  = \$637 [24:0];
                         6'h08:
-                            \a$next  = \$647 [24:0];
+                            \a$next  = \$640 [24:0];
                         6'h09:
-                            \a$next  = \$650 [24:0];
+                            \a$next  = \$643 [24:0];
                         6'h0a:
-                            \a$next  = \$653 [24:0];
+                            \a$next  = \$646 [24:0];
                         6'h0b:
-                            \a$next  = \$656 [24:0];
+                            \a$next  = \$649 [24:0];
                         6'h0c:
-                            \a$next  = \$659 [24:0];
+                            \a$next  = \$652 [24:0];
                         6'h0d:
-                            \a$next  = \$662 [24:0];
+                            \a$next  = \$655 [24:0];
                         6'h0e:
-                            \a$next  = \$665 [24:0];
+                            \a$next  = \$658 [24:0];
                         6'h0f:
-                            \a$next  = \$668 [24:0];
+                            \a$next  = \$661 [24:0];
                         6'h10:
-                            \a$next  = \$671 [24:0];
+                            \a$next  = \$664 [24:0];
                         6'h11:
-                            \a$next  = \$674 [24:0];
+                            \a$next  = \$667 [24:0];
                         6'h??:
-                            \a$next  = \$677 [24:0];
+                            \a$next  = \$670 [24:0];
                       endcase
                   5'h0b:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$680 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$673 )
                         6'h00:
-                            \a$next  = \$683 [24:0];
+                            \a$next  = \$676 [24:0];
                         6'h01:
-                            \a$next  = \$686 [24:0];
+                            \a$next  = \$679 [24:0];
                         6'h02:
-                            \a$next  = \$689 [24:0];
+                            \a$next  = \$682 [24:0];
                         6'h03:
-                            \a$next  = \$692 [24:0];
+                            \a$next  = \$685 [24:0];
                         6'h04:
-                            \a$next  = \$695 [24:0];
+                            \a$next  = \$688 [24:0];
                         6'h05:
-                            \a$next  = \$698 [24:0];
+                            \a$next  = \$691 [24:0];
                         6'h06:
-                            \a$next  = \$701 [24:0];
+                            \a$next  = \$694 [24:0];
                         6'h07:
-                            \a$next  = \$704 [24:0];
+                            \a$next  = \$697 [24:0];
                         6'h08:
-                            \a$next  = \$707 [24:0];
+                            \a$next  = \$700 [24:0];
                         6'h09:
-                            \a$next  = \$710 [24:0];
+                            \a$next  = \$703 [24:0];
                         6'h0a:
-                            \a$next  = \$713 [24:0];
+                            \a$next  = \$706 [24:0];
                         6'h0b:
-                            \a$next  = \$716 [24:0];
+                            \a$next  = \$709 [24:0];
                         6'h0c:
-                            \a$next  = \$719 [24:0];
+                            \a$next  = \$712 [24:0];
                         6'h0d:
-                            \a$next  = \$722 [24:0];
+                            \a$next  = \$715 [24:0];
                         6'h0e:
-                            \a$next  = \$725 [24:0];
+                            \a$next  = \$718 [24:0];
                         6'h0f:
-                            \a$next  = \$728 [24:0];
+                            \a$next  = \$721 [24:0];
                         6'h10:
-                            \a$next  = \$731 [24:0];
+                            \a$next  = \$724 [24:0];
                         6'h11:
-                            \a$next  = \$734 [24:0];
+                            \a$next  = \$727 [24:0];
                         6'h??:
-                            \a$next  = \$737 [24:0];
+                            \a$next  = \$730 [24:0];
                       endcase
                   5'h0c:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$740 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$733 )
                         6'h00:
-                            \a$next  = \$743 [24:0];
+                            \a$next  = \$736 [24:0];
                         6'h01:
-                            \a$next  = \$746 [24:0];
+                            \a$next  = \$739 [24:0];
                         6'h02:
-                            \a$next  = \$749 [24:0];
+                            \a$next  = \$742 [24:0];
                         6'h03:
-                            \a$next  = \$752 [24:0];
+                            \a$next  = \$745 [24:0];
                         6'h04:
-                            \a$next  = \$755 [24:0];
+                            \a$next  = \$748 [24:0];
                         6'h05:
-                            \a$next  = \$758 [24:0];
+                            \a$next  = \$751 [24:0];
                         6'h06:
-                            \a$next  = \$761 [24:0];
+                            \a$next  = \$754 [24:0];
                         6'h07:
-                            \a$next  = \$764 [24:0];
+                            \a$next  = \$757 [24:0];
                         6'h08:
-                            \a$next  = \$767 [24:0];
+                            \a$next  = \$760 [24:0];
                         6'h09:
-                            \a$next  = \$770 [24:0];
+                            \a$next  = \$763 [24:0];
                         6'h0a:
-                            \a$next  = \$773 [24:0];
+                            \a$next  = \$766 [24:0];
                         6'h0b:
-                            \a$next  = \$776 [24:0];
+                            \a$next  = \$769 [24:0];
                         6'h0c:
-                            \a$next  = \$779 [24:0];
+                            \a$next  = \$772 [24:0];
                         6'h0d:
-                            \a$next  = \$782 [24:0];
+                            \a$next  = \$775 [24:0];
                         6'h0e:
-                            \a$next  = \$785 [24:0];
+                            \a$next  = \$778 [24:0];
                         6'h0f:
-                            \a$next  = \$788 [24:0];
+                            \a$next  = \$781 [24:0];
                         6'h10:
-                            \a$next  = \$791 [24:0];
+                            \a$next  = \$784 [24:0];
                         6'h11:
-                            \a$next  = \$794 [24:0];
+                            \a$next  = \$787 [24:0];
                         6'h??:
-                            \a$next  = \$797 [24:0];
+                            \a$next  = \$790 [24:0];
                       endcase
                   5'h0d:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$800 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$793 )
                         6'h00:
-                            \a$next  = \$803 [24:0];
+                            \a$next  = \$796 [24:0];
                         6'h01:
-                            \a$next  = \$806 [24:0];
+                            \a$next  = \$799 [24:0];
                         6'h02:
-                            \a$next  = \$809 [24:0];
+                            \a$next  = \$802 [24:0];
                         6'h03:
-                            \a$next  = \$812 [24:0];
+                            \a$next  = \$805 [24:0];
                         6'h04:
-                            \a$next  = \$815 [24:0];
+                            \a$next  = \$808 [24:0];
                         6'h05:
-                            \a$next  = \$818 [24:0];
+                            \a$next  = \$811 [24:0];
                         6'h06:
-                            \a$next  = \$821 [24:0];
+                            \a$next  = \$814 [24:0];
                         6'h07:
-                            \a$next  = \$824 [24:0];
+                            \a$next  = \$817 [24:0];
                         6'h08:
-                            \a$next  = \$827 [24:0];
+                            \a$next  = \$820 [24:0];
                         6'h09:
-                            \a$next  = \$830 [24:0];
+                            \a$next  = \$823 [24:0];
                         6'h0a:
-                            \a$next  = \$833 [24:0];
+                            \a$next  = \$826 [24:0];
                         6'h0b:
-                            \a$next  = \$836 [24:0];
+                            \a$next  = \$829 [24:0];
                         6'h0c:
-                            \a$next  = \$839 [24:0];
+                            \a$next  = \$832 [24:0];
                         6'h0d:
-                            \a$next  = \$842 [24:0];
+                            \a$next  = \$835 [24:0];
                         6'h0e:
-                            \a$next  = \$845 [24:0];
+                            \a$next  = \$838 [24:0];
                         6'h0f:
-                            \a$next  = \$848 [24:0];
+                            \a$next  = \$841 [24:0];
                         6'h10:
-                            \a$next  = \$851 [24:0];
+                            \a$next  = \$844 [24:0];
                         6'h11:
-                            \a$next  = \$854 [24:0];
+                            \a$next  = \$847 [24:0];
                         6'h??:
-                            \a$next  = \$857 [24:0];
+                            \a$next  = \$850 [24:0];
                       endcase
                   5'h0e:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$860 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$853 )
                         6'h00:
-                            \a$next  = \$863 [24:0];
+                            \a$next  = \$856 [24:0];
                         6'h01:
-                            \a$next  = \$866 [24:0];
+                            \a$next  = \$859 [24:0];
                         6'h02:
-                            \a$next  = \$869 [24:0];
+                            \a$next  = \$862 [24:0];
                         6'h03:
-                            \a$next  = \$872 [24:0];
+                            \a$next  = \$865 [24:0];
                         6'h04:
-                            \a$next  = \$875 [24:0];
+                            \a$next  = \$868 [24:0];
                         6'h05:
-                            \a$next  = \$878 [24:0];
+                            \a$next  = \$871 [24:0];
                         6'h06:
-                            \a$next  = \$881 [24:0];
+                            \a$next  = \$874 [24:0];
                         6'h07:
-                            \a$next  = \$884 [24:0];
+                            \a$next  = \$877 [24:0];
                         6'h08:
-                            \a$next  = \$887 [24:0];
+                            \a$next  = \$880 [24:0];
                         6'h09:
-                            \a$next  = \$890 [24:0];
+                            \a$next  = \$883 [24:0];
                         6'h0a:
-                            \a$next  = \$893 [24:0];
+                            \a$next  = \$886 [24:0];
                         6'h0b:
-                            \a$next  = \$896 [24:0];
+                            \a$next  = \$889 [24:0];
                         6'h0c:
-                            \a$next  = \$899 [24:0];
+                            \a$next  = \$892 [24:0];
                         6'h0d:
-                            \a$next  = \$902 [24:0];
+                            \a$next  = \$895 [24:0];
                         6'h0e:
-                            \a$next  = \$905 [24:0];
+                            \a$next  = \$898 [24:0];
                         6'h0f:
-                            \a$next  = \$908 [24:0];
+                            \a$next  = \$901 [24:0];
                         6'h10:
-                            \a$next  = \$911 [24:0];
+                            \a$next  = \$904 [24:0];
                         6'h11:
-                            \a$next  = \$914 [24:0];
+                            \a$next  = \$907 [24:0];
                         6'h??:
-                            \a$next  = \$917 [24:0];
+                            \a$next  = \$910 [24:0];
                       endcase
                   5'h0f:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$920 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$913 )
                         6'h00:
-                            \a$next  = \$923 [24:0];
+                            \a$next  = \$916 [24:0];
                         6'h01:
-                            \a$next  = \$926 [24:0];
+                            \a$next  = \$919 [24:0];
                         6'h02:
-                            \a$next  = \$929 [24:0];
+                            \a$next  = \$922 [24:0];
                         6'h03:
-                            \a$next  = \$932 [24:0];
+                            \a$next  = \$925 [24:0];
                         6'h04:
-                            \a$next  = \$935 [24:0];
+                            \a$next  = \$928 [24:0];
                         6'h05:
-                            \a$next  = \$938 [24:0];
+                            \a$next  = \$931 [24:0];
                         6'h06:
-                            \a$next  = \$941 [24:0];
+                            \a$next  = \$934 [24:0];
                         6'h07:
-                            \a$next  = \$944 [24:0];
+                            \a$next  = \$937 [24:0];
                         6'h08:
-                            \a$next  = \$947 [24:0];
+                            \a$next  = \$940 [24:0];
                         6'h09:
-                            \a$next  = \$950 [24:0];
+                            \a$next  = \$943 [24:0];
                         6'h0a:
-                            \a$next  = \$953 [24:0];
+                            \a$next  = \$946 [24:0];
                         6'h0b:
-                            \a$next  = \$956 [24:0];
+                            \a$next  = \$949 [24:0];
                         6'h0c:
-                            \a$next  = \$959 [24:0];
+                            \a$next  = \$952 [24:0];
                         6'h0d:
-                            \a$next  = \$962 [24:0];
+                            \a$next  = \$955 [24:0];
                         6'h0e:
-                            \a$next  = \$965 [24:0];
+                            \a$next  = \$958 [24:0];
                         6'h0f:
-                            \a$next  = \$968 [24:0];
+                            \a$next  = \$961 [24:0];
                         6'h10:
-                            \a$next  = \$971 [24:0];
+                            \a$next  = \$964 [24:0];
                         6'h11:
-                            \a$next  = \$974 [24:0];
+                            \a$next  = \$967 [24:0];
                         6'h??:
-                            \a$next  = \$977 [24:0];
+                            \a$next  = \$970 [24:0];
                       endcase
                   5'h10:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$980 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$973 )
                         6'h00:
-                            \a$next  = \$983 [24:0];
+                            \a$next  = \$976 [24:0];
                         6'h01:
-                            \a$next  = \$986 [24:0];
+                            \a$next  = \$979 [24:0];
                         6'h02:
-                            \a$next  = \$989 [24:0];
+                            \a$next  = \$982 [24:0];
                         6'h03:
-                            \a$next  = \$992 [24:0];
+                            \a$next  = \$985 [24:0];
                         6'h04:
-                            \a$next  = \$995 [24:0];
+                            \a$next  = \$988 [24:0];
                         6'h05:
-                            \a$next  = \$998 [24:0];
+                            \a$next  = \$991 [24:0];
                         6'h06:
-                            \a$next  = \$1001 [24:0];
+                            \a$next  = \$994 [24:0];
                         6'h07:
-                            \a$next  = \$1004 [24:0];
+                            \a$next  = \$997 [24:0];
                         6'h08:
-                            \a$next  = \$1007 [24:0];
+                            \a$next  = \$1000 [24:0];
                         6'h09:
-                            \a$next  = \$1010 [24:0];
+                            \a$next  = \$1003 [24:0];
                         6'h0a:
-                            \a$next  = \$1013 [24:0];
+                            \a$next  = \$1006 [24:0];
                         6'h0b:
-                            \a$next  = \$1016 [24:0];
+                            \a$next  = \$1009 [24:0];
                         6'h0c:
-                            \a$next  = \$1019 [24:0];
+                            \a$next  = \$1012 [24:0];
                         6'h0d:
-                            \a$next  = \$1022 [24:0];
+                            \a$next  = \$1015 [24:0];
                         6'h0e:
-                            \a$next  = \$1025 [24:0];
+                            \a$next  = \$1018 [24:0];
                         6'h0f:
-                            \a$next  = \$1028 [24:0];
+                            \a$next  = \$1021 [24:0];
                         6'h10:
-                            \a$next  = \$1031 [24:0];
+                            \a$next  = \$1024 [24:0];
                         6'h11:
-                            \a$next  = \$1034 [24:0];
+                            \a$next  = \$1027 [24:0];
                         6'h??:
-                            \a$next  = \$1037 [24:0];
+                            \a$next  = \$1030 [24:0];
                       endcase
                   5'h11:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$1040 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$1033 )
                         6'h00:
-                            \a$next  = \$1043 [24:0];
+                            \a$next  = \$1036 [24:0];
                         6'h01:
-                            \a$next  = \$1046 [24:0];
+                            \a$next  = \$1039 [24:0];
                         6'h02:
-                            \a$next  = \$1049 [24:0];
+                            \a$next  = \$1042 [24:0];
                         6'h03:
-                            \a$next  = \$1052 [24:0];
+                            \a$next  = \$1045 [24:0];
                         6'h04:
-                            \a$next  = \$1055 [24:0];
+                            \a$next  = \$1048 [24:0];
                         6'h05:
-                            \a$next  = \$1058 [24:0];
+                            \a$next  = \$1051 [24:0];
                         6'h06:
-                            \a$next  = \$1061 [24:0];
+                            \a$next  = \$1054 [24:0];
                         6'h07:
-                            \a$next  = \$1064 [24:0];
+                            \a$next  = \$1057 [24:0];
                         6'h08:
-                            \a$next  = \$1067 [24:0];
+                            \a$next  = \$1060 [24:0];
                         6'h09:
-                            \a$next  = \$1070 [24:0];
+                            \a$next  = \$1063 [24:0];
                         6'h0a:
-                            \a$next  = \$1073 [24:0];
+                            \a$next  = \$1066 [24:0];
                         6'h0b:
-                            \a$next  = \$1076 [24:0];
+                            \a$next  = \$1069 [24:0];
                         6'h0c:
-                            \a$next  = \$1079 [24:0];
+                            \a$next  = \$1072 [24:0];
                         6'h0d:
-                            \a$next  = \$1082 [24:0];
+                            \a$next  = \$1075 [24:0];
                         6'h0e:
-                            \a$next  = \$1085 [24:0];
+                            \a$next  = \$1078 [24:0];
                         6'h0f:
-                            \a$next  = \$1088 [24:0];
+                            \a$next  = \$1081 [24:0];
                         6'h10:
-                            \a$next  = \$1091 [24:0];
+                            \a$next  = \$1084 [24:0];
                         6'h11:
-                            \a$next  = \$1094 [24:0];
+                            \a$next  = \$1087 [24:0];
                         6'h??:
-                            \a$next  = \$1097 [24:0];
+                            \a$next  = \$1090 [24:0];
                       endcase
                   5'h??:
                       (* full_case = 32'd1 *)
-                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:94" *)
-                      casez (\$1100 )
+                      (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:97" *)
+                      casez (\$1093 )
                         6'h00:
-                            \a$next  = \$1103 [24:0];
+                            \a$next  = \$1096 [24:0];
                         6'h01:
-                            \a$next  = \$1106 [24:0];
+                            \a$next  = \$1099 [24:0];
                         6'h02:
-                            \a$next  = \$1109 [24:0];
+                            \a$next  = \$1102 [24:0];
                         6'h03:
-                            \a$next  = \$1112 [24:0];
+                            \a$next  = \$1105 [24:0];
                         6'h04:
-                            \a$next  = \$1115 [24:0];
+                            \a$next  = \$1108 [24:0];
                         6'h05:
-                            \a$next  = \$1118 [24:0];
+                            \a$next  = \$1111 [24:0];
                         6'h06:
-                            \a$next  = \$1121 [24:0];
+                            \a$next  = \$1114 [24:0];
                         6'h07:
-                            \a$next  = \$1124 [24:0];
+                            \a$next  = \$1117 [24:0];
                         6'h08:
-                            \a$next  = \$1127 [24:0];
+                            \a$next  = \$1120 [24:0];
                         6'h09:
-                            \a$next  = \$1130 [24:0];
+                            \a$next  = \$1123 [24:0];
                         6'h0a:
-                            \a$next  = \$1133 [24:0];
+                            \a$next  = \$1126 [24:0];
                         6'h0b:
-                            \a$next  = \$1136 [24:0];
+                            \a$next  = \$1129 [24:0];
                         6'h0c:
-                            \a$next  = \$1139 [24:0];
+                            \a$next  = \$1132 [24:0];
                         6'h0d:
-                            \a$next  = \$1142 [24:0];
+                            \a$next  = \$1135 [24:0];
                         6'h0e:
-                            \a$next  = \$1145 [24:0];
+                            \a$next  = \$1138 [24:0];
                         6'h0f:
-                            \a$next  = \$1148 [24:0];
+                            \a$next  = \$1141 [24:0];
                         6'h10:
-                            \a$next  = \$1151 [24:0];
+                            \a$next  = \$1144 [24:0];
                         6'h11:
-                            \a$next  = \$1154 [24:0];
+                            \a$next  = \$1147 [24:0];
                         6'h??:
-                            \a$next  = \$1157 [24:0];
+                            \a$next  = \$1150 [24:0];
                       endcase
                 endcase
           endcase
@@ -7774,27 +7617,182 @@ module hb2(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \x4$next  = x4;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x4$next  = x3;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x4$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \x5$next  = x5;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x5$next  = x4;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x5$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \x6$next  = x6;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x6$next  = x5;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x6$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \x7$next  = x7;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x7$next  = x6;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x7$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \x8$next  = x8;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x8$next  = x7;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x8$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \x9$next  = x9;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x9$next  = x8;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x9$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \x10$next  = x10;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x10$next  = x9;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x10$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \x11$next  = x11;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x11$next  = x10;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x11$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \x12$next  = x12;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x12$next  = x11;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x12$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \x13$next  = x13;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x13$next  = x12;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x13$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
     \b$next  = b;
     (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:80" *)
     casez (fsm_state)
       /* \amaranth.decoding  = "IDLE/0" */
       /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:81" */
       2'h0:
-          /* empty */;
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:89" */
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" *)
+          casez (strobe_in)
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" */
+            1'h1:
+                \b$next  = 24'h095070;
+          endcase
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:91" */
       2'h1:
           (* full_case = 32'd1 *)
-          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" *)
-          casez (\$1159 )
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:90" */
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *)
+          casez (\$1152 )
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" */
             1'h1:
                 /* empty */;
-            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:92" */
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" */
             default:
                 (* full_case = 32'd1 *)
-                (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:95" *)
+                (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:98" *)
                 casez (ix)
                   5'h00:
                       \b$next  = 24'h095070;
@@ -7844,27 +7842,210 @@ module hb2(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \x14$next  = x14;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x14$next  = x13;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x14$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \x15$next  = x15;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x15$next  = x14;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x15$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \x16$next  = x16;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x16$next  = x15;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x16$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \x17$next  = x17;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x17$next  = x16;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x17$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \x18$next  = x18;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          \x18$next  = x17;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \x18$next  = 48'h000000000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \decimate_counter$next  = decimate_counter;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          (* full_case = 32'd1 *)
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:113" *)
+          casez (\$1190 )
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:113" */
+            1'h1:
+                \decimate_counter$next  = \$1193 [0];
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:115" */
+            default:
+                \decimate_counter$next  = 1'h0;
+          endcase
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \decimate_counter$next  = 1'h0;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \strobe_out$next  = strobe_out;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
+    casez (strobe_in)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
+      1'h1:
+          (* full_case = 32'd1 *)
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:113" *)
+          casez (\$1195 )
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:113" */
+            1'h1:
+                /* empty */;
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:115" */
+            default:
+                \strobe_out$next  = 1'h1;
+          endcase
+    endcase
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:119" *)
+    casez (strobe_out)
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:119" */
+      1'h1:
+          \strobe_out$next  = 1'h0;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \strobe_out$next  = 1'h0;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \madd$next  = madd;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:80" *)
+    casez (fsm_state)
+      /* \amaranth.decoding  = "IDLE/0" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:81" */
+      2'h0:
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" *)
+          casez (strobe_in)
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" */
+            1'h1:
+                \madd$next  = 25'h0000000;
+          endcase
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:91" */
+      2'h1:
+          \madd$next  = \$1179 [24:0];
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \madd$next  = 25'h0000000;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
+    \fsm_state$next  = fsm_state;
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:80" *)
+    casez (fsm_state)
+      /* \amaranth.decoding  = "IDLE/0" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:81" */
+      2'h0:
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" *)
+          casez (strobe_in)
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:82" */
+            1'h1:
+                \fsm_state$next  = 2'h1;
+          endcase
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:91" */
+      2'h1:
+          (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" *)
+          casez (\$1181 )
+            /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:93" */
+            1'h1:
+                \fsm_state$next  = 2'h2;
+          endcase
+      /* \amaranth.decoding  = "OUTPUT/2" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:102" */
+      2'h2:
+          \fsm_state$next  = 2'h0;
+    endcase
+    (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
+    casez (rst)
+      1'h1:
+          \fsm_state$next  = 2'h0;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
     \signal_out$next  = signal_out;
-    (* full_case = 32'd1 *)
     (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:80" *)
     casez (fsm_state)
       /* \amaranth.decoding  = "IDLE/0" */
       /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:81" */
       2'h0:
           /* empty */;
-      /* \amaranth.decoding  = "LOAD/1" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:89" */
+      /* \amaranth.decoding  = "MAC/1" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:91" */
       2'h1:
           /* empty */;
-      /* \amaranth.decoding  = "MAC/3" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:99" */
-      2'h3:
-          /* empty */;
       /* \amaranth.decoding  = "OUTPUT/2" */
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:106" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:102" */
       2'h2:
-          \signal_out$next  = madd;
+          \signal_out$next  = \$1186 [23:0];
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
@@ -7873,13 +8054,13 @@ module hb2(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
     \x0$next  = x0;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
     casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
       1'h1:
-          \x0$next  = \$1181 ;
+          \x0$next  = \$1188 ;
     endcase
     (* src = "/home/git/amaranth/amaranth/hdl/xfrm.py:519" *)
     casez (rst)
@@ -7888,11 +8069,11 @@ module hb2(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
     \x1$next  = x1;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
     casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
       1'h1:
           \x1$next  = x0;
     endcase
@@ -7903,11 +8084,11 @@ module hb2(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
     \x2$next  = x2;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
     casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
       1'h1:
           \x2$next  = x1;
     endcase
@@ -7918,11 +8099,11 @@ module hb2(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
     endcase
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2082:dump_module$135 ) begin end
+    if (\$auto$verilog_backend.cc:2082:dump_module$143 ) begin end
     \x3$next  = x3;
-    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" *)
+    (* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" *)
     casez (strobe_in)
-      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:114" */
+      /* src = "/home/git/amlib/amlib/dsp/fixedpointhbfilter.py:110" */
       1'h1:
           \x3$next  = x2;
     endcase
@@ -7932,410 +8113,411 @@ module hb2(strobe_out, signal_in, signal_out, rst, clk, strobe_in);
           \x3$next  = 48'h000000000000;
     endcase
   end
-  assign \$1  = \$2 ;
-  assign \$4  = \$5 ;
-  assign \$7  = \$12 ;
-  assign \$22  = \$23 ;
-  assign \$25  = \$26 ;
-  assign \$28  = \$29 ;
-  assign \$31  = \$32 ;
-  assign \$34  = \$35 ;
-  assign \$37  = \$38 ;
-  assign \$40  = \$41 ;
-  assign \$43  = \$44 ;
-  assign \$46  = \$47 ;
-  assign \$49  = \$50 ;
-  assign \$52  = \$53 ;
-  assign \$55  = \$56 ;
-  assign \$58  = \$59 ;
-  assign \$61  = \$62 ;
-  assign \$64  = \$65 ;
-  assign \$67  = \$68 ;
-  assign \$70  = \$71 ;
-  assign \$73  = \$74 ;
-  assign \$76  = \$77 ;
-  assign \$82  = \$83 ;
-  assign \$85  = \$86 ;
-  assign \$88  = \$89 ;
-  assign \$91  = \$92 ;
-  assign \$94  = \$95 ;
-  assign \$97  = \$98 ;
-  assign \$100  = \$101 ;
-  assign \$103  = \$104 ;
-  assign \$106  = \$107 ;
-  assign \$109  = \$110 ;
-  assign \$112  = \$113 ;
-  assign \$115  = \$116 ;
-  assign \$118  = \$119 ;
-  assign \$121  = \$122 ;
-  assign \$124  = \$125 ;
-  assign \$127  = \$128 ;
-  assign \$130  = \$131 ;
-  assign \$133  = \$134 ;
-  assign \$136  = \$137 ;
-  assign \$142  = \$143 ;
-  assign \$145  = \$146 ;
-  assign \$148  = \$149 ;
-  assign \$151  = \$152 ;
-  assign \$154  = \$155 ;
-  assign \$157  = \$158 ;
-  assign \$160  = \$161 ;
-  assign \$163  = \$164 ;
-  assign \$166  = \$167 ;
-  assign \$169  = \$170 ;
-  assign \$172  = \$173 ;
-  assign \$175  = \$176 ;
-  assign \$178  = \$179 ;
-  assign \$181  = \$182 ;
-  assign \$184  = \$185 ;
-  assign \$187  = \$188 ;
-  assign \$190  = \$191 ;
-  assign \$193  = \$194 ;
-  assign \$196  = \$197 ;
-  assign \$202  = \$203 ;
-  assign \$205  = \$206 ;
-  assign \$208  = \$209 ;
-  assign \$211  = \$212 ;
-  assign \$214  = \$215 ;
-  assign \$217  = \$218 ;
-  assign \$220  = \$221 ;
-  assign \$223  = \$224 ;
-  assign \$226  = \$227 ;
-  assign \$229  = \$230 ;
-  assign \$232  = \$233 ;
-  assign \$235  = \$236 ;
-  assign \$238  = \$239 ;
-  assign \$241  = \$242 ;
-  assign \$244  = \$245 ;
-  assign \$247  = \$248 ;
-  assign \$250  = \$251 ;
-  assign \$253  = \$254 ;
-  assign \$256  = \$257 ;
-  assign \$262  = \$263 ;
-  assign \$265  = \$266 ;
-  assign \$268  = \$269 ;
-  assign \$271  = \$272 ;
-  assign \$274  = \$275 ;
-  assign \$277  = \$278 ;
-  assign \$280  = \$281 ;
-  assign \$283  = \$284 ;
-  assign \$286  = \$287 ;
-  assign \$289  = \$290 ;
-  assign \$292  = \$293 ;
-  assign \$295  = \$296 ;
-  assign \$298  = \$299 ;
-  assign \$301  = \$302 ;
-  assign \$304  = \$305 ;
-  assign \$307  = \$308 ;
-  assign \$310  = \$311 ;
-  assign \$313  = \$314 ;
-  assign \$316  = \$317 ;
-  assign \$322  = \$323 ;
-  assign \$325  = \$326 ;
-  assign \$328  = \$329 ;
-  assign \$331  = \$332 ;
-  assign \$334  = \$335 ;
-  assign \$337  = \$338 ;
-  assign \$340  = \$341 ;
-  assign \$343  = \$344 ;
-  assign \$346  = \$347 ;
-  assign \$349  = \$350 ;
-  assign \$352  = \$353 ;
-  assign \$355  = \$356 ;
-  assign \$358  = \$359 ;
-  assign \$361  = \$362 ;
-  assign \$364  = \$365 ;
-  assign \$367  = \$368 ;
-  assign \$370  = \$371 ;
-  assign \$373  = \$374 ;
-  assign \$376  = \$377 ;
-  assign \$382  = \$383 ;
-  assign \$385  = \$386 ;
-  assign \$388  = \$389 ;
-  assign \$391  = \$392 ;
-  assign \$394  = \$395 ;
-  assign \$397  = \$398 ;
-  assign \$400  = \$401 ;
-  assign \$403  = \$404 ;
-  assign \$406  = \$407 ;
-  assign \$409  = \$410 ;
-  assign \$412  = \$413 ;
-  assign \$415  = \$416 ;
-  assign \$418  = \$419 ;
-  assign \$421  = \$422 ;
-  assign \$424  = \$425 ;
-  assign \$427  = \$428 ;
-  assign \$430  = \$431 ;
-  assign \$433  = \$434 ;
-  assign \$436  = \$437 ;
-  assign \$442  = \$443 ;
-  assign \$445  = \$446 ;
-  assign \$448  = \$449 ;
-  assign \$451  = \$452 ;
-  assign \$454  = \$455 ;
-  assign \$457  = \$458 ;
-  assign \$460  = \$461 ;
-  assign \$463  = \$464 ;
-  assign \$466  = \$467 ;
-  assign \$469  = \$470 ;
-  assign \$472  = \$473 ;
-  assign \$475  = \$476 ;
-  assign \$478  = \$479 ;
-  assign \$481  = \$482 ;
-  assign \$484  = \$485 ;
-  assign \$487  = \$488 ;
-  assign \$490  = \$491 ;
-  assign \$493  = \$494 ;
-  assign \$496  = \$497 ;
-  assign \$502  = \$503 ;
-  assign \$505  = \$506 ;
-  assign \$508  = \$509 ;
-  assign \$511  = \$512 ;
-  assign \$514  = \$515 ;
-  assign \$517  = \$518 ;
-  assign \$520  = \$521 ;
-  assign \$523  = \$524 ;
-  assign \$526  = \$527 ;
-  assign \$529  = \$530 ;
-  assign \$532  = \$533 ;
-  assign \$535  = \$536 ;
-  assign \$538  = \$539 ;
-  assign \$541  = \$542 ;
-  assign \$544  = \$545 ;
-  assign \$547  = \$548 ;
-  assign \$550  = \$551 ;
-  assign \$553  = \$554 ;
-  assign \$556  = \$557 ;
-  assign \$562  = \$563 ;
-  assign \$565  = \$566 ;
-  assign \$568  = \$569 ;
-  assign \$571  = \$572 ;
-  assign \$574  = \$575 ;
-  assign \$577  = \$578 ;
-  assign \$580  = \$581 ;
-  assign \$583  = \$584 ;
-  assign \$586  = \$587 ;
-  assign \$589  = \$590 ;
-  assign \$592  = \$593 ;
-  assign \$595  = \$596 ;
-  assign \$598  = \$599 ;
-  assign \$601  = \$602 ;
-  assign \$604  = \$605 ;
-  assign \$607  = \$608 ;
-  assign \$610  = \$611 ;
-  assign \$613  = \$614 ;
-  assign \$616  = \$617 ;
-  assign \$622  = \$623 ;
-  assign \$625  = \$626 ;
-  assign \$628  = \$629 ;
-  assign \$631  = \$632 ;
-  assign \$634  = \$635 ;
-  assign \$637  = \$638 ;
-  assign \$640  = \$641 ;
-  assign \$643  = \$644 ;
-  assign \$646  = \$647 ;
-  assign \$649  = \$650 ;
-  assign \$652  = \$653 ;
-  assign \$655  = \$656 ;
-  assign \$658  = \$659 ;
-  assign \$661  = \$662 ;
-  assign \$664  = \$665 ;
-  assign \$667  = \$668 ;
-  assign \$670  = \$671 ;
-  assign \$673  = \$674 ;
-  assign \$676  = \$677 ;
-  assign \$682  = \$683 ;
-  assign \$685  = \$686 ;
-  assign \$688  = \$689 ;
-  assign \$691  = \$692 ;
-  assign \$694  = \$695 ;
-  assign \$697  = \$698 ;
-  assign \$700  = \$701 ;
-  assign \$703  = \$704 ;
-  assign \$706  = \$707 ;
-  assign \$709  = \$710 ;
-  assign \$712  = \$713 ;
-  assign \$715  = \$716 ;
-  assign \$718  = \$719 ;
-  assign \$721  = \$722 ;
-  assign \$724  = \$725 ;
-  assign \$727  = \$728 ;
-  assign \$730  = \$731 ;
-  assign \$733  = \$734 ;
-  assign \$736  = \$737 ;
-  assign \$742  = \$743 ;
-  assign \$745  = \$746 ;
-  assign \$748  = \$749 ;
-  assign \$751  = \$752 ;
-  assign \$754  = \$755 ;
-  assign \$757  = \$758 ;
-  assign \$760  = \$761 ;
-  assign \$763  = \$764 ;
-  assign \$766  = \$767 ;
-  assign \$769  = \$770 ;
-  assign \$772  = \$773 ;
-  assign \$775  = \$776 ;
-  assign \$778  = \$779 ;
-  assign \$781  = \$782 ;
-  assign \$784  = \$785 ;
-  assign \$787  = \$788 ;
-  assign \$790  = \$791 ;
-  assign \$793  = \$794 ;
-  assign \$796  = \$797 ;
-  assign \$802  = \$803 ;
-  assign \$805  = \$806 ;
-  assign \$808  = \$809 ;
-  assign \$811  = \$812 ;
-  assign \$814  = \$815 ;
-  assign \$817  = \$818 ;
-  assign \$820  = \$821 ;
-  assign \$823  = \$824 ;
-  assign \$826  = \$827 ;
-  assign \$829  = \$830 ;
-  assign \$832  = \$833 ;
-  assign \$835  = \$836 ;
-  assign \$838  = \$839 ;
-  assign \$841  = \$842 ;
-  assign \$844  = \$845 ;
-  assign \$847  = \$848 ;
-  assign \$850  = \$851 ;
-  assign \$853  = \$854 ;
-  assign \$856  = \$857 ;
-  assign \$862  = \$863 ;
-  assign \$865  = \$866 ;
-  assign \$868  = \$869 ;
-  assign \$871  = \$872 ;
-  assign \$874  = \$875 ;
-  assign \$877  = \$878 ;
-  assign \$880  = \$881 ;
-  assign \$883  = \$884 ;
-  assign \$886  = \$887 ;
-  assign \$889  = \$890 ;
-  assign \$892  = \$893 ;
-  assign \$895  = \$896 ;
-  assign \$898  = \$899 ;
-  assign \$901  = \$902 ;
-  assign \$904  = \$905 ;
-  assign \$907  = \$908 ;
-  assign \$910  = \$911 ;
-  assign \$913  = \$914 ;
-  assign \$916  = \$917 ;
-  assign \$922  = \$923 ;
-  assign \$925  = \$926 ;
-  assign \$928  = \$929 ;
-  assign \$931  = \$932 ;
-  assign \$934  = \$935 ;
-  assign \$937  = \$938 ;
-  assign \$940  = \$941 ;
-  assign \$943  = \$944 ;
-  assign \$946  = \$947 ;
-  assign \$949  = \$950 ;
-  assign \$952  = \$953 ;
-  assign \$955  = \$956 ;
-  assign \$958  = \$959 ;
-  assign \$961  = \$962 ;
-  assign \$964  = \$965 ;
-  assign \$967  = \$968 ;
-  assign \$970  = \$971 ;
-  assign \$973  = \$974 ;
-  assign \$976  = \$977 ;
-  assign \$982  = \$983 ;
-  assign \$985  = \$986 ;
-  assign \$988  = \$989 ;
-  assign \$991  = \$992 ;
-  assign \$994  = \$995 ;
-  assign \$997  = \$998 ;
-  assign \$1000  = \$1001 ;
-  assign \$1003  = \$1004 ;
-  assign \$1006  = \$1007 ;
-  assign \$1009  = \$1010 ;
-  assign \$1012  = \$1013 ;
-  assign \$1015  = \$1016 ;
-  assign \$1018  = \$1019 ;
-  assign \$1021  = \$1022 ;
-  assign \$1024  = \$1025 ;
-  assign \$1027  = \$1028 ;
-  assign \$1030  = \$1031 ;
-  assign \$1033  = \$1034 ;
-  assign \$1036  = \$1037 ;
-  assign \$1042  = \$1043 ;
-  assign \$1045  = \$1046 ;
-  assign \$1048  = \$1049 ;
-  assign \$1051  = \$1052 ;
-  assign \$1054  = \$1055 ;
-  assign \$1057  = \$1058 ;
-  assign \$1060  = \$1061 ;
-  assign \$1063  = \$1064 ;
-  assign \$1066  = \$1067 ;
-  assign \$1069  = \$1070 ;
-  assign \$1072  = \$1073 ;
-  assign \$1075  = \$1076 ;
-  assign \$1078  = \$1079 ;
-  assign \$1081  = \$1082 ;
-  assign \$1084  = \$1085 ;
-  assign \$1087  = \$1088 ;
-  assign \$1090  = \$1091 ;
-  assign \$1093  = \$1094 ;
-  assign \$1096  = \$1097 ;
-  assign \$1102  = \$1103 ;
-  assign \$1105  = \$1106 ;
-  assign \$1108  = \$1109 ;
-  assign \$1111  = \$1112 ;
-  assign \$1114  = \$1115 ;
-  assign \$1117  = \$1118 ;
-  assign \$1120  = \$1121 ;
-  assign \$1123  = \$1124 ;
-  assign \$1126  = \$1127 ;
-  assign \$1129  = \$1130 ;
-  assign \$1132  = \$1133 ;
-  assign \$1135  = \$1136 ;
-  assign \$1138  = \$1139 ;
-  assign \$1141  = \$1142 ;
-  assign \$1144  = \$1145 ;
-  assign \$1147  = \$1148 ;
-  assign \$1150  = \$1151 ;
-  assign \$1153  = \$1154 ;
-  assign \$1156  = \$1157 ;
-  assign \$1162  = 48'h000000095070;
-  assign \$1163  = 48'hfffffffffe79;
-  assign \$1164  = 48'hfffffff74ad4;
-  assign \$1165  = 48'hfffffffffe99;
-  assign \$1166  = 48'h0000000e1673;
-  assign \$1167  = 48'hffffffffff62;
-  assign \$1168  = 48'hffffffe6333c;
-  assign \$1169  = 48'h0000000000c2;
-  assign \$1170  = 48'h0000005104f9;
-  assign \$1171  = 48'h00000080014f;
-  assign \$1172  = 48'h0000005104f9;
-  assign \$1173  = 48'h0000000000c2;
-  assign \$1174  = 48'hffffffe6333c;
-  assign \$1175  = 48'hffffffffff62;
-  assign \$1176  = 48'h0000000e1673;
-  assign \$1177  = 48'hfffffffffe99;
-  assign \$1178  = 48'hfffffff74ad4;
-  assign \$1179  = 48'hfffffffffe79;
-  assign \$1180  = 48'h000000095070;
-  assign \$1185  = \$1186 ;
-  assign \$5  = { x9[47], x9[47:1] };
-  assign \$10  = { \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48], \$8 [48:24] };
-  assign \$20  = 6'h12;
-  assign \$80  = 6'h11;
-  assign \$140  = 6'h10;
-  assign \$200  = 6'h0f;
-  assign \$260  = 6'h0e;
-  assign \$320  = 6'h0d;
-  assign \$380  = 6'h0c;
-  assign \$440  = 6'h0b;
-  assign \$500  = 6'h0a;
-  assign \$560  = 6'h09;
-  assign \$620  = 6'h08;
-  assign \$680  = 6'h07;
-  assign \$740  = 6'h06;
-  assign \$800  = 6'h05;
-  assign \$860  = 6'h04;
-  assign \$920  = 6'h03;
-  assign \$980  = 6'h02;
-  assign \$1040  = 6'h01;
-  assign \$1100  = 6'h00;
+  assign \$3  = \$4 ;
+  assign \$6  = \$7 ;
+  assign \$15  = \$16 ;
+  assign \$18  = \$19 ;
+  assign \$21  = \$22 ;
+  assign \$24  = \$25 ;
+  assign \$27  = \$28 ;
+  assign \$30  = \$31 ;
+  assign \$33  = \$34 ;
+  assign \$36  = \$37 ;
+  assign \$39  = \$40 ;
+  assign \$42  = \$43 ;
+  assign \$45  = \$46 ;
+  assign \$48  = \$49 ;
+  assign \$51  = \$52 ;
+  assign \$54  = \$55 ;
+  assign \$57  = \$58 ;
+  assign \$60  = \$61 ;
+  assign \$63  = \$64 ;
+  assign \$66  = \$67 ;
+  assign \$69  = \$70 ;
+  assign \$75  = \$76 ;
+  assign \$78  = \$79 ;
+  assign \$81  = \$82 ;
+  assign \$84  = \$85 ;
+  assign \$87  = \$88 ;
+  assign \$90  = \$91 ;
+  assign \$93  = \$94 ;
+  assign \$96  = \$97 ;
+  assign \$99  = \$100 ;
+  assign \$102  = \$103 ;
+  assign \$105  = \$106 ;
+  assign \$108  = \$109 ;
+  assign \$111  = \$112 ;
+  assign \$114  = \$115 ;
+  assign \$117  = \$118 ;
+  assign \$120  = \$121 ;
+  assign \$123  = \$124 ;
+  assign \$126  = \$127 ;
+  assign \$129  = \$130 ;
+  assign \$135  = \$136 ;
+  assign \$138  = \$139 ;
+  assign \$141  = \$142 ;
+  assign \$144  = \$145 ;
+  assign \$147  = \$148 ;
+  assign \$150  = \$151 ;
+  assign \$153  = \$154 ;
+  assign \$156  = \$157 ;
+  assign \$159  = \$160 ;
+  assign \$162  = \$163 ;
+  assign \$165  = \$166 ;
+  assign \$168  = \$169 ;
+  assign \$171  = \$172 ;
+  assign \$174  = \$175 ;
+  assign \$177  = \$178 ;
+  assign \$180  = \$181 ;
+  assign \$183  = \$184 ;
+  assign \$186  = \$187 ;
+  assign \$189  = \$190 ;
+  assign \$195  = \$196 ;
+  assign \$198  = \$199 ;
+  assign \$201  = \$202 ;
+  assign \$204  = \$205 ;
+  assign \$207  = \$208 ;
+  assign \$210  = \$211 ;
+  assign \$213  = \$214 ;
+  assign \$216  = \$217 ;
+  assign \$219  = \$220 ;
+  assign \$222  = \$223 ;
+  assign \$225  = \$226 ;
+  assign \$228  = \$229 ;
+  assign \$231  = \$232 ;
+  assign \$234  = \$235 ;
+  assign \$237  = \$238 ;
+  assign \$240  = \$241 ;
+  assign \$243  = \$244 ;
+  assign \$246  = \$247 ;
+  assign \$249  = \$250 ;
+  assign \$255  = \$256 ;
+  assign \$258  = \$259 ;
+  assign \$261  = \$262 ;
+  assign \$264  = \$265 ;
+  assign \$267  = \$268 ;
+  assign \$270  = \$271 ;
+  assign \$273  = \$274 ;
+  assign \$276  = \$277 ;
+  assign \$279  = \$280 ;
+  assign \$282  = \$283 ;
+  assign \$285  = \$286 ;
+  assign \$288  = \$289 ;
+  assign \$291  = \$292 ;
+  assign \$294  = \$295 ;
+  assign \$297  = \$298 ;
+  assign \$300  = \$301 ;
+  assign \$303  = \$304 ;
+  assign \$306  = \$307 ;
+  assign \$309  = \$310 ;
+  assign \$315  = \$316 ;
+  assign \$318  = \$319 ;
+  assign \$321  = \$322 ;
+  assign \$324  = \$325 ;
+  assign \$327  = \$328 ;
+  assign \$330  = \$331 ;
+  assign \$333  = \$334 ;
+  assign \$336  = \$337 ;
+  assign \$339  = \$340 ;
+  assign \$342  = \$343 ;
+  assign \$345  = \$346 ;
+  assign \$348  = \$349 ;
+  assign \$351  = \$352 ;
+  assign \$354  = \$355 ;
+  assign \$357  = \$358 ;
+  assign \$360  = \$361 ;
+  assign \$363  = \$364 ;
+  assign \$366  = \$367 ;
+  assign \$369  = \$370 ;
+  assign \$375  = \$376 ;
+  assign \$378  = \$379 ;
+  assign \$381  = \$382 ;
+  assign \$384  = \$385 ;
+  assign \$387  = \$388 ;
+  assign \$390  = \$391 ;
+  assign \$393  = \$394 ;
+  assign \$396  = \$397 ;
+  assign \$399  = \$400 ;
+  assign \$402  = \$403 ;
+  assign \$405  = \$406 ;
+  assign \$408  = \$409 ;
+  assign \$411  = \$412 ;
+  assign \$414  = \$415 ;
+  assign \$417  = \$418 ;
+  assign \$420  = \$421 ;
+  assign \$423  = \$424 ;
+  assign \$426  = \$427 ;
+  assign \$429  = \$430 ;
+  assign \$435  = \$436 ;
+  assign \$438  = \$439 ;
+  assign \$441  = \$442 ;
+  assign \$444  = \$445 ;
+  assign \$447  = \$448 ;
+  assign \$450  = \$451 ;
+  assign \$453  = \$454 ;
+  assign \$456  = \$457 ;
+  assign \$459  = \$460 ;
+  assign \$462  = \$463 ;
+  assign \$465  = \$466 ;
+  assign \$468  = \$469 ;
+  assign \$471  = \$472 ;
+  assign \$474  = \$475 ;
+  assign \$477  = \$478 ;
+  assign \$480  = \$481 ;
+  assign \$483  = \$484 ;
+  assign \$486  = \$487 ;
+  assign \$489  = \$490 ;
+  assign \$495  = \$496 ;
+  assign \$498  = \$499 ;
+  assign \$501  = \$502 ;
+  assign \$504  = \$505 ;
+  assign \$507  = \$508 ;
+  assign \$510  = \$511 ;
+  assign \$513  = \$514 ;
+  assign \$516  = \$517 ;
+  assign \$519  = \$520 ;
+  assign \$522  = \$523 ;
+  assign \$525  = \$526 ;
+  assign \$528  = \$529 ;
+  assign \$531  = \$532 ;
+  assign \$534  = \$535 ;
+  assign \$537  = \$538 ;
+  assign \$540  = \$541 ;
+  assign \$543  = \$544 ;
+  assign \$546  = \$547 ;
+  assign \$549  = \$550 ;
+  assign \$555  = \$556 ;
+  assign \$558  = \$559 ;
+  assign \$561  = \$562 ;
+  assign \$564  = \$565 ;
+  assign \$567  = \$568 ;
+  assign \$570  = \$571 ;
+  assign \$573  = \$574 ;
+  assign \$576  = \$577 ;
+  assign \$579  = \$580 ;
+  assign \$582  = \$583 ;
+  assign \$585  = \$586 ;
+  assign \$588  = \$589 ;
+  assign \$591  = \$592 ;
+  assign \$594  = \$595 ;
+  assign \$597  = \$598 ;
+  assign \$600  = \$601 ;
+  assign \$603  = \$604 ;
+  assign \$606  = \$607 ;
+  assign \$609  = \$610 ;
+  assign \$615  = \$616 ;
+  assign \$618  = \$619 ;
+  assign \$621  = \$622 ;
+  assign \$624  = \$625 ;
+  assign \$627  = \$628 ;
+  assign \$630  = \$631 ;
+  assign \$633  = \$634 ;
+  assign \$636  = \$637 ;
+  assign \$639  = \$640 ;
+  assign \$642  = \$643 ;
+  assign \$645  = \$646 ;
+  assign \$648  = \$649 ;
+  assign \$651  = \$652 ;
+  assign \$654  = \$655 ;
+  assign \$657  = \$658 ;
+  assign \$660  = \$661 ;
+  assign \$663  = \$664 ;
+  assign \$666  = \$667 ;
+  assign \$669  = \$670 ;
+  assign \$675  = \$676 ;
+  assign \$678  = \$679 ;
+  assign \$681  = \$682 ;
+  assign \$684  = \$685 ;
+  assign \$687  = \$688 ;
+  assign \$690  = \$691 ;
+  assign \$693  = \$694 ;
+  assign \$696  = \$697 ;
+  assign \$699  = \$700 ;
+  assign \$702  = \$703 ;
+  assign \$705  = \$706 ;
+  assign \$708  = \$709 ;
+  assign \$711  = \$712 ;
+  assign \$714  = \$715 ;
+  assign \$717  = \$718 ;
+  assign \$720  = \$721 ;
+  assign \$723  = \$724 ;
+  assign \$726  = \$727 ;
+  assign \$729  = \$730 ;
+  assign \$735  = \$736 ;
+  assign \$738  = \$739 ;
+  assign \$741  = \$742 ;
+  assign \$744  = \$745 ;
+  assign \$747  = \$748 ;
+  assign \$750  = \$751 ;
+  assign \$753  = \$754 ;
+  assign \$756  = \$757 ;
+  assign \$759  = \$760 ;
+  assign \$762  = \$763 ;
+  assign \$765  = \$766 ;
+  assign \$768  = \$769 ;
+  assign \$771  = \$772 ;
+  assign \$774  = \$775 ;
+  assign \$777  = \$778 ;
+  assign \$780  = \$781 ;
+  assign \$783  = \$784 ;
+  assign \$786  = \$787 ;
+  assign \$789  = \$790 ;
+  assign \$795  = \$796 ;
+  assign \$798  = \$799 ;
+  assign \$801  = \$802 ;
+  assign \$804  = \$805 ;
+  assign \$807  = \$808 ;
+  assign \$810  = \$811 ;
+  assign \$813  = \$814 ;
+  assign \$816  = \$817 ;
+  assign \$819  = \$820 ;
+  assign \$822  = \$823 ;
+  assign \$825  = \$826 ;
+  assign \$828  = \$829 ;
+  assign \$831  = \$832 ;
+  assign \$834  = \$835 ;
+  assign \$837  = \$838 ;
+  assign \$840  = \$841 ;
+  assign \$843  = \$844 ;
+  assign \$846  = \$847 ;
+  assign \$849  = \$850 ;
+  assign \$855  = \$856 ;
+  assign \$858  = \$859 ;
+  assign \$861  = \$862 ;
+  assign \$864  = \$865 ;
+  assign \$867  = \$868 ;
+  assign \$870  = \$871 ;
+  assign \$873  = \$874 ;
+  assign \$876  = \$877 ;
+  assign \$879  = \$880 ;
+  assign \$882  = \$883 ;
+  assign \$885  = \$886 ;
+  assign \$888  = \$889 ;
+  assign \$891  = \$892 ;
+  assign \$894  = \$895 ;
+  assign \$897  = \$898 ;
+  assign \$900  = \$901 ;
+  assign \$903  = \$904 ;
+  assign \$906  = \$907 ;
+  assign \$909  = \$910 ;
+  assign \$915  = \$916 ;
+  assign \$918  = \$919 ;
+  assign \$921  = \$922 ;
+  assign \$924  = \$925 ;
+  assign \$927  = \$928 ;
+  assign \$930  = \$931 ;
+  assign \$933  = \$934 ;
+  assign \$936  = \$937 ;
+  assign \$939  = \$940 ;
+  assign \$942  = \$943 ;
+  assign \$945  = \$946 ;
+  assign \$948  = \$949 ;
+  assign \$951  = \$952 ;
+  assign \$954  = \$955 ;
+  assign \$957  = \$958 ;
+  assign \$960  = \$961 ;
+  assign \$963  = \$964 ;
+  assign \$966  = \$967 ;
+  assign \$969  = \$970 ;
+  assign \$975  = \$976 ;
+  assign \$978  = \$979 ;
+  assign \$981  = \$982 ;
+  assign \$984  = \$985 ;
+  assign \$987  = \$988 ;
+  assign \$990  = \$991 ;
+  assign \$993  = \$994 ;
+  assign \$996  = \$997 ;
+  assign \$999  = \$1000 ;
+  assign \$1002  = \$1003 ;
+  assign \$1005  = \$1006 ;
+  assign \$1008  = \$1009 ;
+  assign \$1011  = \$1012 ;
+  assign \$1014  = \$1015 ;
+  assign \$1017  = \$1018 ;
+  assign \$1020  = \$1021 ;
+  assign \$1023  = \$1024 ;
+  assign \$1026  = \$1027 ;
+  assign \$1029  = \$1030 ;
+  assign \$1035  = \$1036 ;
+  assign \$1038  = \$1039 ;
+  assign \$1041  = \$1042 ;
+  assign \$1044  = \$1045 ;
+  assign \$1047  = \$1048 ;
+  assign \$1050  = \$1051 ;
+  assign \$1053  = \$1054 ;
+  assign \$1056  = \$1057 ;
+  assign \$1059  = \$1060 ;
+  assign \$1062  = \$1063 ;
+  assign \$1065  = \$1066 ;
+  assign \$1068  = \$1069 ;
+  assign \$1071  = \$1072 ;
+  assign \$1074  = \$1075 ;
+  assign \$1077  = \$1078 ;
+  assign \$1080  = \$1081 ;
+  assign \$1083  = \$1084 ;
+  assign \$1086  = \$1087 ;
+  assign \$1089  = \$1090 ;
+  assign \$1095  = \$1096 ;
+  assign \$1098  = \$1099 ;
+  assign \$1101  = \$1102 ;
+  assign \$1104  = \$1105 ;
+  assign \$1107  = \$1108 ;
+  assign \$1110  = \$1111 ;
+  assign \$1113  = \$1114 ;
+  assign \$1116  = \$1117 ;
+  assign \$1119  = \$1120 ;
+  assign \$1122  = \$1123 ;
+  assign \$1125  = \$1126 ;
+  assign \$1128  = \$1129 ;
+  assign \$1131  = \$1132 ;
+  assign \$1134  = \$1135 ;
+  assign \$1137  = \$1138 ;
+  assign \$1140  = \$1141 ;
+  assign \$1143  = \$1144 ;
+  assign \$1146  = \$1147 ;
+  assign \$1149  = \$1150 ;
+  assign \$1155  = 48'h000000095070;
+  assign \$1156  = 48'hfffffffffe79;
+  assign \$1157  = 48'hfffffff74ad4;
+  assign \$1158  = 48'hfffffffffe99;
+  assign \$1159  = 48'h0000000e1673;
+  assign \$1160  = 48'hffffffffff62;
+  assign \$1161  = 48'hffffffe6333c;
+  assign \$1162  = 48'h0000000000c2;
+  assign \$1163  = 48'h0000005104f9;
+  assign \$1164  = 48'h00000080014f;
+  assign \$1165  = 48'h0000005104f9;
+  assign \$1166  = 48'h0000000000c2;
+  assign \$1167  = 48'hffffffe6333c;
+  assign \$1168  = 48'hffffffffff62;
+  assign \$1169  = 48'h0000000e1673;
+  assign \$1170  = 48'hfffffffffe99;
+  assign \$1171  = 48'hfffffff74ad4;
+  assign \$1172  = 48'hfffffffffe79;
+  assign \$1173  = 48'h000000095070;
+  assign \$1174  = \$1179 ;
+  assign \$1183  = \$1186 ;
+  assign \$1192  = \$1193 ;
+  assign \$13  = 6'h12;
+  assign \$73  = 6'h11;
+  assign \$133  = 6'h10;
+  assign \$193  = 6'h0f;
+  assign \$253  = 6'h0e;
+  assign \$313  = 6'h0d;
+  assign \$373  = 6'h0c;
+  assign \$433  = 6'h0b;
+  assign \$493  = 6'h0a;
+  assign \$553  = 6'h09;
+  assign \$613  = 6'h08;
+  assign \$673  = 6'h07;
+  assign \$733  = 6'h06;
+  assign \$793  = 6'h05;
+  assign \$853  = 6'h04;
+  assign \$913  = 6'h03;
+  assign \$973  = 6'h02;
+  assign \$1033  = 6'h01;
+  assign \$1093  = 6'h00;
+  assign \$1177  = { \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48], \$1175 [48:24] };
+  assign \$1184  = { x9[47], x9[47:1] };
 endmodule
 
